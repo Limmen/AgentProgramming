@@ -12,7 +12,7 @@ import jade.domain.FIPAException;
  */
 public class CuratorSearcher extends TickerBehaviour {
 
-    private static String CURATORS = "Curators";
+    public static String CURATORS = "Curators";
     public CuratorSearcher(Agent agent, int timeout) {
         super(agent, timeout);
     }

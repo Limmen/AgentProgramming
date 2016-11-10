@@ -6,12 +6,14 @@ import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
-import kth.se.id2209.limmen.profiler.ProfilerAgent;
 
 /**
  * @author Kim Hammar on 2016-11-09.
  */
 public class ServicesSearcher extends TickerBehaviour {
+    public static String CURATORS = "Curators";
+    public static String TOUR_GUIDES = "Tour guides";
+
     public ServicesSearcher(Agent agent, int timeout) {
         super(agent, timeout);
     }
@@ -40,10 +42,7 @@ public class ServicesSearcher extends TickerBehaviour {
         } catch (FIPAException e) {
             e.printStackTrace();
         }
-        ProfilerAgent profilerAgent = (ProfilerAgent) myAgent;
-        profilerAgent.setTourGuides(tourGuides);
-        profilerAgent.setGalleryCurators(curators);
-       // System.out.println("Updating tourguides: " + tourGuides.length);
-        //System.out.println("Updating curators: " + curators.length);
+        getDataStore().put(TOUR_GUIDES, tourGuides);
+        getDataStore().put(CURATORS, curators);
     }
 }

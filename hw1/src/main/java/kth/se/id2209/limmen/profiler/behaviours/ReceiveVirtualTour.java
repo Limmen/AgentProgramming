@@ -4,7 +4,6 @@ import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
-import kth.se.id2209.limmen.profiler.ProfilerAgent;
 
 import java.util.ArrayList;
 
@@ -12,6 +11,7 @@ import java.util.ArrayList;
  * @author Kim Hammar on 2016-11-10.
  */
 public class ReceiveVirtualTour extends OneShotBehaviour {
+    public static String TOUR_TITLES = "Tour titles";
     private int exitValue = 0;
     @Override
     public void action() {
@@ -24,7 +24,7 @@ public class ReceiveVirtualTour extends OneShotBehaviour {
             try {
                 ArrayList<String> titles = (ArrayList<String>) msg.getContentObject();
                 System.out.println("PROFILER RECEIVED TITLES SIZE: " + titles.size());
-                ((ProfilerAgent) myAgent).setTourTitles(titles);
+                getDataStore().put(TOUR_TITLES, titles);
             } catch (UnreadableException e) {
                 e.printStackTrace();
             }

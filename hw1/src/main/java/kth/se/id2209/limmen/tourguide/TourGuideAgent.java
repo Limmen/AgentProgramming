@@ -2,7 +2,6 @@ package kth.se.id2209.limmen.tourguide;
 
 import jade.core.AID;
 import jade.core.Agent;
-import jade.core.behaviours.FSMBehaviour;
 import jade.core.behaviours.ParallelBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
@@ -40,21 +39,24 @@ public class TourGuideAgent extends Agent {
         CuratorSearcher curatorSearcher = new CuratorSearcher(this, 100);
         curatorSearcher.setDataStore(parallelBehaviour.getDataStore());
         parallelBehaviour.addSubBehaviour(curatorSearcher);
-        parallelBehaviour.addSubBehaviour(new ProfilerMatcher(this, MessageTemplate.MatchOntology("Profiler-Search-Matching-Guide")));
+        parallelBehaviour.addSubBehaviour(new ProfilerMatcher(this, MessageTemplate.MatchOntology("Profiler-Search-Matching-Guide-Ontology")));
 
-        FSMBehaviour fsmBehaviour = new FSMBehaviour();
-        fsmBehaviour.setDataStore(parallelBehaviour.getDataStore());
-        VirtualTourServer virtualTourServer = new VirtualTourServer();
-        virtualTourServer.setDataStore(fsmBehaviour.getDataStore());
-        BuildVirtualTour buildVirtualTour = new BuildVirtualTour(this, new ACLMessage(ACLMessage.PROPOSE), fsmBehaviour.getDataStore());
+        //FSMBehaviour fsmBehaviour = new FSMBehaviour();
+        //fsmBehaviour.setDataStore(parallelBehaviour.getDataStore());
+        VirtualTourServer virtualTourServer = new VirtualTourServer(this, MessageTemplate.MatchOntology("Profiler-Request-Virtual-Tour-Ontology"), parallelBehaviour.getDataStore());
+        virtualTourServer.setDataStore(parallelBehaviour.getDataStore());
+        BuildVirtualTour buildVirtualTour = new BuildVirtualTour(this, new ACLMessage(ACLMessage.PROPOSE), parallelBehaviour.getDataStore());
+        virtualTourServer.registerPrepareResultNotification(buildVirtualTour);
 
+/*
         fsmBehaviour.registerFirstState(virtualTourServer, RECEIVE_REQUEST_STATE);
         fsmBehaviour.registerState(buildVirtualTour, BUILD_TOUR_STATE);
         fsmBehaviour.registerTransition(RECEIVE_REQUEST_STATE, RECEIVE_REQUEST_STATE, 0);
         fsmBehaviour.registerTransition(RECEIVE_REQUEST_STATE, BUILD_TOUR_STATE, 1);
         fsmBehaviour.registerDefaultTransition(BUILD_TOUR_STATE, RECEIVE_REQUEST_STATE);
-
-        parallelBehaviour.addSubBehaviour(fsmBehaviour);
+*/
+        //parallelBehaviour.addSubBehaviour(fsmBehaviour);
+        parallelBehaviour.addSubBehaviour(virtualTourServer);
         addBehaviour(parallelBehaviour);
     }
 

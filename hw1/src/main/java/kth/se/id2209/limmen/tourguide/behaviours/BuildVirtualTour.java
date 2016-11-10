@@ -18,16 +18,15 @@ import java.util.Vector;
  * @author Kim Hammar on 2016-11-09.
  */
 public class BuildVirtualTour extends AchieveREInitiator {
-    private static String CURATORS = "Curators";
 
     public BuildVirtualTour(Agent a, ACLMessage msg, DataStore store) {
         super(a, msg, store);
     }
 
     protected Vector prepareRequests(ACLMessage request) {
+        System.out.println("BuildVirtualTour preparing");
         request = new ACLMessage(ACLMessage.REQUEST);
-        DFAgentDescription[] curators = (DFAgentDescription[])getDataStore().get(CURATORS);
-        AID receiver = curators[0].getName();
+        AID receiver = ((DFAgentDescription[]) getDataStore().get(CuratorSearcher.CURATORS))[0].getName();
         request.addReceiver(receiver);
         request.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
         request.setOntology("TourGuide-Request-Art-Titles-Ontology");
@@ -49,31 +48,52 @@ public class BuildVirtualTour extends AchieveREInitiator {
             ArrayList<String> virtualTour = (ArrayList<String>) agree.getContentObject();
             System.out.println("Reponse list size " + virtualTour.size());
             ACLMessage request = new ACLMessage(ACLMessage.INFORM);
-            AID receiver = (AID) getDataStore().get("recv-msg");
+            //AID receiver = (AID) getDataStore().get(VirtualTourServer.REQUESTER);
+            AID receiver = ((ACLMessage) getDataStore().get(REQUEST_KEY)).getSender();
             request.addReceiver(receiver);
             try {
                 request.setContentObject(virtualTour);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            myAgent.send(request);
+            getDataStore().put(VirtualTourServer.RESULT_KEY, request);
         } catch (UnreadableException e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    protected void handleAgree(ACLMessage agree) {
-        System.out.println("BuildVirtualTour received agree message");
+    /**
+     * This method is called every time a refuse message is received,
+     * which is not out-of-sequence according to the protocol rules.
+     *
+     * @param refuse
+     */
+    protected void handleRefuse(ACLMessage refuse) {
+
     }
 
-    protected void handleInconsistentFSM(java.lang.String current, int event){
+    /**
+     * This method is called every time a not-understood message is received,
+     * which is not out-of-sequence according to the protocol rules.
+     *
+     * @param notUnderstood
+     */
+    protected void handleNotUnderstood(ACLMessage notUnderstood) {
 
     }
 
-    @Override
-    public int onEnd() {
-        return super.onEnd();
+    /**
+     * This method is called every time a failure message is received,
+     * which is not out-of-sequence according to the protocol rules.
+     *
+     * @param failure
+     */
+    protected void handleFailure(ACLMessage failure) {
+
+    }
+
+    protected void handleInconsistentFSM(java.lang.String current, int event) {
+
     }
 
 }
