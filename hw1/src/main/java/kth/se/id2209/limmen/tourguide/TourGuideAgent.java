@@ -9,10 +9,7 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
-import kth.se.id2209.limmen.tourguide.behaviours.BuildVirtualTour;
-import kth.se.id2209.limmen.tourguide.behaviours.CuratorSearcher;
-import kth.se.id2209.limmen.tourguide.behaviours.ProfilerMatcher;
-import kth.se.id2209.limmen.tourguide.behaviours.VirtualTourServer;
+import kth.se.id2209.limmen.tourguide.behaviours.*;
 
 /**
  * TourGuideAgent
@@ -38,14 +35,17 @@ public class TourGuideAgent extends Agent {
         ParallelBehaviour parallelBehaviour = new ParallelBehaviour(ParallelBehaviour.WHEN_ALL);
         CuratorSearcher curatorSearcher = new CuratorSearcher(this, 100);
         curatorSearcher.setDataStore(parallelBehaviour.getDataStore());
+        ProfilerMatcher profilerMatcher = new ProfilerMatcher(this, MessageTemplate.MatchOntology("Ontology(Class(TourGuideMatcher partial ProposeInitiator))"), parallelBehaviour.getDataStore());
+        FindSupportedInterests findSupportedInterests = new FindSupportedInterests(this, new ACLMessage(ACLMessage.REQUEST), parallelBehaviour.getDataStore());
+        profilerMatcher.registerPrepareResponse(findSupportedInterests);
         parallelBehaviour.addSubBehaviour(curatorSearcher);
-        parallelBehaviour.addSubBehaviour(new ProfilerMatcher(this, MessageTemplate.MatchOntology("Profiler-Search-Matching-Guide-Ontology")));
+        parallelBehaviour.addSubBehaviour(profilerMatcher);
 
         //FSMBehaviour fsmBehaviour = new FSMBehaviour();
         //fsmBehaviour.setDataStore(parallelBehaviour.getDataStore());
-        VirtualTourServer virtualTourServer = new VirtualTourServer(this, MessageTemplate.MatchOntology("Profiler-Request-Virtual-Tour-Ontology"), parallelBehaviour.getDataStore());
+        VirtualTourServer virtualTourServer = new VirtualTourServer(this, MessageTemplate.MatchOntology("Ontology(Class(FindVirtualTour partial AchieveREInitiator))"), parallelBehaviour.getDataStore());
         virtualTourServer.setDataStore(parallelBehaviour.getDataStore());
-        BuildVirtualTour buildVirtualTour = new BuildVirtualTour(this, new ACLMessage(ACLMessage.PROPOSE), parallelBehaviour.getDataStore());
+        BuildVirtualTour buildVirtualTour = new BuildVirtualTour(this, new ACLMessage(ACLMessage.REQUEST), parallelBehaviour.getDataStore());
         virtualTourServer.registerPrepareResultNotification(buildVirtualTour);
 
 /*

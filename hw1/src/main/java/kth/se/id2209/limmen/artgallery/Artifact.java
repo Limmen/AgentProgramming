@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * @author Kim Hammar on 2016-11-09.
  */
-public class Artefact implements Serializable {
+public class Artifact implements Serializable {
     private int id;
     private String name;
     private String creator;
@@ -14,7 +14,7 @@ public class Artefact implements Serializable {
     private String placeOfCreation;
     private String genre;
 
-    public Artefact(ArtefactBuilder builder) {
+    public Artifact(ArtifactBuilder builder) {
         this.id = builder.id;
         this.name = builder.name;
         this.creator = builder.creator;
@@ -29,6 +29,11 @@ public class Artefact implements Serializable {
         if(creationDate != null)
             creationDateString = creationDate.toString();
         return "" + id + " " + name + " " + creator + " " + creationDateString + " " + placeOfCreation + " " + genre;
+    }
+
+    @Override
+    public boolean equals(Object obect){
+        return ((Artifact) obect).getName().equals(name);
     }
 
     public int getId() {
@@ -55,7 +60,7 @@ public class Artefact implements Serializable {
         return genre;
     }
 
-    public static class ArtefactBuilder {
+    public static class ArtifactBuilder {
         private int id = -1;
         private String name;
         private String creator;
@@ -63,46 +68,46 @@ public class Artefact implements Serializable {
         private String placeOfCreation;
         private String genre;
 
-        public ArtefactBuilder() {
+        public ArtifactBuilder() {
         }
 
-        public ArtefactBuilder(int id, String name) {
+        public ArtifactBuilder(int id, String name) {
             this.id = id;
             this.name = name;
         }
 
-        public ArtefactBuilder name(String name) {
+        public ArtifactBuilder name(String name) {
             this.name = name;
             return this;
         }
 
-        public ArtefactBuilder id(int id) {
+        public ArtifactBuilder id(int id) {
             this.id = id;
             return this;
         }
 
-        public ArtefactBuilder creator(String creator) {
+        public ArtifactBuilder creator(String creator) {
             this.creator = creator;
             return this;
         }
 
-        public ArtefactBuilder creationDate(Date creationDate) {
+        public ArtifactBuilder creationDate(Date creationDate) {
             this.creationDate = creationDate;
             return this;
         }
 
-        public ArtefactBuilder placeOfCreation(String placeOfCreation) {
+        public ArtifactBuilder placeOfCreation(String placeOfCreation) {
             this.placeOfCreation = placeOfCreation;
             return this;
         }
 
-        public ArtefactBuilder genre(String genre) {
+        public ArtifactBuilder genre(String genre) {
             this.genre = genre;
             return this;
         }
 
-        public Artefact build() {
-            return new Artefact(this);
+        public Artifact build() {
+            return new Artifact(this);
         }
     }
 

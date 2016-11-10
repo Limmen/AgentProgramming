@@ -1,6 +1,7 @@
 package kth.se.id2209.limmen.tourguide.behaviours;
 
 import jade.core.Agent;
+import jade.core.behaviours.DataStore;
 import jade.domain.FIPAAgentManagement.NotUnderstoodException;
 import jade.domain.FIPAAgentManagement.RefuseException;
 import jade.lang.acl.ACLMessage;
@@ -13,9 +14,15 @@ import jade.proto.ProposeResponder;
 
 public class ProfilerMatcher extends ProposeResponder {
 
-    public ProfilerMatcher(Agent a, MessageTemplate mt) {
-        super(a, mt);
+    protected static String RESULT_KEY;
+    protected static String PROPOSE_KEY2;
+
+    public ProfilerMatcher(Agent a, MessageTemplate mt, DataStore store) {
+        super(a, mt, store);
+        RESULT_KEY = RESPONSE_KEY;
+        PROPOSE_KEY2 = PROPOSE_KEY;
     }
+
 
     /**
      * This method is called when the initiator's message is received that matches the message
@@ -26,12 +33,14 @@ public class ProfilerMatcher extends ProposeResponder {
      * @throws NotUnderstoodException
      * @throws RefuseException
      */
+    /*
     protected ACLMessage prepareResponse(ACLMessage propose) throws NotUnderstoodException, RefuseException {
         //check if matching interest
+        getDataStore().put(INTEREST, propose.getContent());
         ACLMessage reply = propose.createReply();
         reply.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
         return reply;
-    }
+    }*/
 
     @Override
     public int onEnd() {

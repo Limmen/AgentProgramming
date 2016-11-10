@@ -1,6 +1,5 @@
 package kth.se.id2209.limmen.tourguide.behaviours;
 
-import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.DataStore;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
@@ -8,10 +7,11 @@ import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 import jade.proto.AchieveREInitiator;
-import kth.se.id2209.limmen.artgallery.Artefact;
+import kth.se.id2209.limmen.tourguide.TourItem;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Vector;
 
 /**
@@ -24,23 +24,21 @@ public class BuildVirtualTour extends AchieveREInitiator {
     }
 
     protected Vector prepareRequests(ACLMessage request) {
-        System.out.println("BuildVirtualTour preparing");
         request = new ACLMessage(ACLMessage.REQUEST);
-        AID receiver = ((DFAgentDescription[]) getDataStore().get(CuratorSearcher.CURATORS))[0].getName();
-        request.addReceiver(receiver);
-        request.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
-        request.setOntology("TourGuide-Request-Art-Titles-Ontology");
-        Artefact interests = new Artefact(new Artefact.ArtefactBuilder().genre("painting"));
-        try {
-            request.setContentObject(interests);
-        } catch (IOException e) {
-            e.printStackTrace();
+        DFAgentDescription[] curators = (DFAgentDescription[]) getDataStore().get(CuratorSearcher.CURATORS);
+        for (int i = 0; i < curators.length; i++) {
+            request.addReceiver(curators[i].getName());
         }
+        request.setLanguage(FIPANames.ContentLanguage.FIPA_SL);
+        request.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
+        request.setOntology("Ontology(Class(BuildVirtualTour partial AchieveREInitiator))");
+        request.setReplyByDate(new Date(System.currentTimeMillis() + 5000));
+        request.setContent((String) getDataStore().get(FindSupportedInterests.PROFILER_INTEREST));
         Vector<ACLMessage> messages = new Vector();
         messages.add(request);
         return messages;
     }
-
+/*
     @Override
     protected void handleInform(ACLMessage agree) {
         System.out.println("BuildVirtualTour received inform message");
@@ -48,8 +46,7 @@ public class BuildVirtualTour extends AchieveREInitiator {
             ArrayList<String> virtualTour = (ArrayList<String>) agree.getContentObject();
             System.out.println("Reponse list size " + virtualTour.size());
             ACLMessage request = new ACLMessage(ACLMessage.INFORM);
-            //AID receiver = (AID) getDataStore().get(VirtualTourServer.REQUESTER);
-            AID receiver = ((ACLMessage) getDataStore().get(REQUEST_KEY)).getSender();
+            AID receiver = ((ACLMessage) getDataStore().get(VirtualTourServer.REQUESTER)).getSender();
             request.addReceiver(receiver);
             try {
                 request.setContentObject(virtualTour);
@@ -60,6 +57,42 @@ public class BuildVirtualTour extends AchieveREInitiator {
         } catch (UnreadableException e) {
             e.printStackTrace();
         }
+    }
+*/
+    /**
+     * This method is called when all the result notification messages have been collected.
+     * By result notification message we intend here all the inform, failure received messages,
+     * which are not not out-of-sequence according to the protocol rules.
+     *
+     * @param resultNotifications
+     */
+    protected void handleAllResultNotifications(Vector resultNotifications) {
+        System.out.println("Handle all result notifications / BuildVirtualTour");
+        System.out.println("result size: " + resultNotifications.size());
+        ArrayList<TourItem> virtualTour = new ArrayList();
+        for (Object object : resultNotifications) {
+            ACLMessage message = (ACLMessage) object;
+            if (message.getPerformative() == ACLMessage.INFORM) {
+                try {
+                    ArrayList<String> titles = (ArrayList<String>) message.getContentObject();
+                    for (String title : titles) {
+                        TourItem tourItem = new TourItem(title, message.getSender());
+                        if(!virtualTour.contains(tourItem))
+                            virtualTour.add(tourItem);
+                    }
+                } catch (UnreadableException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        ACLMessage reply = ((ACLMessage) getDataStore().get(VirtualTourServer.REQUESTER)).createReply();
+        reply.setPerformative(ACLMessage.INFORM);
+        try {
+            reply.setContentObject(virtualTour);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        getDataStore().put(VirtualTourServer.RESULT_KEY, reply);
     }
 
     /**

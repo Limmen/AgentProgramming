@@ -15,10 +15,12 @@ import jade.proto.AchieveREResponder;
 public class VirtualTourServer extends AchieveREResponder {
 
     protected static String RESULT_KEY;
+    protected static String REQUESTER;
 
     public VirtualTourServer(Agent a, MessageTemplate mt, DataStore store) {
         super(a, mt, store);
         RESULT_KEY = RESULT_NOTIFICATION_KEY;
+        REQUESTER = REQUEST_KEY;
     }
 
     /**

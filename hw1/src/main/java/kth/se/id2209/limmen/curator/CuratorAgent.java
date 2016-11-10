@@ -7,9 +7,10 @@ import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import kth.se.id2209.limmen.artgallery.ArtGallery;
-import kth.se.id2209.limmen.artgallery.Artefact;
-import kth.se.id2209.limmen.curator.behaviours.ProfilerRequestServer;
-import kth.se.id2209.limmen.curator.behaviours.TourGuideRequestServer;
+import kth.se.id2209.limmen.artgallery.Artifact;
+import kth.se.id2209.limmen.curator.behaviours.ArtifactRequestServer;
+import kth.se.id2209.limmen.curator.behaviours.GenreRequestServer;
+import kth.se.id2209.limmen.curator.behaviours.TourRequestServer;
 
 import java.util.ArrayList;
 
@@ -30,11 +31,14 @@ public class CuratorAgent extends Agent {
 
         ParallelBehaviour parallelBehaviour = new ParallelBehaviour();
 
-        //Add the behaviour for receiving requests from profilers
-        parallelBehaviour.addSubBehaviour(new ProfilerRequestServer());
+        //Add the behaviour for receiving request for artifact details from profilers
+        parallelBehaviour.addSubBehaviour(new ArtifactRequestServer());
 
-        //Add the behaviour for receiving requests from tourguides
-        parallelBehaviour.addSubBehaviour(new TourGuideRequestServer());
+        //Add the behaviour for receiving requests for list of artifacts from tourguides
+        parallelBehaviour.addSubBehaviour(new TourRequestServer());
+
+        //Add the behaviour for receiving requests for list of genres from tourguides
+        parallelBehaviour.addSubBehaviour(new GenreRequestServer());
 
         //Add the two cyclic server behaviours running in parallel
         addBehaviour(parallelBehaviour);
@@ -55,7 +59,7 @@ public class CuratorAgent extends Agent {
         }
     }
 
-    public ArrayList<Artefact> getArtGallery() {
+    public ArrayList<Artifact> getArtGallery() {
         return artGallery.getGallery();
     }
 

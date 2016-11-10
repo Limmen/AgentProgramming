@@ -5,21 +5,22 @@ import jade.core.behaviours.FSMBehaviour;
 import jade.core.behaviours.ParallelBehaviour;
 import jade.core.behaviours.SequentialBehaviour;
 import jade.lang.acl.ACLMessage;
-import kth.se.id2209.limmen.profiler.behaviours.FindVirtualTour;
-import kth.se.id2209.limmen.profiler.behaviours.RetrieveArtefactDetails;
-import kth.se.id2209.limmen.profiler.behaviours.ServicesSearcher;
-import kth.se.id2209.limmen.profiler.behaviours.TourGuideMatcher;
+import kth.se.id2209.limmen.profiler.behaviours.*;
 
 /**
+ *
+ *
  * @author Kim Hammar on 2016-11-08.
  */
 public class ProfilerAgent extends Agent {
     private static final String FIND_MATCHING_TOUR_GUIDE_STATE = "Find matching tour guide";
-    private static final String REQUEST_VIRTUAL_TOUR = "Request virtual tour";
-    private static final String RECEIVE_VIRTUAL_TOUR = "Receive virtual tour";
-    private static final String RETRIEVE_ARTEFACT_DETAILS = "Retrieve artefact details";
-    private static final String FIND_TOUR = "Find tour";
     private static final String VIRTUAL_TOUR_STATE = "Virtual tour";
+
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
+    }
+
+    private UserProfile userProfile;
 
     /**
      * Agent initialization. Called by the JADE runtime envrionment when the agent is started
@@ -27,6 +28,19 @@ public class ProfilerAgent extends Agent {
     @Override
     protected void setup() {
         System.out.println("ProfilerAgent " + getAID().getName() + " starting up.");
+        // Get the title of the book to buy as a start-up argument
+        Object[] args = getArguments();
+        if (args != null && args.length == 5) {
+            String name = (String) args[0];
+            String interest = (String) args[1];
+            String occupation = (String) args[2];
+            int age = Integer.parseInt(((String) args[3]));
+            String gender = (String) args[4];
+            this.userProfile = new UserProfile.UserProfileBuilder().name(name).
+                    interest(interest).occupation(occupation).age(age).gender(gender).build();
+        } else{
+            addBehaviour(new InitializeUserProfile());
+        }
 
         ParallelBehaviour parallelBehaviour = new ParallelBehaviour(ParallelBehaviour.WHEN_ALL);
         FSMBehaviour fsmBehaviour = new FSMBehaviour(this);
@@ -61,4 +75,7 @@ public class ProfilerAgent extends Agent {
         System.out.println("ProfilerAgent " + getAID().getName() + " terminating.");
     }
 
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
 }

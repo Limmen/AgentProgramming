@@ -49,5 +49,5 @@ mvn compile exec:java \
     -Dexec.args="-container -host $HOST \
     -agents '\
     $AGENT1:$AGENT_CLASS1();\
-    $AGENT2:$AGENT_CLASS2();\
+    $AGENT2:$AGENT_CLASS2(kim,painting,sthlm,22,male);\
     $AGENT3:$AGENT_CLASS3()'"

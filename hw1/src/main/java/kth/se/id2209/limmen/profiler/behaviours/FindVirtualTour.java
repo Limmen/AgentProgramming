@@ -7,6 +7,7 @@ import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 import jade.proto.AchieveREInitiator;
+import kth.se.id2209.limmen.tourguide.TourItem;
 
 import java.util.ArrayList;
 import java.util.Vector;
@@ -15,20 +16,18 @@ import java.util.Vector;
  * @author Kim Hammar on 2016-11-10.
  */
 public class FindVirtualTour extends AchieveREInitiator {
-    public static String TOUR_TITLES = "Tour titles";
+    public static String VIRTUAL_TOUR = "Virtual Tour";
 
     public FindVirtualTour(Agent a, ACLMessage msg, DataStore store) {
         super(a, msg, store);
     }
 
     protected Vector prepareRequests(ACLMessage request) {
-        System.out.println("FindVirtualTour preparing");
         request = new ACLMessage(ACLMessage.REQUEST);
         AID receiver = (AID) getDataStore().get(TourGuideMatcher.TOUR_GUIDE);
         request.addReceiver(receiver);
         request.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
-        request.setOntology("Profiler-Request-Virtual-Tour-Ontology");
-        request.setContent("virtual-tour");
+        request.setOntology("Ontology(Class(FindVirtualTour partial AchieveREInitiator))");
         Vector<ACLMessage> messages = new Vector();
         messages.add(request);
         return messages;
@@ -36,12 +35,10 @@ public class FindVirtualTour extends AchieveREInitiator {
 
     @Override
     protected void handleInform(ACLMessage agree) {
-        System.out.println("FindVirtualTour received inform message");
         try {
-            ArrayList<String> tourTitles = (ArrayList<String>) agree.getContentObject();
-            getDataStore().put(TOUR_TITLES, tourTitles);
-            System.out.println("FindVirtualTourReponse list size " + tourTitles.size());
-
+            ArrayList<TourItem> virtualTour = (ArrayList<TourItem>) agree.getContentObject();
+            getDataStore().put(VIRTUAL_TOUR, virtualTour);
+            System.out.println("Virtual Tour completed by agent: " + agree.getSender().getName());
         } catch (UnreadableException e) {
             e.printStackTrace();
         }
@@ -57,15 +54,6 @@ public class FindVirtualTour extends AchieveREInitiator {
 
     }
 
-    /**
-     * This method is called every time a not-understood message is received,
-     * which is not out-of-sequence according to the protocol rules.
-     *
-     * @param notUnderstood
-     */
-    protected void handleNotUnderstood(ACLMessage notUnderstood) {
-
-    }
 
     /**
      * This method is called every time a failure message is received,
