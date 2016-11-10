@@ -5,14 +5,19 @@ import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
+import kth.se.id2209.limmen.artgallery.ArtGallery;
+import kth.se.id2209.limmen.artgallery.Artefact;
 import kth.se.id2209.limmen.curator.behaviours.ProfilerRequestServer;
 import kth.se.id2209.limmen.curator.behaviours.TourGuideRequestServer;
+
+import java.util.ArrayList;
 
 /**
  * @author Kim Hammar on 2016-11-08.
  */
 public class CuratorAgent extends Agent {
 
+    private ArtGallery artGallery = new ArtGallery();
     /**
      * Agent initialization. Called by the JADE runtime envrionment when the agent is started
      */
@@ -54,5 +59,9 @@ public class CuratorAgent extends Agent {
         } catch (FIPAException e) {
             e.printStackTrace();
         }
+    }
+
+    public ArrayList<Artefact> getArtGallery() {
+        return artGallery.getGallery();
     }
 }

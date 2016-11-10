@@ -1,26 +1,35 @@
 package kth.se.id2209.limmen.tourguide.behaviours;
 
-import jade.core.behaviours.CyclicBehaviour;
+import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import kth.se.id2209.limmen.tourguide.TourGuideAgent;
 
 /**
  * @author Kim Hammar on 2016-11-09.
  */
-public class VirtualTourServer extends CyclicBehaviour {
+
+public class VirtualTourServer extends OneShotBehaviour {
+    private int exitValue = 0;
+
     @Override
     public void action() {
-        MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
+       // MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.REQUEST)
+//                .MatchOntology("Profiler-request-virtual-tour");
+        MessageTemplate mt = MessageTemplate.MatchAll();
         ACLMessage msg = myAgent.receive(mt);
         if (msg != null) {
-            System.out.println("TourGuide VirtualTourServer behaviour received message: "
-            + "content: " + msg.getContent() + " language: " +msg.getLanguage()
-                    + " ontolgy: " + msg.getOntology() + " protocol: " + msg.getProtocol()
-             + " encoding: " + msg.getEncoding());
-
+            System.out.println("VirtualTourServer received msg");
+            exitValue = 1;
+            ((TourGuideAgent) myAgent).setRequester(msg.getSender());
         }
         else {
             block();
         }
+    }
+
+    @Override
+    public int onEnd() {
+        return exitValue;
     }
 }

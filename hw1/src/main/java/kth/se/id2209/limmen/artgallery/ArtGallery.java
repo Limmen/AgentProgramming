@@ -42,6 +42,10 @@ public class ArtGallery {
 
     }
 
+    public ArtGallery(ArrayList<Artefact> gallery){
+        this.gallery = gallery;
+    }
+
     public void addArtefact(Artefact artefact){
         gallery.add(artefact);
     }
