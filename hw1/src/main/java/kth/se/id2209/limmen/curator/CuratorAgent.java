@@ -1,6 +1,7 @@
 package kth.se.id2209.limmen.curator;
 
 import jade.core.Agent;
+import jade.core.behaviours.ParallelBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
@@ -25,26 +26,19 @@ public class CuratorAgent extends Agent {
     protected void setup() {
         System.out.println("CuratorAgent " + getAID().getName() + " starting up.");
 
-        // Register the gallery-curator service at the DF (Yellow pages)
-        DFAgentDescription dfAgentDescription = new DFAgentDescription();
-        dfAgentDescription.setName(getAID());
-        ServiceDescription serviceDescription = new ServiceDescription();
-        serviceDescription.setType("artgallery-information");
-        serviceDescription.setName("Art-Gallery-Information");
-        dfAgentDescription.addServices(serviceDescription);
-        try {
-            DFService.register(this, dfAgentDescription);
-        } catch (FIPAException fe) {
-            fe.printStackTrace();
-        }
+        registerAtYellowPages();
+
+        ParallelBehaviour parallelBehaviour = new ParallelBehaviour();
 
         //Add the behaviour for receiving requests from profilers
-        addBehaviour(new ProfilerRequestServer());
+        parallelBehaviour.addSubBehaviour(new ProfilerRequestServer());
 
         //Add the behaviour for receiving requests from tourguides
-        addBehaviour(new TourGuideRequestServer());
+        parallelBehaviour.addSubBehaviour(new TourGuideRequestServer());
 
-        //doDelete(); //method from the jade.core.Agent that terminates the agent
+        //Add the two cyclic server behaviours running in parallel
+        addBehaviour(parallelBehaviour);
+
     }
 
     /**
@@ -63,5 +57,20 @@ public class CuratorAgent extends Agent {
 
     public ArrayList<Artefact> getArtGallery() {
         return artGallery.getGallery();
+    }
+
+    private void registerAtYellowPages(){
+        // Register the gallery-curator service at the DF (Yellow pages)
+        DFAgentDescription dfAgentDescription = new DFAgentDescription();
+        dfAgentDescription.setName(getAID());
+        ServiceDescription serviceDescription = new ServiceDescription();
+        serviceDescription.setType("artgallery-information");
+        serviceDescription.setName("Art-Gallery-Information");
+        dfAgentDescription.addServices(serviceDescription);
+        try {
+            DFService.register(this, dfAgentDescription);
+        } catch (FIPAException fe) {
+            fe.printStackTrace();
+        }
     }
 }

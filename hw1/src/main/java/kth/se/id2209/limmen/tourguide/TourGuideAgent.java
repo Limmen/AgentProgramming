@@ -8,7 +8,6 @@ import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
-import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import kth.se.id2209.limmen.tourguide.behaviours.BuildVirtualTour;
@@ -38,33 +37,25 @@ public class TourGuideAgent extends Agent {
 
         //FSMBehaviour fsmBehaviour = new FSMBehaviour(this);
         ParallelBehaviour parallelBehaviour = new ParallelBehaviour(ParallelBehaviour.WHEN_ALL);
-        parallelBehaviour.addSubBehaviour(new CuratorSearcher(this, 100));
-        parallelBehaviour.addSubBehaviour(new ProfilerMatcher(this, MessageTemplate.MatchProtocol(FIPANames.InteractionProtocol.FIPA_PROPOSE)));
+        CuratorSearcher curatorSearcher = new CuratorSearcher(this, 100);
+        curatorSearcher.setDataStore(parallelBehaviour.getDataStore());
+        parallelBehaviour.addSubBehaviour(curatorSearcher);
+        parallelBehaviour.addSubBehaviour(new ProfilerMatcher(this, MessageTemplate.MatchOntology("Profiler-Search-Matching-Guide")));
+
         FSMBehaviour fsmBehaviour = new FSMBehaviour();
-        fsmBehaviour.registerFirstState(new VirtualTourServer(), RECEIVE_REQUEST_STATE);
-        fsmBehaviour.registerState(new BuildVirtualTour(this, new ACLMessage(ACLMessage.PROPOSE)), BUILD_TOUR_STATE);
+        fsmBehaviour.setDataStore(parallelBehaviour.getDataStore());
+        VirtualTourServer virtualTourServer = new VirtualTourServer();
+        virtualTourServer.setDataStore(fsmBehaviour.getDataStore());
+        BuildVirtualTour buildVirtualTour = new BuildVirtualTour(this, new ACLMessage(ACLMessage.PROPOSE), fsmBehaviour.getDataStore());
+
+        fsmBehaviour.registerFirstState(virtualTourServer, RECEIVE_REQUEST_STATE);
+        fsmBehaviour.registerState(buildVirtualTour, BUILD_TOUR_STATE);
         fsmBehaviour.registerTransition(RECEIVE_REQUEST_STATE, RECEIVE_REQUEST_STATE, 0);
         fsmBehaviour.registerTransition(RECEIVE_REQUEST_STATE, BUILD_TOUR_STATE, 1);
         fsmBehaviour.registerDefaultTransition(BUILD_TOUR_STATE, RECEIVE_REQUEST_STATE);
 
         parallelBehaviour.addSubBehaviour(fsmBehaviour);
         addBehaviour(parallelBehaviour);
-
-
-
-
-        /*
-        fsmBehaviour.registerFirstState(new VirtualTourServer(this, MessageTemplate.MatchProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST)), RECEIVE_REQUEST_STATE);
-        fsmBehaviour.registerState(new BuildVirtualTour(), BUILD_TOUR_STATE);
-        fsmBehaviour.registerTransition(RECEIVE_REQUEST_STATE, RECEIVE_REQUEST_STATE, 0);
-        fsmBehaviour.registerTransition(RECEIVE_REQUEST_STATE, BUILD_TOUR_STATE, 1);
-        fsmBehaviour.registerDefaultTransition(BUILD_TOUR_STATE, RECEIVE_REQUEST_STATE);
-        */
-
-        //Add the FSM behaviour for recieving tourrequests from profilers and building tours accordingly
-        //addBehaviour(fsmBehaviour);
-
-        //doDelete(); //method from the jade.core.Agent that terminates the agent
     }
 
     /**
@@ -96,19 +87,4 @@ public class TourGuideAgent extends Agent {
         }
     }
 
-    public DFAgentDescription[] getGalleryCurators() {
-        return galleryCurators;
-    }
-
-    public void setGalleryCurators(DFAgentDescription[] galleryCurators) {
-        this.galleryCurators = galleryCurators;
-    }
-
-    public AID getRequester() {
-        return requester;
-    }
-
-    public void setRequester(AID requester) {
-        this.requester = requester;
-    }
 }

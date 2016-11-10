@@ -5,40 +5,39 @@ import jade.domain.FIPAAgentManagement.NotUnderstoodException;
 import jade.domain.FIPAAgentManagement.RefuseException;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
-import jade.proto.AchieveREResponder;
+import jade.proto.ProposeResponder;
 
 /**
  * @author Kim Hammar on 2016-11-09.
  */
-public class ProfilerMatcher extends AchieveREResponder {
-    private int exitValue = 0;
+
+public class ProfilerMatcher extends ProposeResponder {
 
     public ProfilerMatcher(Agent a, MessageTemplate mt) {
         super(a, mt);
-        System.out.println("ProfilerMatcher started");
     }
 
     /**
-     * This method is called when the protocol initiation message (matching the MessageTemplate specified in the constructor) is received.
+     * This method is called when the initiator's message is received that matches the message
+     * template passed in the constructor.
      *
-     * @param request
+     * @param propose
+     * @return
+     * @throws NotUnderstoodException
+     * @throws RefuseException
      */
-    @Override
-    protected ACLMessage handleRequest(ACLMessage request) throws NotUnderstoodException, RefuseException {
-        System.out.println("ProfilerMatcher received proposal");
-        ACLMessage agree = request.createReply();
-        agree.setPerformative(ACLMessage.INFORM);
-        return agree;
+    protected ACLMessage prepareResponse(ACLMessage propose) throws NotUnderstoodException, RefuseException {
+        //check if matching interest
+        ACLMessage reply = propose.createReply();
+        reply.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
+        return reply;
     }
-/*
-    @Override
-    protected ACLMessage prepareResultNotification(ACLMessage request, ACLMessage response) throws FailureException{
-        return null;
-    }
-*/
+
     @Override
     public int onEnd() {
-        System.out.println("ProfilerMatcher exited");
-        return exitValue;
+        reset();
+        myAgent.addBehaviour(this);
+        return super.onEnd();
     }
+
 }

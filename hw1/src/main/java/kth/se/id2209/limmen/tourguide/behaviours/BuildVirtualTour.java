@@ -2,12 +2,13 @@ package kth.se.id2209.limmen.tourguide.behaviours;
 
 import jade.core.AID;
 import jade.core.Agent;
+import jade.core.behaviours.DataStore;
+import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 import jade.proto.AchieveREInitiator;
 import kth.se.id2209.limmen.artgallery.Artefact;
-import kth.se.id2209.limmen.tourguide.TourGuideAgent;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,17 +18,16 @@ import java.util.Vector;
  * @author Kim Hammar on 2016-11-09.
  */
 public class BuildVirtualTour extends AchieveREInitiator {
+    private static String CURATORS = "Curators";
 
-    public BuildVirtualTour(Agent a, ACLMessage msg) {
-        super(a, msg);
-        System.out.println("BUILD VIRTUAL TOUR");
+    public BuildVirtualTour(Agent a, ACLMessage msg, DataStore store) {
+        super(a, msg, store);
     }
 
-
     protected Vector prepareRequests(ACLMessage request) {
-        System.out.println("buildvirtualtour PREPARE!!!!!");
         request = new ACLMessage(ACLMessage.REQUEST);
-        AID receiver = ((TourGuideAgent) myAgent).getGalleryCurators()[0].getName();
+        DFAgentDescription[] curators = (DFAgentDescription[])getDataStore().get(CURATORS);
+        AID receiver = curators[0].getName();
         request.addReceiver(receiver);
         request.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
         request.setOntology("TourGuide-Request-Art-Titles-Ontology");
@@ -37,10 +37,8 @@ public class BuildVirtualTour extends AchieveREInitiator {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //System.out.println("SendTourGuideProposal completed");
         Vector<ACLMessage> messages = new Vector();
         messages.add(request);
-        System.out.println("buildvirtualtour sent request to curator");
         return messages;
     }
 
@@ -51,7 +49,7 @@ public class BuildVirtualTour extends AchieveREInitiator {
             ArrayList<String> virtualTour = (ArrayList<String>) agree.getContentObject();
             System.out.println("Reponse list size " + virtualTour.size());
             ACLMessage request = new ACLMessage(ACLMessage.INFORM);
-            AID receiver = ((TourGuideAgent) myAgent).getRequester();
+            AID receiver = (AID) getDataStore().get("recv-msg");
             request.addReceiver(receiver);
             try {
                 request.setContentObject(virtualTour);

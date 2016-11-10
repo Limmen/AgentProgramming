@@ -31,7 +31,6 @@ public class ProfilerRequestServer extends CyclicBehaviour {
                 for (String title : titles) {
                     for (Artefact artefact : ((CuratorAgent) myAgent).getArtGallery()) {
                         boolean match = false;
-                        System.out.println("Comparing: " + artefact.getName() + " with " + title);
                         if (artefact.getName().equalsIgnoreCase(title))
                             match = true;
                         if (match && !response.contains(artefact))

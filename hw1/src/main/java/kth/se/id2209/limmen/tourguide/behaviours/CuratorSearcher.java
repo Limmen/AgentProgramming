@@ -6,12 +6,13 @@ import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
-import kth.se.id2209.limmen.tourguide.TourGuideAgent;
 
 /**
  * @author Kim Hammar on 2016-11-09.
  */
 public class CuratorSearcher extends TickerBehaviour {
+
+    private static String CURATORS = "Curators";
     public CuratorSearcher(Agent agent, int timeout) {
         super(agent, timeout);
     }
@@ -28,7 +29,6 @@ public class CuratorSearcher extends TickerBehaviour {
         } catch (FIPAException e) {
             e.printStackTrace();
         }
-        //System.out.println("CuratorSearcher found curator");
-        ((TourGuideAgent) myAgent).setGalleryCurators(curators);
+        getDataStore().put(CURATORS, curators);
     }
 }

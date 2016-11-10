@@ -4,7 +4,7 @@ import jade.core.Agent;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
-import jade.proto.AchieveREInitiator;
+import jade.proto.ProposeInitiator;
 import kth.se.id2209.limmen.profiler.ProfilerAgent;
 
 import java.util.Date;
@@ -13,7 +13,7 @@ import java.util.Vector;
 /**
  * @author Kim Hammar on 2016-11-09.
  */
-public class TourGuideMatcher extends AchieveREInitiator {
+public class TourGuideMatcher extends ProposeInitiator {
     private boolean foundMatchingTourGuide = false;
     private DFAgentDescription[] tourGuides;
 
@@ -23,14 +23,8 @@ public class TourGuideMatcher extends AchieveREInitiator {
         System.out.println("TourGUideMatcher starting, tourguides: " + tourGuides.length);
     }
 
-    /**
-     * This method must return the vector of ACLMessage objects to be sent.
-     * It is called in the first state of this protocol.
-     *
-     * @param request
-     * @return
-     */
-    protected Vector prepareRequests(ACLMessage request) {
+
+    protected Vector prepareInitiations(ACLMessage request) {
         //System.out.println("TOurGuideMatcherPrepareREquests");
         request = new ACLMessage(ACLMessage.PROPOSE);
         //System.out.println("preparing requests");
@@ -43,10 +37,9 @@ public class TourGuideMatcher extends AchieveREInitiator {
             request.addReceiver(tourGuides[i].getName());
         }
         request.setProtocol(FIPANames.InteractionProtocol.FIPA_PROPOSE);
-        // We want to receive a reply in 10 secs
+        request.setOntology("Profiler-Search-Matching-Guide");
         request.setReplyByDate(new Date(System.currentTimeMillis() + 5000));
         request.setContent("virtual-tour");
-        //System.out.println("SendTourGuideProposal completed");
         Vector<ACLMessage> messages = new Vector();
         messages.add(request);
         return messages;
@@ -54,17 +47,18 @@ public class TourGuideMatcher extends AchieveREInitiator {
 
 
     /**
-     * This method is called every time an agree message is received,
+     * This method is called every time an accept-proposal message is received,
      * which is not out-of-sequence according to the protocol rules.
+     *
+     * @param accept_proposal
      */
-    @Override
-    protected void handleInform(ACLMessage agree) {
-        //System.out.println("HandleAgree");
+    protected void handleAcceptProposal(ACLMessage accept_proposal){
         foundMatchingTourGuide = true;
-        ((ProfilerAgent) myAgent).setTourGuide(agree.getSender());
+        ((ProfilerAgent) myAgent).setTourGuide(accept_proposal.getSender());
         onEnd();
-        //System.out.println("TourGuideMatcher found a match");
     }
+
+
 
 
     protected void handleAllResultNotifications(Vector msgs){
@@ -87,7 +81,7 @@ public class TourGuideMatcher extends AchieveREInitiator {
         //System.out.println("TourGUideMatcher exiting");
         if (foundMatchingTourGuide){
             System.out.println("onEnd returning 1 ");
-            forceTransitionTo(ProfilerAgent.RECEIVE_VIRTUAL_TOUR);
+            //forceTransitionTo(ProfilerAgent.RECEIVE_VIRTUAL_TOUR);
             return 1;
         }
         else{
