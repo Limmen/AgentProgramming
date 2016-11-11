@@ -30,8 +30,10 @@ public class TourGuideAgent extends Agent {
          * Create behaviours
          */
         ParallelBehaviour parallelBehaviour = new ParallelBehaviour(ParallelBehaviour.WHEN_ALL);
-        CuratorSearcher curatorSearcher = new CuratorSearcher(this, 100);
-        curatorSearcher.setDataStore(parallelBehaviour.getDataStore());
+        //CuratorSubscriber curatorSubscriber = new CuratorSubscriber(this, 100);
+        //curatorSubscriber.setDataStore(parallelBehaviour.getDataStore());
+        CuratorSubscriber curatorSubscriber = new CuratorSubscriber(this, CuratorSubscriber.createSubscriptionMessage(this), parallelBehaviour.getDataStore());
+
         FindSupportedInterests findSupportedInterests = new FindSupportedInterests(this, new ACLMessage(ACLMessage.REQUEST), parallelBehaviour.getDataStore());
         ProfilerMatcher profilerMatcher = new ProfilerMatcher(this, MessageTemplate.MatchOntology("Ontology(Class(TourGuideMatcher partial ProposeInitiator))"), parallelBehaviour.getDataStore());
         profilerMatcher.registerPrepareResponse(findSupportedInterests); //register FindSupportedInterest as RE of ProfilerMatcher
@@ -43,7 +45,7 @@ public class TourGuideAgent extends Agent {
         /**
          * Add three sub-behaviours to be executed in parallel (1. search for curators, 2. respond to tour-proposals 3. respond to tour requests)
          */
-        parallelBehaviour.addSubBehaviour(curatorSearcher);
+        parallelBehaviour.addSubBehaviour(curatorSubscriber);
         parallelBehaviour.addSubBehaviour(profilerMatcher);
         parallelBehaviour.addSubBehaviour(virtualTourServer);
 

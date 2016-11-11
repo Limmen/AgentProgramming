@@ -2,7 +2,7 @@
 
 if [[ "$#" == 2 ]]; then
     HOST=$1
-    AGENT1=$2
+    AGENT=$2
 fi
 
 if [[ "$#" == 1 ]]; then

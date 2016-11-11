@@ -20,7 +20,7 @@ public class ProfilerMatcher extends ProposeResponder {
     protected static String PROPOSE_KEY2;
 
     /**
-     * Class constructor initializes the behaviour.
+     * Class constructor that initializes the behaviour.
      *
      * @param a agent running the behaviour
      * @param mt messagetemplate for filtering out the message that we want to receive

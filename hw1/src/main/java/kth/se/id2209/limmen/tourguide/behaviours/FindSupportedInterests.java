@@ -43,9 +43,9 @@ public class FindSupportedInterests extends AchieveREInitiator {
      */
     protected Vector prepareRequests(ACLMessage request) {
         request = new ACLMessage(ACLMessage.REQUEST);
-        DFAgentDescription[] curators = (DFAgentDescription[]) getDataStore().get(CuratorSearcher.CURATORS);
-        for (int i = 0; i < curators.length; i++) {
-            request.addReceiver(curators[i].getName());
+        ArrayList<DFAgentDescription> curators = (ArrayList<DFAgentDescription>) getDataStore().get(CuratorSubscriber.CURATORS);
+        for(DFAgentDescription curator : curators){
+            request.addReceiver(curator.getName());
         }
         request.setLanguage(FIPANames.ContentLanguage.FIPA_SL);
         request.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
