@@ -7,10 +7,15 @@ import kth.se.id2209.limmen.profiler.UserProfile;
 import java.util.Scanner;
 
 /**
+ * OneShotBehaviour that reads user-information from stdIn and builds a userprofile.
+ *
  * @author Kim Hammar on 2016-11-10.
  */
 public class InitializeUserProfile extends OneShotBehaviour {
 
+    /***
+     * Action to build the userprofile.
+     */
     @Override
     public void action() {
         Scanner scanner = new Scanner(System.in);

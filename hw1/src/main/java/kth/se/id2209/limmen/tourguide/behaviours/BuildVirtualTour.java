@@ -15,6 +15,10 @@ import java.util.Date;
 import java.util.Vector;
 
 /**
+ * Behaviour for building a virtual tour according to the requester's interest.
+ * The behaviour will send a request for art-titles matching the given interest to all of the available curators
+ * and then collect the responses and build a virtual tour from it.
+ *
  * @author Kim Hammar on 2016-11-09.
  */
 public class BuildVirtualTour extends AchieveREInitiator {
@@ -38,46 +42,24 @@ public class BuildVirtualTour extends AchieveREInitiator {
         messages.add(request);
         return messages;
     }
-/*
-    @Override
-    protected void handleInform(ACLMessage agree) {
-        System.out.println("BuildVirtualTour received inform message");
-        try {
-            ArrayList<String> virtualTour = (ArrayList<String>) agree.getContentObject();
-            System.out.println("Reponse list size " + virtualTour.size());
-            ACLMessage request = new ACLMessage(ACLMessage.INFORM);
-            AID receiver = ((ACLMessage) getDataStore().get(VirtualTourServer.REQUESTER)).getSender();
-            request.addReceiver(receiver);
-            try {
-                request.setContentObject(virtualTour);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            getDataStore().put(VirtualTourServer.RESULT_KEY, request);
-        } catch (UnreadableException e) {
-            e.printStackTrace();
-        }
-    }
-*/
+
     /**
      * This method is called when all the result notification messages have been collected.
      * By result notification message we intend here all the inform, failure received messages,
      * which are not not out-of-sequence according to the protocol rules.
      *
-     * @param resultNotifications
+     * @param resultNotifications vector of notifications containing list of art artifact-names that match the given interest
      */
     protected void handleAllResultNotifications(Vector resultNotifications) {
-        System.out.println("Handle all result notifications / BuildVirtualTour");
-        System.out.println("result size: " + resultNotifications.size());
         ArrayList<TourItem> virtualTour = new ArrayList();
         for (Object object : resultNotifications) {
-            ACLMessage message = (ACLMessage) object;
-            if (message.getPerformative() == ACLMessage.INFORM) {
+            ACLMessage notification = (ACLMessage) object;
+            if (notification.getPerformative() == ACLMessage.INFORM) {
                 try {
-                    ArrayList<String> titles = (ArrayList<String>) message.getContentObject();
+                    ArrayList<String> titles = (ArrayList<String>) notification.getContentObject();
                     for (String title : titles) {
-                        TourItem tourItem = new TourItem(title, message.getSender());
-                        if(!virtualTour.contains(tourItem))
+                        TourItem tourItem = new TourItem(title, notification.getSender());
+                        if (!virtualTour.contains(tourItem))
                             virtualTour.add(tourItem);
                     }
                 } catch (UnreadableException e) {
@@ -86,47 +68,18 @@ public class BuildVirtualTour extends AchieveREInitiator {
             }
         }
         ACLMessage reply = ((ACLMessage) getDataStore().get(VirtualTourServer.REQUESTER)).createReply();
-        reply.setPerformative(ACLMessage.INFORM);
-        try {
-            reply.setContentObject(virtualTour);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (virtualTour.size() > 0) {
+            reply.setPerformative(ACLMessage.INFORM);
+            try {
+                reply.setContentObject(virtualTour);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else{
+            reply.setPerformative(ACLMessage.FAILURE);
+            reply.setContent("Failed to retrieve virtual tour from art-curators. Please try again later");
         }
         getDataStore().put(VirtualTourServer.RESULT_KEY, reply);
-    }
-
-    /**
-     * This method is called every time a refuse message is received,
-     * which is not out-of-sequence according to the protocol rules.
-     *
-     * @param refuse
-     */
-    protected void handleRefuse(ACLMessage refuse) {
-
-    }
-
-    /**
-     * This method is called every time a not-understood message is received,
-     * which is not out-of-sequence according to the protocol rules.
-     *
-     * @param notUnderstood
-     */
-    protected void handleNotUnderstood(ACLMessage notUnderstood) {
-
-    }
-
-    /**
-     * This method is called every time a failure message is received,
-     * which is not out-of-sequence according to the protocol rules.
-     *
-     * @param failure
-     */
-    protected void handleFailure(ACLMessage failure) {
-
-    }
-
-    protected void handleInconsistentFSM(java.lang.String current, int event) {
-
     }
 
 }

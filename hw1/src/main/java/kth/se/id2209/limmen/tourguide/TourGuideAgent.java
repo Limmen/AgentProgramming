@@ -1,6 +1,5 @@
 package kth.se.id2209.limmen.tourguide;
 
-import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.ParallelBehaviour;
 import jade.domain.DFService;
@@ -12,16 +11,12 @@ import jade.lang.acl.MessageTemplate;
 import kth.se.id2209.limmen.tourguide.behaviours.*;
 
 /**
- * TourGuideAgent
+ * TourGuideAgent. Agent that publishes a service where it can provide other agents with virtual tours of
+ * art artifacts.
  *
  * @author Kim Hammar on 2016-11-08.
  */
 public class TourGuideAgent extends Agent {
-
-    private DFAgentDescription[] galleryCurators = new DFAgentDescription[0];
-    private static final String RECEIVE_REQUEST_STATE = "Receive request state";
-    private static final String BUILD_TOUR_STATE = "Build tour state";
-    private AID requester;
 
     /**
      * Agent initialization. Called by the JADE runtime envrionment when the agent is started
@@ -31,32 +26,30 @@ public class TourGuideAgent extends Agent {
         System.out.println("TourGuideAgent " + getAID().getName() + " starting up.");
         registerAtYellowPages();
 
-        //FSMBehaviour fsmBehaviour = new FSMBehaviour(this);
+        /**
+         * Create behaviours
+         */
         ParallelBehaviour parallelBehaviour = new ParallelBehaviour(ParallelBehaviour.WHEN_ALL);
         CuratorSearcher curatorSearcher = new CuratorSearcher(this, 100);
         curatorSearcher.setDataStore(parallelBehaviour.getDataStore());
-        ProfilerMatcher profilerMatcher = new ProfilerMatcher(this, MessageTemplate.MatchOntology("Ontology(Class(TourGuideMatcher partial ProposeInitiator))"), parallelBehaviour.getDataStore());
         FindSupportedInterests findSupportedInterests = new FindSupportedInterests(this, new ACLMessage(ACLMessage.REQUEST), parallelBehaviour.getDataStore());
-        profilerMatcher.registerPrepareResponse(findSupportedInterests);
-        parallelBehaviour.addSubBehaviour(curatorSearcher);
-        parallelBehaviour.addSubBehaviour(profilerMatcher);
-
-        //FSMBehaviour fsmBehaviour = new FSMBehaviour();
-        //fsmBehaviour.setDataStore(parallelBehaviour.getDataStore());
+        ProfilerMatcher profilerMatcher = new ProfilerMatcher(this, MessageTemplate.MatchOntology("Ontology(Class(TourGuideMatcher partial ProposeInitiator))"), parallelBehaviour.getDataStore());
+        profilerMatcher.registerPrepareResponse(findSupportedInterests); //register FindSupportedInterest as RE of ProfilerMatcher
+        BuildVirtualTour buildVirtualTour = new BuildVirtualTour(this, new ACLMessage(ACLMessage.REQUEST), parallelBehaviour.getDataStore());
         VirtualTourServer virtualTourServer = new VirtualTourServer(this, MessageTemplate.MatchOntology("Ontology(Class(FindVirtualTour partial AchieveREInitiator))"), parallelBehaviour.getDataStore());
         virtualTourServer.setDataStore(parallelBehaviour.getDataStore());
-        BuildVirtualTour buildVirtualTour = new BuildVirtualTour(this, new ACLMessage(ACLMessage.REQUEST), parallelBehaviour.getDataStore());
-        virtualTourServer.registerPrepareResultNotification(buildVirtualTour);
+        virtualTourServer.registerPrepareResultNotification(buildVirtualTour); //register BuildVirtualTour as RE of VirtualTourServer
 
-/*
-        fsmBehaviour.registerFirstState(virtualTourServer, RECEIVE_REQUEST_STATE);
-        fsmBehaviour.registerState(buildVirtualTour, BUILD_TOUR_STATE);
-        fsmBehaviour.registerTransition(RECEIVE_REQUEST_STATE, RECEIVE_REQUEST_STATE, 0);
-        fsmBehaviour.registerTransition(RECEIVE_REQUEST_STATE, BUILD_TOUR_STATE, 1);
-        fsmBehaviour.registerDefaultTransition(BUILD_TOUR_STATE, RECEIVE_REQUEST_STATE);
-*/
-        //parallelBehaviour.addSubBehaviour(fsmBehaviour);
+        /**
+         * Add three sub-behaviours to be executed in parallel (1. search for curators, 2. respond to tour-proposals 3. respond to tour requests)
+         */
+        parallelBehaviour.addSubBehaviour(curatorSearcher);
+        parallelBehaviour.addSubBehaviour(profilerMatcher);
         parallelBehaviour.addSubBehaviour(virtualTourServer);
+
+        /**
+         * Add behaviour
+         */
         addBehaviour(parallelBehaviour);
     }
 
@@ -74,8 +67,11 @@ public class TourGuideAgent extends Agent {
         }
     }
 
+    /**
+     * Register the service as a tour guide at the "yellow pages" aka the Directory Facilitator (DF)
+     * that runs on the platform.
+     */
     public void registerAtYellowPages() {
-        // Register the gallery-curator service at the DF (Yellow pages)
         DFAgentDescription dfAgentDescription = new DFAgentDescription();
         dfAgentDescription.setName(getAID());
         ServiceDescription serviceDescription = new ServiceDescription();

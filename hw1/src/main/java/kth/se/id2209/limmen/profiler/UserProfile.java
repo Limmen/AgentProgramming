@@ -5,6 +5,8 @@ import kth.se.id2209.limmen.artgallery.Artifact;
 import java.util.ArrayList;
 
 /**
+ * Class representing a userprofile.
+ *
  * @author Kim Hammar on 2016-11-10.
  */
 public class UserProfile {

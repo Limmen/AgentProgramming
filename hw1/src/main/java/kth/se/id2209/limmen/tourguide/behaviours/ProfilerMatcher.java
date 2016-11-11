@@ -2,13 +2,15 @@ package kth.se.id2209.limmen.tourguide.behaviours;
 
 import jade.core.Agent;
 import jade.core.behaviours.DataStore;
-import jade.domain.FIPAAgentManagement.NotUnderstoodException;
-import jade.domain.FIPAAgentManagement.RefuseException;
-import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.proto.ProposeResponder;
 
 /**
+ * Behaviour that waits for proposals from profiler-agents. The proposals indicate what kind of tours that the
+ * profiler is interested in, this behaviour is linked to the FindSupportedInterests behaviour that will collect a
+ * list of supported interests, and if there is a match with the profiler's interest, accept the proposal, otherwise
+ * reject.
+ *
  * @author Kim Hammar on 2016-11-09.
  */
 
@@ -17,31 +19,24 @@ public class ProfilerMatcher extends ProposeResponder {
     protected static String RESULT_KEY;
     protected static String PROPOSE_KEY2;
 
+    /**
+     * Class constructor initializes the behaviour.
+     *
+     * @param a agent running the behaviour
+     * @param mt messagetemplate for filtering out the message that we want to receive
+     * @param store datastore for communicating with other behaviours.
+     */
     public ProfilerMatcher(Agent a, MessageTemplate mt, DataStore store) {
         super(a, mt, store);
         RESULT_KEY = RESPONSE_KEY;
         PROPOSE_KEY2 = PROPOSE_KEY;
     }
 
-
     /**
-     * This method is called when the initiator's message is received that matches the message
-     * template passed in the constructor.
-     *
-     * @param propose
+     * Called just before termination of this behaviour.
+     * This behaviour is continous.
      * @return
-     * @throws NotUnderstoodException
-     * @throws RefuseException
      */
-    /*
-    protected ACLMessage prepareResponse(ACLMessage propose) throws NotUnderstoodException, RefuseException {
-        //check if matching interest
-        getDataStore().put(INTEREST, propose.getContent());
-        ACLMessage reply = propose.createReply();
-        reply.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
-        return reply;
-    }*/
-
     @Override
     public int onEnd() {
         reset();

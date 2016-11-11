@@ -10,16 +10,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
+ * Behaviour for receiving and responding to request for all available genres in the art gallery from tourguides.
+ * .
  * @author Kim Hammar on 2016-11-09.
  */
 public class GenreRequestServer extends CyclicBehaviour {
 
+    /**
+     * Action invoked whenever a matching message is received
+     */
     @Override
     public void action() {
         MessageTemplate mt = MessageTemplate.MatchOntology("Ontology(Class(FindSupportedInterests partial AchieveREInitiator))");
         ACLMessage msg = myAgent.receive(mt);
         if (msg != null) {
-            System.out.println("GenreREquestServer received request");
             ArrayList<Artifact> artifacts = ((CuratorAgent) myAgent).getArtGallery();
             ArrayList<String> genres = new ArrayList();
             for (Artifact artifact : artifacts) {

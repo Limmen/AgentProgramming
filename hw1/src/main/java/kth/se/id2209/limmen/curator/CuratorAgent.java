@@ -15,18 +15,19 @@ import kth.se.id2209.limmen.curator.behaviours.TourRequestServer;
 import java.util.ArrayList;
 
 /**
+ * CuratorAgent that monitors the art gallery and interacts with profilers and tourguides.
+ *
  * @author Kim Hammar on 2016-11-08.
  */
 public class CuratorAgent extends Agent {
-
     private ArtGallery artGallery = new ArtGallery();
+
     /**
      * Agent initialization. Called by the JADE runtime envrionment when the agent is started
      */
     @Override
     protected void setup() {
         System.out.println("CuratorAgent " + getAID().getName() + " starting up.");
-
         registerAtYellowPages();
 
         ParallelBehaviour parallelBehaviour = new ParallelBehaviour();
@@ -63,8 +64,11 @@ public class CuratorAgent extends Agent {
         return artGallery.getGallery();
     }
 
+    /**
+     * Register the service as a art-curator at the "yellow pages" aka the Directory Facilitator (DF)
+     * that runs on the platform.
+     */
     private void registerAtYellowPages(){
-        // Register the gallery-curator service at the DF (Yellow pages)
         DFAgentDescription dfAgentDescription = new DFAgentDescription();
         dfAgentDescription.setName(getAID());
         ServiceDescription serviceDescription = new ServiceDescription();

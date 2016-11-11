@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
+ * Class representing an art-gallery containing a list of artifacts.
+ * If no gallery is passed as argument in the constructor it will create a default gallery for convenience.
+ *
  * @author Kim Hammar on 2016-11-09.
  */
 public class ArtGallery {

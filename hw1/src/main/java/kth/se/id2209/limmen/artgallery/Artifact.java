@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
+ * Class representing an Art-Artifact.
+ *
  * @author Kim Hammar on 2016-11-09.
  */
 public class Artifact implements Serializable {

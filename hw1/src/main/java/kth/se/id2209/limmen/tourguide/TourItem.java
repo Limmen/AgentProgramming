@@ -4,6 +4,9 @@ import jade.core.AID;
 import java.io.Serializable;
 
 /**
+ *
+ * Class representing an item in a virtual tour
+ *
  * @author Kim Hammar on 2016-11-10.
  */
 public class TourItem implements Serializable{

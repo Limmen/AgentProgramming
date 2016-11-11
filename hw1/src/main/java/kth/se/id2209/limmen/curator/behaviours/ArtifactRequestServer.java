@@ -9,10 +9,16 @@ import kth.se.id2209.limmen.curator.CuratorAgent;
 import java.io.IOException;
 
 /**
+ * Behaviour for receiving and responding to request for artifact details about some artifact in
+ * the gallery from profilers.
+ *
  * @author Kim Hammar on 2016-11-09.
  */
 public class ArtifactRequestServer extends CyclicBehaviour {
 
+    /**
+     * Action invoked whenever a matching message is received
+     */
     @Override
     public void action() {
         MessageTemplate mt = MessageTemplate.MatchOntology("Profiler-Request-Art-Information-Ontology");

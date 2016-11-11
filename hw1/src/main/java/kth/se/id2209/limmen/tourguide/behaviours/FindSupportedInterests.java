@@ -13,16 +13,34 @@ import java.util.Date;
 import java.util.Vector;
 
 /**
+ * Behaviour that is invoked after an agent have sent a probe checking if there is any available tours with matching
+ * his interests. This behaviour will send requests to all art-curators that are registered at the yellow pages and
+ * collect their available art-genres. If the interest of the agent matches one or more of the genres the agent accepts
+ * the proposal, otherwise it is rejected.
+ *
  * @author Kim Hammar on 2016-11-09.
  */
 public class FindSupportedInterests extends AchieveREInitiator {
 
     protected static String PROFILER_INTEREST = "Profiler Interest";
 
+    /**
+     * Class constructor initializing the agent
+     * @param a agent that runs the behaviour
+     * @param msg message to send to the curators
+     * @param store datastore to communicate with other behaviours
+     */
     public FindSupportedInterests(Agent a, ACLMessage msg, DataStore store) {
         super(a, msg, store);
     }
 
+    /**
+     * This method must return the vector of ACLMessage objects to be sent.
+     * It is called in the first state of this protocol.
+     *
+     * @param request the request passed in the constructor
+     * @return the updated request as how it should look when sending to the curators
+     */
     protected Vector prepareRequests(ACLMessage request) {
         request = new ACLMessage(ACLMessage.REQUEST);
         DFAgentDescription[] curators = (DFAgentDescription[]) getDataStore().get(CuratorSearcher.CURATORS);
@@ -43,15 +61,15 @@ public class FindSupportedInterests extends AchieveREInitiator {
      * By result notification message we intend here all the inform, failure received messages,
      * which are not not out-of-sequence according to the protocol rules.
      *
-     * @param resultNotifications
+     * @param resultNotifications vector of notifications (aka INFORM messages) from curators containing their genres.
      */
     protected void handleAllResultNotifications(Vector resultNotifications) {
         ArrayList<String> supportedInterests = new ArrayList();
         for (Object object : resultNotifications) {
-            ACLMessage message = (ACLMessage) object;
-            if (message.getPerformative() == ACLMessage.INFORM) {
+            ACLMessage notification = (ACLMessage) object;
+            if (notification.getPerformative() == ACLMessage.INFORM) {
                 try {
-                    ArrayList<String> genres = (ArrayList<String>) message.getContentObject();
+                    ArrayList<String> genres = (ArrayList<String>) notification.getContentObject();
                     for (String genre : genres) {
                         if (!supportedInterests.contains(genre))
                             supportedInterests.add(genre);
@@ -71,30 +89,6 @@ public class FindSupportedInterests extends AchieveREInitiator {
             reply.setPerformative(ACLMessage.REJECT_PROPOSAL);
         }
         getDataStore().put(ProfilerMatcher.RESULT_KEY, reply);
-    }
-
-    /**
-     * This method is called every time a refuse message is received,
-     * which is not out-of-sequence according to the protocol rules.
-     *
-     * @param refuse
-     */
-    protected void handleRefuse(ACLMessage refuse) {
-
-    }
-
-    /**
-     * This method is called every time a failure message is received,
-     * which is not out-of-sequence according to the protocol rules.
-     *
-     * @param failure
-     */
-    protected void handleFailure(ACLMessage failure) {
-
-    }
-
-    protected void handleInconsistentFSM(String current, int event) {
-
     }
 
 }
