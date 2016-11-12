@@ -21,7 +21,7 @@ public class CuratorSubscriber extends SubscriptionInitiator {
     public static String CURATORS = "Curators";
 
     /**
-     * Class constructor initializes the behaviour.
+     * Class constructor initializing the behaviour.
      *
      * @param a agent running the behaviour
      * @param msg subscription message

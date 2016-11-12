@@ -27,16 +27,13 @@ public class TourGuideAgent extends Agent {
         registerAtYellowPages();
 
         /**
-         * Create behaviours
+         * Create behaviours and set datastores
          */
         ParallelBehaviour parallelBehaviour = new ParallelBehaviour(ParallelBehaviour.WHEN_ALL);
-        //CuratorSubscriber curatorSubscriber = new CuratorSubscriber(this, 100);
-        //curatorSubscriber.setDataStore(parallelBehaviour.getDataStore());
         CuratorSubscriber curatorSubscriber = new CuratorSubscriber(this, CuratorSubscriber.createSubscriptionMessage(this), parallelBehaviour.getDataStore());
-
         FindSupportedInterests findSupportedInterests = new FindSupportedInterests(this, new ACLMessage(ACLMessage.REQUEST), parallelBehaviour.getDataStore());
-        ProfilerMatcher profilerMatcher = new ProfilerMatcher(this, MessageTemplate.MatchOntology("Ontology(Class(TourGuideMatcher partial ProposeInitiator))"), parallelBehaviour.getDataStore());
-        profilerMatcher.registerPrepareResponse(findSupportedInterests); //register FindSupportedInterest as RE of ProfilerMatcher
+        ProfilerMatcher profilerMatcher = new ProfilerMatcher(this, MessageTemplate.MatchOntology("Ontology(Class(TourGuideMatcher partial AchieveREInitiator))"), parallelBehaviour.getDataStore());
+        profilerMatcher.registerPrepareResultNotification(findSupportedInterests); //register FindSupportedInterest as RE of ProfilerMatcher
         BuildVirtualTour buildVirtualTour = new BuildVirtualTour(this, new ACLMessage(ACLMessage.REQUEST), parallelBehaviour.getDataStore());
         VirtualTourServer virtualTourServer = new VirtualTourServer(this, MessageTemplate.MatchOntology("Ontology(Class(FindVirtualTour partial AchieveREInitiator))"), parallelBehaviour.getDataStore());
         virtualTourServer.setDataStore(parallelBehaviour.getDataStore());
@@ -50,7 +47,7 @@ public class TourGuideAgent extends Agent {
         parallelBehaviour.addSubBehaviour(virtualTourServer);
 
         /**
-         * Add behaviour
+         * Add parallelBehaviour
          */
         addBehaviour(parallelBehaviour);
     }

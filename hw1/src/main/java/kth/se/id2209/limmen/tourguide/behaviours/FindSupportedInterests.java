@@ -8,6 +8,7 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 import jade.proto.AchieveREInitiator;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
@@ -22,10 +23,10 @@ import java.util.Vector;
  */
 public class FindSupportedInterests extends AchieveREInitiator {
 
-    protected static String PROFILER_INTEREST = "Profiler Interest";
 
     /**
-     * Class constructor initializing the agent
+     * Class constructor initializing the behaviour.
+     *
      * @param a agent that runs the behaviour
      * @param msg message to send to the curators
      * @param store datastore to communicate with other behaviours
@@ -44,12 +45,27 @@ public class FindSupportedInterests extends AchieveREInitiator {
     protected Vector prepareRequests(ACLMessage request) {
         request = new ACLMessage(ACLMessage.REQUEST);
         ArrayList<DFAgentDescription> curators = (ArrayList<DFAgentDescription>) getDataStore().get(CuratorSubscriber.CURATORS);
+        if(curators.size() == 0) {
+            ACLMessage query = ((ACLMessage) getDataStore().get(ProfilerMatcher.REQUESTER));
+            ACLMessage reply = query.createReply();
+            reply.addReceiver(query.getSender());
+            reply.setPerformative(ACLMessage.INFORM);
+            try {
+                ArrayList<String> supportedInterests = new ArrayList();
+                supportedInterests.add("-");
+                reply.setContentObject(new ArrayList<String>());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            getDataStore().put(ProfilerMatcher.RESULT_KEY, reply);
+            return null;
+        }
         for(DFAgentDescription curator : curators){
             request.addReceiver(curator.getName());
         }
         request.setLanguage(FIPANames.ContentLanguage.FIPA_SL);
         request.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
-        request.setReplyByDate(new Date(System.currentTimeMillis() + 5000));
+        request.setReplyByDate(new Date(System.currentTimeMillis() + 1000));
         request.setOntology("Ontology(Class(FindSupportedInterests partial AchieveREInitiator))");
         Vector<ACLMessage> messages = new Vector();
         messages.add(request);
@@ -60,6 +76,8 @@ public class FindSupportedInterests extends AchieveREInitiator {
      * This method is called when all the result notification messages have been collected.
      * By result notification message we intend here all the inform, failure received messages,
      * which are not not out-of-sequence according to the protocol rules.
+     * This method will collect all genres of contacted curators and respond to the Profiler that this is the list
+     * of genres that this tourguide can create tours for.
      *
      * @param resultNotifications vector of notifications (aka INFORM messages) from curators containing their genres.
      */
@@ -79,16 +97,16 @@ public class FindSupportedInterests extends AchieveREInitiator {
                 }
             }
         }
-        ACLMessage proposal = ((ACLMessage) getDataStore().get(ProfilerMatcher.PROPOSE_KEY2));
-        ACLMessage reply = proposal.createReply();
-        reply.addReceiver(proposal.getSender());
-        if (supportedInterests.contains(proposal.getContent())) {
-            reply.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
-            getDataStore().put(PROFILER_INTEREST, proposal.getContent());
-        } else {
-            reply.setPerformative(ACLMessage.REJECT_PROPOSAL);
+        ACLMessage query = ((ACLMessage) getDataStore().get(ProfilerMatcher.REQUESTER));
+        ACLMessage reply = query.createReply();
+        reply.addReceiver(query.getSender());
+        reply.setPerformative(ACLMessage.INFORM);
+        try {
+            reply.setContentObject(supportedInterests);
+            getDataStore().put(ProfilerMatcher.RESULT_KEY, reply);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        getDataStore().put(ProfilerMatcher.RESULT_KEY, reply);
     }
 
 }

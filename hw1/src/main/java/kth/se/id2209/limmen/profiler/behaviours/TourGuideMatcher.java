@@ -5,9 +5,11 @@ import jade.core.behaviours.DataStore;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
-import jade.proto.ProposeInitiator;
-import kth.se.id2209.limmen.profiler.ProfilerAgent;
+import jade.lang.acl.UnreadableException;
+import jade.proto.AchieveREInitiator;
+import kth.se.id2209.limmen.profiler.TourGuide;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 
@@ -17,83 +19,73 @@ import java.util.Vector;
  *
  * @author Kim Hammar on 2016-11-09.
  */
-public class TourGuideMatcher extends ProposeInitiator {
+public class TourGuideMatcher extends AchieveREInitiator {
+    public static String TOUR_GUIDES = "Tour Guides with genres";
     public static String TOUR_GUIDE = "Tour Guide";
-    private boolean foundMatchingTourGuide = false;
+
 
     /**
      * Class constructor initializing the behaviour
-     * @param a agent running the behaviour
+     *
+     * @param a          agent running the behaviour
      * @param initiation message to send to the tourguides
-     * @param store datastore to communicate with other behaviours
+     * @param store      datastore to communicate with other behaviours
      */
     public TourGuideMatcher(Agent a, ACLMessage initiation, DataStore store) {
         super(a, initiation, store);
+        getDataStore().put(TOUR_GUIDES, new ArrayList<TourGuide>());
     }
 
     /**
      * This method must return the vector of ACLMessage objects to be sent.
      * It is called in the first state of this protocol.
      *
-     * @param proposal the message passed in the constructor
+     * @param request the message passed in the constructor
      * @return vector of messages to send
      */
-    protected Vector prepareInitiations(ACLMessage proposal) {
-        proposal = new ACLMessage(ACLMessage.PROPOSE);
+    protected Vector prepareRequests(ACLMessage request) {
+        request = new ACLMessage(ACLMessage.QUERY_REF);
         DFAgentDescription[] tourGuides = (DFAgentDescription[]) getDataStore().get(ServicesSearcher.TOUR_GUIDES);
         if (tourGuides != null) {
             for (int i = 0; i < tourGuides.length; ++i) {
-                proposal.addReceiver(tourGuides[i].getName());
+                request.addReceiver(tourGuides[i].getName());
             }
-        } else {
-            onEnd();
         }
-        proposal.setLanguage(FIPANames.ContentLanguage.FIPA_SL);
-        proposal.setProtocol(FIPANames.InteractionProtocol.FIPA_PROPOSE);
-        proposal.setOntology("Ontology(Class(TourGuideMatcher partial ProposeInitiator))");
-        proposal.setReplyByDate(new Date(System.currentTimeMillis() + 5000));
-        proposal.setContent(((ProfilerAgent) myAgent).getUserProfile().getInterest());
+        request.setLanguage(FIPANames.ContentLanguage.FIPA_SL);
+        request.setProtocol(FIPANames.InteractionProtocol.FIPA_QUERY);
+        request.setOntology("Ontology(Class(TourGuideMatcher partial AchieveREInitiator))");
+        request.setContent("interest");
+        request.setReplyByDate(new Date(System.currentTimeMillis() + 1000));
         Vector<ACLMessage> messages = new Vector();
-        messages.add(proposal);
+        messages.add(request);
         return messages;
     }
 
     /**
-     * This method is called every time an accept-proposal message is received,
-     * which is not out-of-sequence according to the protocol rules.
-     * This method will match with the first accept-message received and will select that tourguide as the tourguide to
-     * use.
+     * This method is called when all the result notification messages have been collected.
+     * By result notification message we intend here all the inform, failure received messages,
+     * which are not not out-of-sequence according to the protocol rules.
+     * This method will collect all inform messages from tourguides, containing lists of supported interests
+     * and update the datastore accordingly.
      *
-     * @param accept_proposal the accept-message received
+     * @param resultNotifications vector of notifications (aka INFORM messages)
      */
-    protected void handleAcceptProposal(ACLMessage accept_proposal) {
-        foundMatchingTourGuide = true;
-        getDataStore().put(TOUR_GUIDE, accept_proposal.getSender());
-    }
-
-    /**
-     * This method is called every time an reject-proposal message is received,
-     * which is not out-of-sequence according to the protocol rules.
-     * @param reject_proposal
-     */
-    protected void handleRejectProposal(ACLMessage reject_proposal){
-
-    }
-
-
-    /**
-     * Called just before termination of this behaviour. The returnvalue is used by the FSMbehaviour
-     *
-     * @return
-     */
-    @Override
-    public int onEnd() {
-        if (foundMatchingTourGuide) {
-            return 1;
-        } else {
-            reset();
-            return 0;
+    protected void handleAllResultNotifications(Vector resultNotifications) {
+        ArrayList<TourGuide> foundTourGuides = new ArrayList();
+        for (Object object : resultNotifications) {
+            ACLMessage notification = (ACLMessage) object;
+            if (notification.getPerformative() == ACLMessage.INFORM) {
+                try {
+                    ArrayList<String> supportedInterests = (ArrayList<String>) notification.getContentObject();
+                    TourGuide tourGuide = new TourGuide(notification.getSender(), supportedInterests);
+                    foundTourGuides.add(tourGuide);
+                } catch (UnreadableException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+        getDataStore().put(TOUR_GUIDES, foundTourGuides);
     }
+
 }
 

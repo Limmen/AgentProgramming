@@ -24,4 +24,4 @@ AGENT_CLASS=kth.se.id2209.limmen.profiler.ProfilerAgent;
 
 mvn compile exec:java \
     -Dexec.mainClass=jade.Boot \
-    -Dexec.args="-container -host $HOST -agents '$AGENT:$AGENT_CLASS()'"
+    -Dexec.args="-container -host $HOST -agents '$AGENT:$AGENT_CLASS(kim,painting,sthlm,22,male)'"

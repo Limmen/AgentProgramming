@@ -37,7 +37,7 @@ public class BuildVirtualTour extends AchieveREInitiator {
         request.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
         request.setOntology("Ontology(Class(BuildVirtualTour partial AchieveREInitiator))");
         request.setReplyByDate(new Date(System.currentTimeMillis() + 5000));
-        request.setContent((String) getDataStore().get(FindSupportedInterests.PROFILER_INTEREST));
+        request.setContent((String) getDataStore().get(VirtualTourServer.PROFILER_INTEREST));
         Vector<ACLMessage> messages = new Vector();
         messages.add(request);
         return messages;

@@ -21,6 +21,7 @@ public class VirtualTourServer extends AchieveREResponder {
 
     protected static String RESULT_KEY;
     protected static String REQUESTER;
+    protected static String PROFILER_INTEREST = "Profiler Interest";
 
     /**
      * Class constructor
@@ -44,9 +45,13 @@ public class VirtualTourServer extends AchieveREResponder {
      * @throws RefuseException thrown if the agent chooses to refuse the request before even doing the RE
      */
     protected ACLMessage handleRequest(ACLMessage request) throws NotUnderstoodException, RefuseException {
-        ACLMessage reply = request.createReply();
-        reply.setPerformative(ACLMessage.AGREE);
-        return reply;
+        if(request.getPerformative() == ACLMessage.REQUEST) {
+            getDataStore().put(PROFILER_INTEREST, request.getContent());
+            ACLMessage reply = request.createReply();
+            reply.setPerformative(ACLMessage.AGREE);
+            return reply;
+        } else
+            throw new NotUnderstoodException("Expected FIPA request message but instead got: " + ACLMessage.getPerformative(request.getPerformative()));
     }
 
     /**

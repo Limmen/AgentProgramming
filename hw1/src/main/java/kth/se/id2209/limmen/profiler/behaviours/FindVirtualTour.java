@@ -7,6 +7,7 @@ import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 import jade.proto.AchieveREInitiator;
+import kth.se.id2209.limmen.profiler.ProfilerAgent;
 import kth.se.id2209.limmen.tourguide.TourItem;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import java.util.Vector;
  */
 public class FindVirtualTour extends AchieveREInitiator {
     public static String VIRTUAL_TOUR = "Virtual Tour";
+    private boolean success = true;
 
     /**
      * Class constructor that initializes the behaviour
@@ -45,6 +47,7 @@ public class FindVirtualTour extends AchieveREInitiator {
         request.addReceiver(receiver);
         request.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
         request.setOntology("Ontology(Class(FindVirtualTour partial AchieveREInitiator))");
+        request.setContent(((ProfilerAgent) myAgent).getUserProfile().getInterest());
         Vector<ACLMessage> messages = new Vector();
         messages.add(request);
         return messages;
@@ -76,5 +79,21 @@ public class FindVirtualTour extends AchieveREInitiator {
      */
     protected void handleFailure(ACLMessage failure) {
         System.out.println("Failed to find a virtual tour, reason: " + failure.getContent());
+        success = false;
+    }
+
+    /**
+     * Called just before termination of this behaviour.
+     * return value decides the next state.
+     *
+     * @return next-state indicator
+     */
+    @Override
+    public int onEnd() {
+        if (success) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }

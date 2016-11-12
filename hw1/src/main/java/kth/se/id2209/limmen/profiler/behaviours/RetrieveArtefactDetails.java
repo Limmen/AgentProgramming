@@ -12,7 +12,6 @@ import kth.se.id2209.limmen.profiler.ProfilerAgent;
 import kth.se.id2209.limmen.tourguide.TourItem;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.Vector;
 
 /**
@@ -45,47 +44,21 @@ public class RetrieveArtefactDetails extends AchieveREInitiator {
      * @return Vector of requests to send
      */
     protected Vector prepareRequests(ACLMessage request) {
-        Scanner scanner = new Scanner(System.in);
+        String title = (String) getDataStore().get(SelectArtifact.ARTIFACT);
+        request = new ACLMessage(ACLMessage.REQUEST);
         try {
-            loop:
-            while (true) {
-                System.out.println("Press '1' to view user profile and visited artifacts, press '2' to view the tour, press '3' to visit an artifact in the tour");
-                switch (Integer.parseInt(scanner.nextLine())) {
-                    case 1:
-                        System.out.println(((ProfilerAgent) myAgent).getUserProfile().toString());
-                        break;
-                    case 2:
-                        printTour();
-                        break;
-                    case 3:
-                        System.out.println("Enter the name of the artifact");
-                        String title = scanner.nextLine();
-                        System.out.println("Visiting artifact with name " + title);
-                        request = new ACLMessage(ACLMessage.REQUEST);
-                        try {
-                            AID curator = findCurator(title);
-                            request.addReceiver(curator);
-                            request.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
-                            request.setOntology("Profiler-Request-Art-Information-Ontology");
-                            request.setContent(title);
-                            Vector<ACLMessage> messages = new Vector();
-                            messages.add(request);
-                            return messages;
-                        } catch (Exception e) {
-                            System.out.println("That title is not in the tour");
-                            break;
-                        }
-                    default:
-                        System.out.println("Invalid input");
-                        break;
-
-                }
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid input");
-            return new Vector();
+            AID curator = findCurator(title);
+            request.addReceiver(curator);
+            request.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
+            request.setOntology("Profiler-Request-Art-Information-Ontology");
+            request.setContent(title);
+            Vector<ACLMessage> messages = new Vector();
+            messages.add(request);
+            return messages;
+        } catch (Exception e) {
+            System.out.println("That title is not in the tour");
+            return null;
         }
-
     }
 
     /**
@@ -120,34 +93,6 @@ public class RetrieveArtefactDetails extends AchieveREInitiator {
     protected void handleRefuse(ACLMessage refuse) {
         System.out.println("Could not retrieve the necessary information at the registered curator");
         System.out.println("Reason: " + refuse.getContent());
-    }
-
-    /**
-     * Called just before termination of this behaviour.
-     *
-     * @return
-     */
-    @Override
-    public int onEnd() {
-        reset();
-        myAgent.addBehaviour(this);
-        return super.onEnd();
-    }
-
-    /**
-     * Method to pretty-print the virtual tour
-     */
-    private void printTour() {
-        ArrayList<TourItem> virtualTour = (ArrayList<TourItem>) getDataStore().get(FindVirtualTour.VIRTUAL_TOUR);
-        AID tourGuide = (AID) getDataStore().get(TourGuideMatcher.TOUR_GUIDE);
-        System.out.println();
-        System.out.println("------------------------------------------------------------------------------------------------------------------");
-        System.out.println("The virtual tour created by " + tourGuide.getName() + " according to your interest consists of the following items:");
-        for (TourItem tourItem : virtualTour) {
-            System.out.println(tourItem.toString());
-        }
-        System.out.println("------------------------------------------------------------------------------------------------------------------");
-        System.out.println();
     }
 
     /**
