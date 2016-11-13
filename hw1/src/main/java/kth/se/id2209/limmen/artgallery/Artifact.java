@@ -9,6 +9,8 @@ import java.util.Date;
  * @author Kim Hammar on 2016-11-09.
  */
 public class Artifact implements Serializable {
+
+    private static int staticReferenceCounter = 0;
     private int id;
     private String name;
     private String creator;
@@ -17,7 +19,7 @@ public class Artifact implements Serializable {
     private String genre;
 
     public Artifact(ArtifactBuilder builder) {
-        this.id = builder.id;
+        this.id = staticReferenceCounter++;
         this.name = builder.name;
         this.creator = builder.creator;
         this.creationDate = builder.creationDate;
@@ -63,7 +65,6 @@ public class Artifact implements Serializable {
     }
 
     public static class ArtifactBuilder {
-        private int id = -1;
         private String name;
         private String creator;
         private Date creationDate;
@@ -73,18 +74,8 @@ public class Artifact implements Serializable {
         public ArtifactBuilder() {
         }
 
-        public ArtifactBuilder(int id, String name) {
-            this.id = id;
-            this.name = name;
-        }
-
         public ArtifactBuilder name(String name) {
             this.name = name;
-            return this;
-        }
-
-        public ArtifactBuilder id(int id) {
-            this.id = id;
             return this;
         }
 

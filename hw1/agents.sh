@@ -50,4 +50,4 @@ mvn compile exec:java \
     -agents '\
     $AGENT1:$AGENT_CLASS1();\
     $AGENT2:$AGENT_CLASS2();\
-    $AGENT3:$AGENT_CLASS3(kim,painting,sthlm,22,male)'"
+    $AGENT3:$AGENT_CLASS3(kim,painting,sthlm,22,male);'"

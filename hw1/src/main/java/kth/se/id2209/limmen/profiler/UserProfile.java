@@ -28,10 +28,10 @@ public class UserProfile {
 
     @Override
     public String toString() {
-        String string = "name: " + name + " age: " + age + " gender: " + gender + " interest: " + interest + " occupation: " + occupation +
-                " visited artifacts: \n";
+        String string = "name: " + name + " | age: " + age + " | gender: " + gender + " | interest: " + interest + " | occupation: " + occupation +
+                " | visited artifacts:";
         for (Artifact artifact : visitedArtifacts) {
-            string = string + artifact.toString() + "\n";
+            string = string + "\n" + artifact.toString();
         }
         return string;
     }
@@ -66,6 +66,9 @@ public class UserProfile {
         }
     }
 
+    public void setInterest(String interest) {
+        this.interest = interest;
+    }
 
     public static class UserProfileBuilder {
         private int age;

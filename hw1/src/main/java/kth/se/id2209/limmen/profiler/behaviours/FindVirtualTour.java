@@ -65,7 +65,9 @@ public class FindVirtualTour extends AchieveREInitiator {
         try {
             ArrayList<TourItem> virtualTour = (ArrayList<TourItem>) inform.getContentObject();
             getDataStore().put(VIRTUAL_TOUR, virtualTour);
+            System.out.println("------------------------------------------------------------------------------------------------------------------");
             System.out.println("Virtual Tour completed by agent: " + inform.getSender().getName());
+            System.out.println("------------------------------------------------------------------------------------------------------------------");
         } catch (UnreadableException e) {
             e.printStackTrace();
         }

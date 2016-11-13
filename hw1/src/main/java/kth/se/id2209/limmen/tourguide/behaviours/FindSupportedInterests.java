@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 
+
 /**
  * Behaviour that is invoked after an agent have sent a probe checking if there is any available tours with matching
  * his interests. This behaviour will send requests to all art-curators that are registered at the yellow pages and
@@ -22,17 +23,18 @@ import java.util.Vector;
  * @author Kim Hammar on 2016-11-09.
  */
 public class FindSupportedInterests extends AchieveREInitiator {
-
+    private ProfilerMatcher profilerMatcher;
 
     /**
      * Class constructor initializing the behaviour.
      *
-     * @param a agent that runs the behaviour
-     * @param msg message to send to the curators
+     * @param a     agent that runs the behaviour
+     * @param msg   message to send to the curators
      * @param store datastore to communicate with other behaviours
      */
-    public FindSupportedInterests(Agent a, ACLMessage msg, DataStore store) {
+    public FindSupportedInterests(Agent a, ACLMessage msg, DataStore store, ProfilerMatcher profilerMatcher) {
         super(a, msg, store);
+        this.profilerMatcher = profilerMatcher;
     }
 
     /**
@@ -45,8 +47,8 @@ public class FindSupportedInterests extends AchieveREInitiator {
     protected Vector prepareRequests(ACLMessage request) {
         request = new ACLMessage(ACLMessage.REQUEST);
         ArrayList<DFAgentDescription> curators = (ArrayList<DFAgentDescription>) getDataStore().get(CuratorSubscriber.CURATORS);
-        if(curators.size() == 0) {
-            ACLMessage query = ((ACLMessage) getDataStore().get(ProfilerMatcher.REQUESTER));
+        if (curators.size() == 0) {
+            ACLMessage query = ((ACLMessage) getDataStore().get(profilerMatcher.REQUEST_KEY));
             ACLMessage reply = query.createReply();
             reply.addReceiver(query.getSender());
             reply.setPerformative(ACLMessage.INFORM);
@@ -57,10 +59,10 @@ public class FindSupportedInterests extends AchieveREInitiator {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            getDataStore().put(ProfilerMatcher.RESULT_KEY, reply);
+            getDataStore().put(profilerMatcher.RESULT_NOTIFICATION_KEY, reply);
             return null;
         }
-        for(DFAgentDescription curator : curators){
+        for (DFAgentDescription curator : curators) {
             request.addReceiver(curator.getName());
         }
         request.setLanguage(FIPANames.ContentLanguage.FIPA_SL);
@@ -97,13 +99,13 @@ public class FindSupportedInterests extends AchieveREInitiator {
                 }
             }
         }
-        ACLMessage query = ((ACLMessage) getDataStore().get(ProfilerMatcher.REQUESTER));
+        ACLMessage query = ((ACLMessage) getDataStore().get(profilerMatcher.REQUEST_KEY));
         ACLMessage reply = query.createReply();
         reply.addReceiver(query.getSender());
         reply.setPerformative(ACLMessage.INFORM);
         try {
             reply.setContentObject(supportedInterests);
-            getDataStore().put(ProfilerMatcher.RESULT_KEY, reply);
+            getDataStore().put(profilerMatcher.RESULT_NOTIFICATION_KEY, reply);
         } catch (IOException e) {
             e.printStackTrace();
         }

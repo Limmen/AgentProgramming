@@ -12,6 +12,7 @@ import kth.se.id2209.limmen.profiler.behaviours.*;
  * @author Kim Hammar on 2016-11-08.
  */
 public class ProfilerAgent extends Agent {
+    private static final String INITIALIZE_USER_PROFILE = "Initialize user profile";
     private static final String SEARCH_TOURGUIDES_STATE = "Search Tourguides";
     private static final String FIND_MATCHING_TOUR_GUIDES_STATE = "Find matching tourguides";
     private static final String SELECT_TOURGUIDE_STATE = "Select tourguide";
@@ -19,6 +20,7 @@ public class ProfilerAgent extends Agent {
     private static final String SELECT_ARTIFACT_STATE = "Select artifact";
     private static final String RETRIEVE_ARTIFACT_STATE = "Retrieve artifact";
     private UserProfile userProfile;
+    private boolean command_line_args = false;
 
     /**
      * Agent initialization. Called by the JADE runtime environment when the agent is started
@@ -38,15 +40,13 @@ public class ProfilerAgent extends Agent {
             String gender = (String) args[4];
             this.userProfile = new UserProfile.UserProfileBuilder().name(name).
                     interest(interest).occupation(occupation).age(age).gender(gender).build();
-        } else {
-            //If no command-line arguments use the InitializeUserProfile behaviour to ask the user.
-            addBehaviour(new InitializeUserProfile());
+            command_line_args = true;
         }
-
         /**
          * Create behaviours and set datastores
          */
         FSMBehaviour fsmBehaviour = new FSMBehaviour(this);
+        InitializeUserProfile initializeUserProfile = new InitializeUserProfile(command_line_args);
         ServicesSearcher servicesSearcher = new ServicesSearcher();
         servicesSearcher.setDataStore(fsmBehaviour.getDataStore());
         TourGuideMatcher tourGuideMatcher = new TourGuideMatcher(this, new ACLMessage(ACLMessage.QUERY_REF), fsmBehaviour.getDataStore());
@@ -60,7 +60,8 @@ public class ProfilerAgent extends Agent {
         /**
          * Register states of the FSM
          */
-        fsmBehaviour.registerFirstState(servicesSearcher, SEARCH_TOURGUIDES_STATE);
+        fsmBehaviour.registerFirstState(initializeUserProfile, INITIALIZE_USER_PROFILE);
+        fsmBehaviour.registerState(servicesSearcher, SEARCH_TOURGUIDES_STATE);
         fsmBehaviour.registerState(tourGuideMatcher, FIND_MATCHING_TOUR_GUIDES_STATE);
         fsmBehaviour.registerState(selectTourGuide, SELECT_TOURGUIDE_STATE);
         fsmBehaviour.registerState(findVirtualTour, FIND_VIRTUAL_TOUR_STATE);
@@ -70,6 +71,7 @@ public class ProfilerAgent extends Agent {
         /**
          * Register transitions between states
          */
+        fsmBehaviour.registerDefaultTransition(INITIALIZE_USER_PROFILE, SEARCH_TOURGUIDES_STATE);
         fsmBehaviour.registerDefaultTransition(SEARCH_TOURGUIDES_STATE, FIND_MATCHING_TOUR_GUIDES_STATE, new String[] {FIND_MATCHING_TOUR_GUIDES_STATE});
         fsmBehaviour.registerDefaultTransition(FIND_MATCHING_TOUR_GUIDES_STATE, SELECT_TOURGUIDE_STATE);
         fsmBehaviour.registerTransition(SELECT_TOURGUIDE_STATE, SEARCH_TOURGUIDES_STATE, 0);

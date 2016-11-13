@@ -31,12 +31,12 @@ public class TourGuideAgent extends Agent {
          */
         ParallelBehaviour parallelBehaviour = new ParallelBehaviour(ParallelBehaviour.WHEN_ALL);
         CuratorSubscriber curatorSubscriber = new CuratorSubscriber(this, CuratorSubscriber.createSubscriptionMessage(this), parallelBehaviour.getDataStore());
-        FindSupportedInterests findSupportedInterests = new FindSupportedInterests(this, new ACLMessage(ACLMessage.REQUEST), parallelBehaviour.getDataStore());
         ProfilerMatcher profilerMatcher = new ProfilerMatcher(this, MessageTemplate.MatchOntology("Ontology(Class(TourGuideMatcher partial AchieveREInitiator))"), parallelBehaviour.getDataStore());
+        FindSupportedInterests findSupportedInterests = new FindSupportedInterests(this, new ACLMessage(ACLMessage.REQUEST), parallelBehaviour.getDataStore(), profilerMatcher);
         profilerMatcher.registerPrepareResultNotification(findSupportedInterests); //register FindSupportedInterest as RE of ProfilerMatcher
-        BuildVirtualTour buildVirtualTour = new BuildVirtualTour(this, new ACLMessage(ACLMessage.REQUEST), parallelBehaviour.getDataStore());
         VirtualTourServer virtualTourServer = new VirtualTourServer(this, MessageTemplate.MatchOntology("Ontology(Class(FindVirtualTour partial AchieveREInitiator))"), parallelBehaviour.getDataStore());
         virtualTourServer.setDataStore(parallelBehaviour.getDataStore());
+        BuildVirtualTour buildVirtualTour = new BuildVirtualTour(this, new ACLMessage(ACLMessage.REQUEST), parallelBehaviour.getDataStore(), virtualTourServer);
         virtualTourServer.registerPrepareResultNotification(buildVirtualTour); //register BuildVirtualTour as RE of VirtualTourServer
 
         /**

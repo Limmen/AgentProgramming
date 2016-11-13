@@ -23,8 +23,10 @@ import java.util.Vector;
  */
 public class BuildVirtualTour extends AchieveREInitiator {
 
-    public BuildVirtualTour(Agent a, ACLMessage msg, DataStore store) {
+    private VirtualTourServer virtualTourServer;
+    public BuildVirtualTour(Agent a, ACLMessage msg, DataStore store, VirtualTourServer virtualTourServer) {
         super(a, msg, store);
+        this.virtualTourServer = virtualTourServer;
     }
 
     protected Vector prepareRequests(ACLMessage request) {
@@ -67,7 +69,7 @@ public class BuildVirtualTour extends AchieveREInitiator {
                 }
             }
         }
-        ACLMessage reply = ((ACLMessage) getDataStore().get(VirtualTourServer.REQUESTER)).createReply();
+        ACLMessage reply = ((ACLMessage) getDataStore().get(virtualTourServer.REQUEST_KEY)).createReply();
         if (virtualTour.size() > 0) {
             reply.setPerformative(ACLMessage.INFORM);
             try {
@@ -79,7 +81,7 @@ public class BuildVirtualTour extends AchieveREInitiator {
             reply.setPerformative(ACLMessage.FAILURE);
             reply.setContent("Failed to retrieve virtual tour from art-curators. Please try again later");
         }
-        getDataStore().put(VirtualTourServer.RESULT_KEY, reply);
+        getDataStore().put(virtualTourServer.RESULT_NOTIFICATION_KEY, reply);
     }
 
 }

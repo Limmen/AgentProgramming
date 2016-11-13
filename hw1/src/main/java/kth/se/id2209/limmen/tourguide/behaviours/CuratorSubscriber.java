@@ -36,7 +36,8 @@ public class CuratorSubscriber extends SubscriptionInitiator {
      * This method is called every time a inform message is received,
      * which is not out-of-sequence according to the protocol rules.
      * Updates the datastore with new curators.
-     * @param inform
+     *
+     * @param inform message received from the subscription that indicates that a new service matching service was found.
      */
     @Override
     protected void handleInform(ACLMessage inform) {

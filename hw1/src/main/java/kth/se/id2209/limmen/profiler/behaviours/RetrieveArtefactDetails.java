@@ -17,7 +17,8 @@ import java.util.Vector;
 /**
  *
  * Behaviour that interacts with the user after a virtualtour have been received by a tourguide.
- * The behaviour lets the user 1. view his profile 2. view the tour 3. visit artifacts in the tour
+ * The behaviour lets the user 1. view his profile 2. view the tour 3. visit artifacts in the tour 4. go back to search
+ * for another tour guide.
  *
  * @author Kim Hammar on 2016-11-09.
  */
@@ -73,10 +74,9 @@ public class RetrieveArtefactDetails extends AchieveREInitiator {
         try {
             Artifact artifact = (Artifact) inform.getContentObject();
             ((ProfilerAgent) myAgent).getUserProfile().addVisitedArtifact(artifact);
-            System.out.println();
             System.out.println("Retrieved information: ");
             System.out.println(artifact.toString());
-            System.out.println();
+            System.out.println("------------------------------------------------------------------------------------------------------------------");
         } catch (UnreadableException e) {
             e.printStackTrace();
         }

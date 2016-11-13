@@ -22,14 +22,12 @@ public class SelectTourGuide extends OneShotBehaviour {
      */
     @Override
     public void action() {
-        System.out.println("select tourguide");
         ArrayList<TourGuide> foundTourGuides =  (ArrayList<TourGuide>) getDataStore().get(TourGuideMatcher.TOUR_GUIDES);
         while (true) {
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Found The following TourGuides");
             System.out.println("------------------------------------------------------------------------------------------------------------------");
-            System.out.println("TourGuides found that match your interest '" + ((ProfilerAgent) myAgent).getUserProfile().getInterest() + "'");
-            System.out.println();
+            System.out.println("Found The following TourGuides");
+            System.out.println("TourGuides found that match your interest '" + ((ProfilerAgent) myAgent).getUserProfile().getInterest() + "':");
             int num = 0;
             for (TourGuide tourGuide : foundTourGuides) {
                 if (tourGuide.getSupportedInterests().contains(((ProfilerAgent) myAgent).getUserProfile().getInterest())) {
@@ -41,7 +39,6 @@ public class SelectTourGuide extends OneShotBehaviour {
                 System.out.println("-");
             int prevNum = num;
             System.out.println("Other tourguides found: ");
-            System.out.println();
             for (TourGuide tourGuide : foundTourGuides) {
                 if (!tourGuide.getSupportedInterests().contains(((ProfilerAgent) myAgent).getUserProfile().getInterest())) {
                     System.out.println(num + " : " + tourGuide.toString());
@@ -59,7 +56,6 @@ public class SelectTourGuide extends OneShotBehaviour {
                     getDataStore().put(TOUR_GUIDE, foundTourGuides.get(input).getTourGuide());
                     break;
                 } else if (input == -1) {
-                    System.out.println("input = -1");
                     break;
                 } else {
                     System.out.println("That is not a valid selection, need to be an integer between (inclusive) " + 0 + " and " + num);

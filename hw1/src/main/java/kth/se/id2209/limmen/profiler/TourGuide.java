@@ -20,9 +20,9 @@ public class TourGuide {
 
     @Override
     public String toString(){
-        String string = tourGuide.getName() + " Supported Interests: \n";
+        String string = tourGuide.getName() + "   |   Supported Interests: ";
         for(String interest : supportedInterests){
-            string = string + interest + "\n";
+            string = string + interest + " ";
         }
         return  string;
     }

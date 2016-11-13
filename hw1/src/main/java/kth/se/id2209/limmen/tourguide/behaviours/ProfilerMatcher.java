@@ -9,18 +9,14 @@ import jade.lang.acl.MessageTemplate;
 import jade.proto.AchieveREResponder;
 
 /**
- * Behaviour that waits for proposals from profiler-agents. The proposals indicate what kind of tours that the
- * profiler is interested in, this behaviour is linked to the FindSupportedInterests behaviour that will collect a
- * list of supported interests, and if there is a match with the profiler's interest, accept the proposal, otherwise
- * reject.
+ * Behaviour that waits for requests of which genres this agent can build tours of from profiler-agents.
+ * This behaviour is linked to the FindSupportedInterests behaviour that will collect a
+ * list of supported interests, and send it as a response to the requester.
  *
  * @author Kim Hammar on 2016-11-09.
  */
 
 public class ProfilerMatcher extends AchieveREResponder {
-
-    protected static String RESULT_KEY;
-    protected static String REQUESTER;
 
     /**
      * Class constructor that initializes the behaviour.
@@ -31,8 +27,6 @@ public class ProfilerMatcher extends AchieveREResponder {
      */
     public ProfilerMatcher(Agent a, MessageTemplate mt, DataStore store) {
         super(a, mt, store);
-        RESULT_KEY = RESULT_NOTIFICATION_KEY;
-        REQUESTER = REQUEST_KEY;
     }
 
     /**
@@ -48,12 +42,10 @@ public class ProfilerMatcher extends AchieveREResponder {
      */
     protected ACLMessage handleRequest(ACLMessage request) throws NotUnderstoodException, RefuseException {
         if(request.getPerformative() == ACLMessage.QUERY_REF && request.getContent().equals("interest")){
-            System.out.println("agree");
             ACLMessage reply = request.createReply();
             reply.setPerformative(ACLMessage.AGREE);
             return reply;
         }else {
-            System.out.println("notunderstoodexception: " + ACLMessage.getPerformative(request.getPerformative()) + " " + request.getContent());
             throw new NotUnderstoodException("Expected performative: QUERY_REF and context: 'interest' ");
         }
     }

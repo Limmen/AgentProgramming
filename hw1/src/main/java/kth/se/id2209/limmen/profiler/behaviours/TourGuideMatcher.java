@@ -14,8 +14,7 @@ import java.util.Date;
 import java.util.Vector;
 
 /**
- * Behaviour that sends proposals to all tourguides identified at the yellow pages and checks if they offer
- * tours with matching interests.
+ * Behaviour that sends requests to all tourguides identified at the yellow pages and checks what type of tours they offer.
  *
  * @author Kim Hammar on 2016-11-09.
  */
