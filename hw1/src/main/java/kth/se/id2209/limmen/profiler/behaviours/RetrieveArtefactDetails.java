@@ -93,6 +93,21 @@ public class RetrieveArtefactDetails extends AchieveREInitiator {
     protected void handleRefuse(ACLMessage refuse) {
         System.out.println("Could not retrieve the necessary information at the registered curator");
         System.out.println("Reason: " + refuse.getContent());
+        System.out.println("------------------------------------------------------------------------------------------------------------------");
+    }
+
+    /**
+     * This method is called every time a failure message is received,
+     * which is not out-of-sequence according to the protocol rules.
+     * For example if the curator that monitors the artifact have crashed or is no longer available for some reason
+     * this method will be invoked
+     *
+     * @param failure failure message.
+     */
+    protected void handleFailure(ACLMessage failure){
+        System.out.println("Could not retrieve the necessary information at the registered curator");
+        System.out.println("Reason: failed to contact the curator of the artifact, it might be that the curator is no longer available");
+        System.out.println("------------------------------------------------------------------------------------------------------------------");
     }
 
     /**

@@ -45,13 +45,13 @@
 Distributed Artifical Intelligence and Intelligent Agents \hfill \\
 
 \section*{Problem Statement}
-The given task was to implement a very basic MultiAgentSystem (M.A.S) in the JAVA Agent Development Framework (JADE) \citep{jade}, with the purpose of getting hands on experience with agent platforms and in particular the JADE agent platform. The assignment was also designed in a way to give experience programming agents in the context of a \textit{practical scenario}.
+The given task was to implement a very basic MultiAgentSystem (M.A.S) using the JAVA Agent Development Framework (JADE) \citep{jade}, with the purpose of getting hands on experience with agent platforms and in particular the JADE agent platform. The assignment was also designed in a way to give experience programming agents in the context of a \textit{practical scenario}.
 
 \section*{Main problems and solutions}
 \begin{itemize}
 \item \textit{Connecting agents through a platform that can be used for interaction and service discovery}
 
-The JADE framework provides among other things a runtime environment, where JADE agents can ``live''. The agents in the M.A.S for this assignment are distributed on different JADE containers that all are connected to a single platform, which enable the agents to utilize the JADE runtime environment to find and interact with each other.
+The JADE framework provides, among other things, a runtime environment where JADE agents can ``live''. The agents in the M.A.S for this assignment are distributed on different JADE containers that all are connected to a single platform, which enable the agents to utilize the JADE runtime environment to find and interact with each other.
 
 \item \textit{Agent design (micro perspective): designing agents that can act autonomously in a given environment and make decisions.}
 
@@ -62,7 +62,7 @@ The Foundation for Intelligent Physical Agents (FIPA) is used as the main Agent 
 \end{itemize}
 
 \subsection*{Connecting Agents}
-We refer to each running instance of JADE runtime environment as a Container, which can contain zero or more agents. The set of active containers is called a Platform and each platform have one container that is a special \textit{main container} \citep{jade_tutorial}. The most important aspect of the main container is to connect other containers together and to provide two important services: \textbf{AMS and DF}, AMS (Agent Management System) is a naming service that ensures that each agent in the platform has a unique name. DF (Directory Facilitator) aka ``The Yellow Pages'' is a service where agents can \textit{register} as providers of certain services and where agents can \textit{search} for providers of specific services. 
+We refer to each running instance of JADE runtime environment as a Container, which can contain zero or more agents. The set of active containers is called a Platform and each platform have one container that is a special \textit{main container} \citep{jade_tutorial}. The most important aspect of the main container is to connect other containers together and to provide two essential services: \textbf{AMS and DF}, AMS (Agent Management System) is a naming service that ensures that each agent on the platform has a unique name. DF (Directory Facilitator) aka ``The Yellow Pages'' is a service where agents can \textit{register} as providers of certain services and where agents can \textit{search} for providers of specific services. 
 
 When running the M.A.S for this assignment the typical setup is to use $4$ containers:
 \begin{enumerate}[I]
@@ -96,7 +96,7 @@ There are three different types of agents in this system,
 \begin{itemize}
 \item A \texttt{FSMBehaviour} consisting of $7$ states and $10$ different state transitions. The states are:
 \begin{itemize}
-\item \texttt{INITIALIZE\_USER\_PROFILE} - An \texttt{OneShotBehaviour} that interacts with the user for initializing the user profile (only invoked if command-line aguments were not supplied)
+\item \texttt{INITIALIZE\_USER\_PROFILE} - An \texttt{OneShotBehaviour} that interacts with the user for initializing the user profile (only invoked if command-line aguments wasn't supplied)
 \item \texttt{SEARCH\_TOURGUIDES\_STATE} - An \texttt{OneShotBehaviour} that queries the DF for a list of all agents that provide the \texttt{virtualtour} service.
 \item \texttt{FIND\_MATCHING\_TOUR\_GUIDES\_STATE} - An \texttt{AchieveREInitiator} that sends request-queries to all found TourGuideAgents asking what type of tours they provide.
 \item \texttt{SELECT\_TOURGUIDE\_STATE} - An \texttt{OneShotBehaviour} for presenting the found tourguides and the types of tours they offer to the user and letting the user choose a tourguide.
@@ -120,12 +120,12 @@ From the presentation of the agent designs it should be clear that they need to 
 \begin{description}
 \item[query-ref] Used by one agent to determine the specific value for an expression \citep{coursebook}, for example when a profiler agent queries tour guides for the types of virtual tours they support.
 \item[request] Allows an agent to request another agent to perform some action \citep{coursebook}, for example when a profiler agent requests a tourguide agent to build a virtual tour for a specific interest.
-\item[agree] Used to indicate that the agent has agreed a request made by another agent \citep{coursebook}, for example when a tourguide receivs a request to build a virtual tour it responds with a message with this performative before actually building the tour.
+\item[agree] Used to indicate that the agent has agreed a request made by another agent \citep{coursebook}, for example when a tourguide receivs a request to build a virtual tour it responds with a message with this performative \underline{before} actually building the tour.
 \item[inform] Basic performative for communicating information \citep{coursebook}, used for example by an tourguide agent to inform a profiler \underline{after} having successfully built a virtual tour upon request.
 \item[failure] Indicates that an attempt to perform some action failed \citep{coursebook}, used by tourguide agents to respond to profilers if they fail to build a virtual tour (for example if curators did not respond).
 \end{description}
 \section*{Conclusions}
-Building a M.A.S consisting of autonomous agents that interact with each other is different to building ``regular'' distributed systems. In this assignment the agents were \textit{benevolent} towards each other which eased the development quite abit, since there were no need to be concerned about negotiations and agent-strategies. The main hurdle to overcome when developing this M.A.S as opposed to regular distributed systems was to understand how the agents interact through performative verbs, JADE libraries were useful in this aspect.
+Building a M.A.S consisting of autonomous agents that interact with each other is different to building ``regular'' distributed systems. In this assignment the agents were \textit{benevolent} towards each other which eased the development quite abit, since there were no need to be concerned about negotiations to solve conflicts. The main hurdle to overcome when developing this M.A.S as opposed to regular distributed systems was to understand how the agents interact through performative verbs, JADE libraries and predefined behaviours were useful in this aspect.
 
 \section*{Attachments}
 Documented source code can be found in the attached zipfile. See README.MD in the root directory for instruction on how to execute and build the program.
