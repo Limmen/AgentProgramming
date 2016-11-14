@@ -22,7 +22,7 @@ public class SelectTourGuide extends OneShotBehaviour {
      */
     @Override
     public void action() {
-        ArrayList<TourGuide> foundTourGuides =  (ArrayList<TourGuide>) getDataStore().get(TourGuideMatcher.TOUR_GUIDES);
+        ArrayList<TourGuide> foundTourGuides = (ArrayList<TourGuide>) getDataStore().get(TourGuideMatcher.TOUR_GUIDES);
         while (true) {
             Scanner scanner = new Scanner(System.in);
             System.out.println("------------------------------------------------------------------------------------------------------------------");
@@ -48,7 +48,7 @@ public class SelectTourGuide extends OneShotBehaviour {
             if (num == prevNum)
                 System.out.println("-");
             System.out.println("------------------------------------------------------------------------------------------------------------------");
-            System.out.println("Select the tourguide you want to request a virtual tour by entering the corresponding number or enter '-1' to search again");
+            System.out.println("Select the tourguide you want to request a virtual tour by entering the corresponding number or enter '-1' to search again or enter '-2' to update your interest");
             try {
                 int input = Integer.parseInt(scanner.nextLine());
                 if (input >= 0 && input <= num) {
@@ -56,6 +56,11 @@ public class SelectTourGuide extends OneShotBehaviour {
                     getDataStore().put(TOUR_GUIDE, foundTourGuides.get(input).getTourGuide());
                     break;
                 } else if (input == -1) {
+                    break;
+                } else if (input == -2) {
+                    System.out.println("Enter your new interest below:");
+                    String interest = scanner.nextLine();
+                    ((ProfilerAgent) myAgent).getUserProfile().setInterest(interest);
                     break;
                 } else {
                     System.out.println("That is not a valid selection, need to be an integer between (inclusive) " + 0 + " and " + num);

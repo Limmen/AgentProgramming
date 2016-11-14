@@ -79,7 +79,7 @@ public class BuildVirtualTour extends AchieveREInitiator {
             }
         } else{
             reply.setPerformative(ACLMessage.FAILURE);
-            reply.setContent("Failed to retrieve virtual tour from art-curators. Please try again later");
+            reply.setContent("Failed to retrieve virtual tour from art-curators matching the given interest. Please try again later");
         }
         getDataStore().put(virtualTourServer.RESULT_NOTIFICATION_KEY, reply);
     }

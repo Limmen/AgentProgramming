@@ -95,4 +95,6 @@ running multiple tourguide agents (names will have attached counter-ids)
 `./tourguide.sh` (hostname of main container) (agent basename) (number of agents)
 
 
+## Author
 
+Kim Hammar  <kimham@kth.se>
