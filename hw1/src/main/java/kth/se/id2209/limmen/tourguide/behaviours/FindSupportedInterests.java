@@ -55,7 +55,7 @@ public class FindSupportedInterests extends AchieveREInitiator {
             try {
                 ArrayList<String> supportedInterests = new ArrayList();
                 supportedInterests.add("-");
-                reply.setContentObject(new ArrayList<String>());
+                reply.setContentObject(supportedInterests);
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -32,7 +32,7 @@ public class Artifact implements Serializable {
         String creationDateString = "null";
         if(creationDate != null)
             creationDateString = creationDate.toString();
-        return "" + id + " " + name + " " + creator + " " + creationDateString + " " + placeOfCreation + " " + genre;
+        return "id: " + id + " | name: " + name + " | creator: " + creator + " | creation-date: " + creationDateString + " | place of creation: " + placeOfCreation + " | genre: " + genre;
     }
 
     @Override

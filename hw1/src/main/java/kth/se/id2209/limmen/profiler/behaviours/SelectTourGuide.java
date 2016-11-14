@@ -51,13 +51,15 @@ public class SelectTourGuide extends OneShotBehaviour {
             System.out.println("Select the tourguide you want to request a virtual tour by entering the corresponding number or enter '-1' to search again or enter '-2' to update your interest");
             try {
                 int input = Integer.parseInt(scanner.nextLine());
-                if (input >= 0 && input <= num) {
+                if (input >= 0 && input <= num && foundTourGuides.size() > 0) {
                     foundMatchingTourGuide = true;
                     getDataStore().put(TOUR_GUIDE, foundTourGuides.get(input).getTourGuide());
                     break;
                 } else if (input == -1) {
+                    foundMatchingTourGuide = false;
                     break;
                 } else if (input == -2) {
+                    foundMatchingTourGuide = false;
                     System.out.println("Enter your new interest below:");
                     String interest = scanner.nextLine();
                     ((ProfilerAgent) myAgent).getUserProfile().setInterest(interest);

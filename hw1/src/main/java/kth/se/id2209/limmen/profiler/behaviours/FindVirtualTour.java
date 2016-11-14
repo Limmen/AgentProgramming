@@ -68,6 +68,7 @@ public class FindVirtualTour extends AchieveREInitiator {
             System.out.println("------------------------------------------------------------------------------------------------------------------");
             System.out.println("Virtual Tour completed by agent: " + inform.getSender().getName());
             System.out.println("------------------------------------------------------------------------------------------------------------------");
+            success = true;
         } catch (UnreadableException e) {
             e.printStackTrace();
         }
@@ -80,7 +81,9 @@ public class FindVirtualTour extends AchieveREInitiator {
      * @param failure
      */
     protected void handleFailure(ACLMessage failure) {
+        System.out.println("------------------------------------------------------------------------------------------------------------------");
         System.out.println("Failed to find a virtual tour, reason: " + failure.getContent());
+        System.out.println("------------------------------------------------------------------------------------------------------------------");
         success = false;
     }
 

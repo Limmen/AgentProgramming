@@ -32,6 +32,14 @@ public class BuildVirtualTour extends AchieveREInitiator {
     protected Vector prepareRequests(ACLMessage request) {
         request = new ACLMessage(ACLMessage.REQUEST);
         ArrayList<DFAgentDescription> curators = (ArrayList<DFAgentDescription>) getDataStore().get(CuratorSubscriber.CURATORS);
+        if (curators.size() == 0) {
+            ACLMessage query = ((ACLMessage) getDataStore().get(virtualTourServer.REQUEST_KEY));
+            ACLMessage reply = query.createReply();
+            reply.setPerformative(ACLMessage.FAILURE);
+            reply.setContent("Failed to retrieve virtual tour from art-curators matching the given interest. Please try again later");
+            getDataStore().put(virtualTourServer.RESULT_NOTIFICATION_KEY, reply);
+            return null;
+        }
         for(DFAgentDescription curator : curators){
             request.addReceiver(curator.getName());
         }

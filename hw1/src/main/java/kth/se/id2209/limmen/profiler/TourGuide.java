@@ -22,7 +22,7 @@ public class TourGuide {
     public String toString(){
         String string = tourGuide.getName() + "   |   Supported Interests: ";
         for(String interest : supportedInterests){
-            string = " | " +string + interest;
+            string = string + " | " + interest;
         }
         return  string;
     }
