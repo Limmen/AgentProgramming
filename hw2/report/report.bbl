@@ -1,0 +1,22 @@
+\begin{thebibliography}{1}
+
+\bibitem{jade_tutorial}
+Giovanni Caire.
+\newblock Jade turorial.
+\newblock
+  \url{http://jade.tilab.com/doc/tutorials/JADEProgramming-Tutorial-for-beginners.pdf},
+  2009.
+\newblock [Online; accessed 12-Nov-2016].
+
+\bibitem{jade}
+Telecom Italia.
+\newblock Java agent development framework.
+\newblock \url{http://jade.tilab.com/}, 2016.
+\newblock [Online; accessed 11-Nov-2016].
+
+\bibitem{coursebook}
+Michael Woolridge and Michael~J. Wooldridge.
+\newblock {\em Introduction to Multiagent Systems, 2nd Edition}.
+\newblock John Wiley \& Sons, Inc., New York, NY, USA, 2009.
+
+\end{thebibliography}
