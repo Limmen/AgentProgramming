@@ -45,7 +45,7 @@
 Distributed Artifical Intelligence and Intelligent Agents \hfill \\
 
 \section*{Problem Statement}
-Implementing the FIPA Dutch Auction Interaction Protocol \citep{fipa_dutch} using the JAVA Agent Development Framework (JADE) \citep{jade} and laying out a theoretical model of the the game mechanisms involved in dutch auctions between autonomous self-interested agents. The purpose of the homework was to get further practive in developing MultiAgentSystems (M.A.S) and in particular M.A.S that involves \textit{negotiatons} between agents.
+Implementing the FIPA Dutch Auction Interaction Protocol \citep{fipa_dutch} using the JAVA Agent Development Framework (JADE) \citep{jade} and laying out a theoretical model of the the game mechanisms involved in dutch auctions between autonomous self-interested agents. The purpose of the homework was to get further practice in developing MultiAgentSystems (M.A.S) and in particular M.A.S that involves \textit{negotiatons} between agents.
 
 \section*{Main problems and solutions}
 \begin{itemize}
@@ -59,9 +59,38 @@ Implementing the FIPA Dutch Auction Interaction Protocol \citep{fipa_dutch} usin
 TODO
 \end{itemize}
 
-\subsection*{Implementation}
+\subsection*{Task 1: Implementation}
+\subsubsection*{Agent design}
+Two type agents are used for the dutch auction scenario:
+\begin{itemize} 
+\item \texttt{ArtistManagerAgent} 
 
-\subsection*{Game mechanisms}
+The \texttt{ArtistManagerAgent} is the \textit{auctioneer} in this scenario; it auctions out artifacts from artists through dutch auctions. When carrying out a dutch auction the auctioneer tries to find the market price for a given good, i.e the auctioneer starts out offering the good at some artificially high price and then continously lowers the price for each round until some bidder accepts the price or the price reaches the reserved price. The reserved price is the lowest price that the auctioneer is willing to sell the good for, if no bidder accepts that price then the auction is cancelled and the good is not sold. 
+
+The \texttt{ArtistManagerAgent} is self-interested and wants to sell goods for as high price as possible to increase its personal revenue. For each auction $i$ the  \texttt{ArtistManagerAgent} will select a $\text{strategy }s_i$ consisting of:
+\begin{enumerate}[I]
+\item Initial price
+\item Rate of reduction (i.e how much to lower price from one round to the next one if no buyer was found)
+\item Reserve price
+\end{enumerate}
+Frankly, a self-interested auctioneer with infinite time would put the initial price arbitrary high and the rate of reduction arbitrary low since that would guarantee that the auctioneer would receive the highest price possible for a certain good. However if we assume that the auctioneer to some degree values his time, then he would start the auction at an initial price that is higher than what he expect that good to be sold for, but still within a realistic price-range. Further more, the auctioneer would choose a rate of reduction high enough such that participans in the auction that chose not to bid in a previous round might consider to bid in the next round. 
+
+The best strategy for the auctioneer is the strategy that optimizes the expected revenue. The expected revenue depends on the type of auction as well as the strategies of the bidders. Dutch auction gives best expected revenue if the agents use \textit{risk-averse} strategies.
+
+\item \texttt{CuratorAgent}
+
+The \texttt{CuratorAgent} acts as a \textit{bidder} in this scenario, it receives the current price of each round in the dutch auction and can choose to either bid and accept the price or to ignore the price (i.e not bid). The agent is self-interested and wants to obtain artifacts that it is interested in for as low price as possible. 
+
+Typically for each dutch auction $i$ a participating bidder would have a personal valuation of the good that is being auctioned and then follow a $\text{strategy }s_i$ that decides when to bid and when not to bid. The agent could be \textit{risk-neutral} and bid for the auction at the first round with an announced price less than or equal to its private valuation. The agent could also be \textit{risk-averse}, if the true value of some good is unknown an agent might be willing to bid higher than its private valuation. Or the agent could be \textit{risk-inclined} and try to obtain the good for a price lower than its private valuation. 
+
+The essential thing here is that the best strategy for a particular \texttt{CuratorAgent} depends on what strategies the auctioneer and other bidders choose. For instance if a curator agent knows that the auctioneer has a reserved price far lower than its own valuation of the good and that the other bidders will not bid unless the price reaches some even lower value, then the best strategy for the agent is to be \textit{risk-inclined}. Unless the winner of the auction has complete information about the auctioneer's and the other bidder's strategy then it will always be susceptible to the winner's curse, e.g the agent does'nt know if it should be happy with winning the auction or worried because he might have overvalued the good.
+
+\end{itemize}
+\subsubsection*{Society design}
+The implementation follows the specification of the FIPA Dutch Auction Interaction Protocol \citep{fipa_dutch}, with a minor difference: 
+
+Before each auction the auctioneer (\texttt{ArtistManagerAgent}) sends a proposal for an auction starting, which allows the bidders to choose to participate in the auction or decline, and specifically this allows the bidder to choose a strategy by interacting with the user before each auction. In the specification the start-auction message i an INFORM-message and it is assumed that everyone that receives the message will participate in the auction.
+\subsection*{Task 2: Game mechanisms}
 
 \section*{Conclusions}
 
