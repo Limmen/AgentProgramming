@@ -1,17 +1,14 @@
 package kth.se.id2209.limmen.curator;
 
 import jade.core.Agent;
-import jade.core.behaviours.ParallelBehaviour;
+import jade.core.behaviours.DataStore;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
-import jade.lang.acl.ACLMessage;
-import jade.lang.acl.MessageTemplate;
-import jade.proto.states.MsgReceiver;
-import kth.se.id2209.limmen.curator.behaviours.AuctionRoundServer;
-import kth.se.id2209.limmen.curator.behaviours.AuctionServer;
-import kth.se.id2209.limmen.curator.behaviours.ReceiveBidResult;
+import kth.se.id2209.limmen.curator.behaviours.bidder.BidderBehaviour;
+import kth.se.id2209.limmen.curator.behaviours.bidder.subbehaviours.ChooseStrategy;
+import kth.se.id2209.limmen.curator.model.Strategy;
 
 import java.util.ArrayList;
 
@@ -21,12 +18,9 @@ import java.util.ArrayList;
  * @author Kim Hammar on 2016-11-08.
  */
 public class CuratorAgent extends Agent {
-    public static String AUCTION_RESULT_MSG = "Auction Result Message";
     public static String AUCTION_NAME = "Auction Name";
     public static String AUCTION_VALUATION = "Auction Valuation";
     public static String AUCTION_STRATEGY = "Auction Strategy";
-    public static String AUCTION_ACTIVE = "Auction Active";
-
     private ArrayList<Strategy> strategies = new ArrayList();
 
     /**
@@ -44,22 +38,14 @@ public class CuratorAgent extends Agent {
         /**
          * Create behaviours and set datastores
          */
-        ParallelBehaviour parallelBehaviour = new ParallelBehaviour();
-        AuctionServer auctionServer = new AuctionServer(this, MessageTemplate.MatchOntology("AuctionServer"), parallelBehaviour.getDataStore());
-        AuctionRoundServer roundServer = new AuctionRoundServer(this, MessageTemplate.MatchPerformative(ACLMessage.CFP), parallelBehaviour.getDataStore());
-        ReceiveBidResult receiveBidResult = new ReceiveBidResult(this, MessageTemplate.MatchOntology("Ontology(Class(SelectWinner partial OneShotBehaviour))"), MsgReceiver.INFINITE, parallelBehaviour.getDataStore(), AUCTION_RESULT_MSG);
-
-        /**
-         * Add subbehaviours
-         */
-        parallelBehaviour.addSubBehaviour(auctionServer);
-        parallelBehaviour.addSubBehaviour(roundServer);
-        parallelBehaviour.addSubBehaviour(receiveBidResult);
-
+        DataStore dataStore = new DataStore();
+        ChooseStrategy chooseStrategy = new ChooseStrategy(dataStore);
+        BidderBehaviour bidderBehaviour = new BidderBehaviour(dataStore);
+        addBehaviour(chooseStrategy);
         /**
          * Add behaviour
          */
-        addBehaviour(parallelBehaviour);
+        addBehaviour(bidderBehaviour);
 
     }
 
