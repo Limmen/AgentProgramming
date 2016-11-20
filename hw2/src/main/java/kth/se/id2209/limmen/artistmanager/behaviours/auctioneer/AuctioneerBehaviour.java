@@ -4,6 +4,8 @@ import jade.core.behaviours.FSMBehaviour;
 import kth.se.id2209.limmen.artistmanager.behaviours.auctioneer.subbehaviours.*;
 
 /**
+ * Behaviour of an auctioneer in a dutch auction.
+ *
  * @author Kim Hammar on 2016-11-19.
  */
 public class AuctioneerBehaviour extends FSMBehaviour {
@@ -16,6 +18,9 @@ public class AuctioneerBehaviour extends FSMBehaviour {
     private static final String CLOSE_AUCTION_STATE = "Close auction";
     private static final String SELECT_WINNER_STATE = "Select winner";
 
+    /**
+     * Class constructor that initializes the behaviour by setting up the different states and transitions.
+     */
     public AuctioneerBehaviour() {
         /**
          * Create behaviours and set datastores

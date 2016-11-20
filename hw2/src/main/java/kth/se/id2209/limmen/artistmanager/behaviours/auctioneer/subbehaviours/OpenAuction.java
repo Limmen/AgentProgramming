@@ -7,6 +7,8 @@ import kth.se.id2209.limmen.artistmanager.ArtistManagerAgent;
 import kth.se.id2209.limmen.artistmanager.model.Auction;
 
 /**
+ * Behaviour for sending an INFORM message stating that an auction is starting.
+ *
  * @author Kim Hammar on 2016-11-19.
  */
 public class OpenAuction extends OneShotBehaviour {

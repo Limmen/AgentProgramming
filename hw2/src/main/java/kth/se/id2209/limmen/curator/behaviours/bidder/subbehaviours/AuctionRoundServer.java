@@ -17,6 +17,9 @@ import java.io.InputStreamReader;
  */
 public class AuctionRoundServer extends CyclicBehaviour {
 
+    /**
+     * Main action of the behaviour, receives CFP's and takes the appropriate action.
+     */
     @Override
     public void action() {
         MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.CFP);
@@ -45,6 +48,12 @@ public class AuctionRoundServer extends CyclicBehaviour {
         }
     }
 
+    /**
+     * Method for choosing a valuation of a good in a new auction.
+     *
+     * @param price initial price of the auction.
+     * @return the agent's valuation of the auction.
+     */
     private double chooseValuation(double price){
         System.out.println("You have not set a valuation for the good of this auction, please enter your valuation below");
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
@@ -57,7 +66,7 @@ public class AuctionRoundServer extends CyclicBehaviour {
 
             if (in.ready()) {
                 valuation = Double.parseDouble(in.readLine());
-                System.out.println("You entered: " + valuation);
+                System.out.println("Your valuation of the good is: " + valuation);
             } else {
                 System.out.println("You did not enter any valuation, using default valuation 50% of initial price: " + valuation);
             }

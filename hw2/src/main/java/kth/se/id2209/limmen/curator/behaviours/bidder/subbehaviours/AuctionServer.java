@@ -7,14 +7,15 @@ import kth.se.id2209.limmen.curator.CuratorAgent;
 
 /**
  * Behaviour for receiving AUCTION-OPEN/AUCTION-CLOSED messages.
- * When joining a new auction this behaviour will ask the user for a strategy for the auction depending on his/hers
- * valuation of the artifact.
  *
  * @author Kim Hammar on 2016-11-17.
  */
 public class AuctionServer extends CyclicBehaviour {
 
 
+    /**
+     * Main action of the behaviour
+     */
     @Override
     public void action() {
         MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM);

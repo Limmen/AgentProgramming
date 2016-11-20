@@ -9,11 +9,20 @@ import kth.se.id2209.limmen.artistmanager.ArtistManagerAgent;
 import java.util.ArrayList;
 
 /**
+ * Behaviour for collecting bids from bidders. This behaviour is invoked timeout-milliseconds after sending out the
+ * CFP.
+ *
  * @author Kim Hammar on 2016-11-19.
  */
 public class CollectBids extends WakerBehaviour {
     private boolean receivedBid = false;
 
+    /**
+     * Class constructor that initializes the behaviour.
+     *
+     * @param a agent running the behaviour
+     * @param timeout timeout before invoking the behaviour.
+     */
     public CollectBids(Agent a, long timeout) {
         super(a, timeout);
     }
@@ -39,6 +48,11 @@ public class CollectBids extends WakerBehaviour {
         }
     }
 
+    /**
+     * Called just before termination of this behaviour.
+     *
+     * @return 0 if a bid was received, otherwise 1
+     */
     public int onEnd() {
         if (receivedBid)
             return 0;

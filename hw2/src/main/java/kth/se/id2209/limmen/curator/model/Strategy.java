@@ -19,7 +19,7 @@ public class Strategy {
 
     @Override
     public String toString(){
-        return "Accept auctioneers price if it is less than or equal to" + percentOfValuation*100 + "% of your valuation";
+        return "Accept auctioneers price if it is less than or equal to " + percentOfValuation*100 + "% of your valuation";
     }
 
     public double getPrice(double valuation){

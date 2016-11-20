@@ -8,7 +8,7 @@ import kth.se.id2209.limmen.artistmanager.model.Auction;
 
 /**
  * Behaviour for closing an ongoing auction. Will send a inform message to all participates informing that the auction
- * is finnished and closed.
+ * is finished and closed.
  *
  * @author Kim Hammar on 2016-11-17.
  */

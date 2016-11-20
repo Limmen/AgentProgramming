@@ -9,6 +9,9 @@ import kth.se.id2209.limmen.curator.behaviours.bidder.subbehaviours.AuctionServe
 import kth.se.id2209.limmen.curator.behaviours.bidder.subbehaviours.ReceiveBidResult;
 
 /**
+ * Behaviour for a bidder in a dutch auction. Parallel behaviour for receiving and acting upon INFORM_AUCTION_OPEN,
+ * INFORM_AUCTION_CLOSE, CFP, ACCEPT_PROPOSAL, REJECT_PROPOSAL
+ *
  * @author Kim Hammar on 2016-11-19.
  */
 public class BidderBehaviour extends ParallelBehaviour {

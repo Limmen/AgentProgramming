@@ -77,21 +77,31 @@ Frankly, a self-interested auctioneer with infinite time would put the initial p
 
 The best strategy for the auctioneer is the strategy that optimizes the expected revenue. The expected revenue depends on the type of auction as well as the strategies of the bidders. Dutch auction gives best expected revenue if the agents use \textit{risk-averse} strategies.
 
+The \texttt{ArtistManagerAgent} is implemented with a \texttt{FSMBehaviour} with all the different states of a dutch auction, i.e: \texttt{FIND\_BIDDERS\_STATE}, \texttt{OPEN\_AUCTION\_STATE}, \texttt{SEND\_CFP\_STATE}, \texttt{COLLECT\_BIDS\_STATE}, \texttt{MODIFY\_PRICE\_STATE}, \texttt{SELECT\_WINNER\_STATE}, \texttt{CLOSE\_AUCTION\_STATE}.
+
 \item \texttt{CuratorAgent}
 
 The \texttt{CuratorAgent} acts as a \textit{bidder} in this scenario, it receives the current price of each round in the dutch auction and can choose to either bid and accept the price or to ignore the price (i.e not bid). The agent is self-interested and wants to obtain artifacts that it is interested in for as low price as possible. 
 
-Typically for each dutch auction $i$ a participating bidder would have a personal valuation of the good that is being auctioned and then follow a $\text{strategy }s_i$ that decides when to bid and when not to bid. The agent could be \textit{risk-neutral} and bid for the auction at the first round with an announced price less than or equal to its private valuation. The agent could also be \textit{risk-averse}, if the true value of some good is unknown an agent might be willing to bid higher than its private valuation. Or the agent could be \textit{risk-inclined} and try to obtain the good for a price lower than its private valuation. 
+Typically for each dutch auction $i$ a participating bidder would have a personal valuation of the good that is being auctioned and then follow a $\text{strategy }s_i$ that decides when to bid and when not to bid. The agent could be \textit{risk-neutral} and bid for the auction at the first round that has an announced price less than or equal to its private valuation. The agent could also be \textit{risk-averse}, if the true value of some good is unknown an agent might be willing to bid higher than its private valuation. Or, the agent could be \textit{risk-inclined} and try to obtain the good for a price lower than its private valuation but with a increased risk of loosing the good to another bidder. 
 
-The essential thing here is that the best strategy for a particular \texttt{CuratorAgent} depends on what strategies the auctioneer and other bidders choose. For instance if a curator agent knows that the auctioneer has a reserved price far lower than its own valuation of the good and that the other bidders will not bid unless the price reaches some even lower value, then the best strategy for the agent is to be \textit{risk-inclined}. Unless the winner of the auction has complete information about the auctioneer's and the other bidder's strategy then it will always be susceptible to the winner's curse, e.g the agent does'nt know if it should be happy with winning the auction or worried because he might have overvalued the good.
+The essential thing here is that the best strategy for a particular \texttt{CuratorAgent} depends on what strategies the auctioneer and other bidders choose. For instance if a curator agent knows that the auctioneer has a reserved price far lower than its own valuation of the good and that the other bidders will not bid unless the price reaches some even lower value, then the best strategy for the agent is to be \textit{risk-inclined}. Unless the winner of the auction has complete information about the auctioneer's and the other bidder's strategies then it will always be susceptible to the winner's curse, e.g the agent does'nt know if it should be happy with winning the auction or worried because he might have overvalued the good.
+
+The \texttt{CuratorAgent} is implemented with a \texttt{ParallelBehaviour} for receiving different messages of the FIPA Dutch Auction Interaction Protocol and taking the appropriate action.
 
 \end{itemize}
 \subsubsection*{Society design}
-The implementation follows the specification of the FIPA Dutch Auction Interaction Protocol \citep{fipa_dutch}, with a minor difference: 
-
-Before each auction the auctioneer (\texttt{ArtistManagerAgent}) sends a proposal for an auction starting, which allows the bidders to choose to participate in the auction or decline, and specifically this allows the bidder to choose a strategy by interacting with the user before each auction. In the specification the start-auction message i an INFORM-message and it is assumed that everyone that receives the message will participate in the auction.
+The implementation follows the specification of the FIPA Dutch Auction Interaction Protocol \citep{fipa_dutch} to the full, it uses exactly the same messages and interactions as the specification suggest. In case of multiple, competing and simultaneous bids the first-come-first-served principle is applied.
 \subsection*{Task 2: Game mechanisms}
-
+ \begin{table}[H]
+    \setlength{\extrarowheight}{2pt}
+    \begin{tabular}{*{4}{c|}}
+      \multicolumn{2}{c}{} & \multicolumn{2}{c}{Agent \color{red}$i$}\\\cline{3-4}
+      \multicolumn{1}{c}{} &  & $D$  & $C$ \\\cline{2-4}
+      \multirow{2}*{Agent $j$}  & $D$ & $(4,\color{red}4\color{black})$ & $(4,\color{red}1\color{black})$ \\\cline{2-4}
+      & $C$ & $(1,\color{red}4\color{black})$ & $(1,\color{red}1\color{black})$ \\\cline{2-4}
+    \end{tabular}
+  \end{table}
 \section*{Conclusions}
 
 

@@ -29,6 +29,8 @@ public class CuratorAgent extends Agent {
     @Override
     protected void setup() {
         System.out.println("CuratorAgent " + getAID().getName() + " starting up.");
+        strategies.add(new Strategy(1.5));
+        strategies.add(new Strategy(1.25));
         strategies.add(new Strategy(1));
         strategies.add(new Strategy(0.75));
         strategies.add(new Strategy(0.5));

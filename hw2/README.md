@@ -1,10 +1,10 @@
-# Homework 2 ID2209 - SmartMuseum Multi Agent System
+# Homework 2 ID2209 - Dutch Auction
 
 ## How to run
 
 Example on how you can do a test-run of the M.A.S:
 
-Open up 4 shells/cmds and in perform the following actions in the given order:
+Open up 5 shells/cmds and perform the following actions in the given order:
 
 ---
 
@@ -14,38 +14,42 @@ In the first shell start the maincontainer on localhost port 1099 by typing:
  
 ---
  
-In the second shell start 3 curator agents with name *curator-agent-id* that connects with the main container on localhost port 1099:
+In the second shell start a curator agents with name *curator-agent-1* that connects with the main container on localhost port 1099:
 
 `./curator.sh localhost curator-agent 3`
 
----
-
-In the third shell start 3 tourguide agents with name *tourguide-agent-id* that connects with the main container on localhost port 1099:
-
-`./tourguide.sh localhost tourguide-agent 3`
+Then enter the desired strategy of the agent by picking one of the listed strategies
 
 ---
 
-In the fourth shell start a profiler agent with name *profiler-agent-1* that connects with the main container on localhost port 1099:
+In the third shell start a curator agents with name *curator-agent-2* that connects with the main container on localhost port 1099:
 
-`./profiler.sh localhost profiler-agent-1`
+`./curator.sh localhost curator-agent 3`
+
+Then enter the desired strategy of the agent by picking one of the listed strategies
 
 ---
 
-Now you can interact with the profiler through the profiler shell and do the following:
+In the fourth shell start a curator agents with name *curator-agent-3* that connects with the main container on localhost port 1099:
 
-* Initialize User profile
-* Search for tourguides
-* Select tourguides
-* Receive and print virtual tours from tourguides
-* Visit artifacts in vitual tours
+`./curator.sh localhost curator-agent 3`
 
-You can also add more curators/tourguides/profilers.
+Then enter the desired strategy of the agent by picking one of the listed strategies
 
-**Note**: A default art-gallery is created upon startup which contain arts of the following genres: painting, sculpture, conceptual art, street art, digital art
+---
 
-If you initialize the profiler with other interest than those, you wont find any suited virtual tours. (This can easily be extended in future by making the Curator agent interactive and able to add art-artifacts dynamically.
+In the fifth shell start a artistmanager agent with name *artistmanager-agent-1* that connects with the main container on localhost port 1099:
 
+`./artistmanager.sh localhost artistmanager-agent-1`
+
+Then choose what good to auction and initial price, rate of reduction and reserved price to use
+
+---
+
+For the first CFP received for each auction the curator agent will ask the user to choose a valuation of the good, if no valuation is entered before timeout then a default valuation is chosen. 
+
+When the auction is closed the artistmanager agent will ask you to start a new auction.
+ 
 ## Commands
 
 **build** 
@@ -70,29 +74,17 @@ running multiple curator agents (names will have attached counter-ids)
 
 `./curator.sh` (hostname of main container) (agent basename) (number of agents)
 
-**run single profiler agent(s) on a container**
+**run artistmanager agent(s) on a container**
 
-`./profiler.sh` 
+`./artistmanager.sh`
 
-running profiler with arguments (otherwise default values are chosen):
+running artistmanager with arguments (otherwise default values are chosen):
 
-`./profiler.sh` (hostname of main container) (agentname)
+`./artistmanager.sh` (hostname of main container) (agentname)
 
-running multiple profiler agents (names will have attached counter-ids)
+running multiple artistmanager agents (names will have attached counter-ids)
 
-`./profiler.sh` (hostname of main container) (agent basename) (number of agents)
-
-**run single tourguide agent(s) on a container**
-
-`./tourguide.sh`
-
-running tourguide with arguments (otherwise default values are chosen):
-
-`./tourguide.sh` (hostname of main container) (agentname)
-
-running multiple tourguide agents (names will have attached counter-ids)
-
-`./tourguide.sh` (hostname of main container) (agent basename) (number of agents)
+`./artistmanager.sh` (hostname of main container) (agent basename) (number of agents)
 
 
 ## Author

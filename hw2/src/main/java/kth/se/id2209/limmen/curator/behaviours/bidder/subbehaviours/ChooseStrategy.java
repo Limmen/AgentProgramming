@@ -9,14 +9,24 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
+ * Behaviour for interacting with the user and choosing a strategy
+ *
  * @author Kim Hammar on 2016-11-19.
  */
 public class ChooseStrategy extends OneShotBehaviour {
 
+    /**
+     * Class constructor, initializes the behaviour by setting the datastore.
+     *
+     * @param dataStore datastore for communicating with other behaviours
+     */
     public ChooseStrategy(DataStore dataStore) {
         setDataStore(dataStore);
     }
 
+    /**
+     * Main action of the behaviour
+     */
     @Override
     public void action() {
         Scanner scanner = new Scanner(System.in);
