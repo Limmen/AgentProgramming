@@ -37,6 +37,7 @@
 \usepackage{comment} % enables the use of multi-line comments (\ifx \fi) 
 \usepackage{lipsum} %This package just generates Lorem Ipsum filler text. 
 \usepackage{fullpage} % changes the margin
+\usepackage{soul}
 
 \begin{document}
 \noindent
@@ -52,11 +53,11 @@ Implementing the FIPA Dutch Auction Interaction Protocol \citep{fipa_dutch} usin
 \item \textit{Implementing the FIPA dutch action protocol in JADE}
 \begin{itemize}
 \item Agent design - Designing and implementing auctioneer and bidder agents.
-\item Society design - Implementing  the interactions of the protocol as defined by the specification \citep{fipa_dutch}.
+\item Society design - Implementing the interactions of the protocol as defined by the specification \citep{fipa_dutch}.
 \end{itemize}
-\item \textit{Constructing a theoretical model of the game mechanisms of dutch auctions and evaluating it}
+\item \textit{Establish a theoretical model for a specific scenario and apply concepts from game theory}
 
-TODO
+All possible strategies for the agents were considered to find which strategies are in Nash equilibrium.
 \end{itemize}
 
 \subsection*{Task 1: Implementation}
@@ -93,17 +94,92 @@ The \texttt{CuratorAgent} is implemented with a \texttt{ParallelBehaviour} for r
 \subsubsection*{Society design}
 The implementation follows the specification of the FIPA Dutch Auction Interaction Protocol \citep{fipa_dutch} to the full, it uses exactly the same messages and interactions as the specification suggest. In case of multiple, competing and simultaneous bids the first-come-first-served principle is applied.
 \subsection*{Task 2: Game mechanisms}
+To find a \textit{pure-strategy} nash equilibrium we consider each possible combination of strategies, and for each combination we check whether this combination forms a best response for every agent.
+\begin{description}
+\item[Agents] \hfill \\
+$Agents = \{\text{ProfilerAgent (PA), ArtistManagerAgent (AMA), CuratorAgent (CA)}\}$
+
+\item[Actions] \hfill \\
+$Ac_{AMA} = \{\text{sell-high-quality (HQ), sell-low-quality (LQ)}\}$\\
+$Ac_{CA} = \{\text{quote-based-on-demand (QD), quote-based-on-interest (QI)}\}$\\
+$Ac_{PA} = \{\text{buy (B), not-buy (NB)}\}$
+
+\item[Outcomes]\hfill\\
+$3$ agents having $2$ distinct actions each means $2^3 = 8$ different combinations of actions and outcomes.
+ 
+$\Omega = \{\omega_1, \omega_2, \omega_3, \omega_4, \omega_5, \omega_6, \omega_7, \omega_8\}$
+
+\item[Environment function] \hfill\\
+The outcomes depend on the \textit{combination} of actions performed by the different agents, which can be modelled with an \textit{environment function} $\tau$. 
+
+$\tau(HQ, QD, B) = \omega_1 \quad \tau(HQ, QD, NB) = \omega_2 \quad \tau(HQ, QI, N) = \omega_3$\\
+$\tau(HQ, QI, NB) = \omega_4 \quad \tau(LQ, QD, B) = \omega_5 \quad \tau(LQ, QD, NB) = \omega_6$\\
+$\tau(LQ, QI, B) = \omega_7 \quad \tau(LQ, QI, NB) = \omega_8$
+
+\item[Utility functions] \hfill\\
+The utility function $u_i$ maps outcomes to utility for Agent $i$. The utillities are based on the assumptions listed in the assignment.
+
+\textbf{ArtistManagerAgent}\\
+$u_{AMA}(\omega_1) = 1 \quad u_{AMA}(\omega_2) = -2 \quad u_{AMA}(\omega_3) = 1 \quad u_{AMA}(\omega_4) = -2$ \\
+$u_{AMA}(\omega_5) = 2 \quad u_{AMA}(\omega_6) = -1 \quad u_{AMA}(\omega_7) = 2 \quad u_{AMA}(\omega_8) = -1$
+
+Preference ordering of ArtistManagerAgent for the different outcomes:\\
+$\{\omega_5, \omega_7\}\prec_{AMA} \{\omega_1, \omega_3\} \prec_{AMA} \{\omega_6, \omega_8\} \prec_{AMA} \{\omega_2, \omega_4\}$
+
+\textbf{CuratorAgent}\\
+$u_{CA}(\omega_1) = 1 \quad u_{CA}(\omega_2) = 1 \quad u_{CA}(\omega_3) = 1 \quad u_{CA}(\omega_4) = 1$ \\
+$u_{CA}(\omega_5) = 1 \quad u_{CA}(\omega_6) = 1 \quad u_{CA}(\omega_7) = 1 \quad u_{CA}(\omega_8) = 1$
+
+\textbf{ProfilerAgent}\\
+$u_{PA}(\omega_1) = 2 \quad u_{PA}(\omega_2) = 0 \quad u_{PA}(\omega_3) = 2 \quad u_{PA}(\omega_4) = 0$ \\
+$u_{PA}(\omega_5) = 1 \quad u_{PA}(\omega_6) = 0 \quad u_{PA}(\omega_7) = 1 \quad u_{PA}(\omega_8) = 0$
+
+Preference ordering of ProfilerAgent for the different outcomes:\\
+$\{\omega_1, \omega_3\} \prec_{PA} \{\omega_5, \omega_7\} \prec_{PA} \{\omega_2, \omega_4, \omega_6, \omega_8\}$
+
+Since the CuratorAgent cannot affect the outcome and has a role of a simple intermediate point in the buying and selling between $\text{ArtistManagerAgent}$ and $\text{ProfilerAgent}$, we can neglect it in the analysis of strategies and nash equilibriums.
+
+There exists a dominant strategy for the ProfilerAgent, which is to always buy, however there exist no dominant strategy for the ArtistManagerAgent, the bestb strategy for the ArtistManagerAgent depends on the strategy chosen by the ProfilerAgent. The payoff matrix between the agents looks like the following.
+
+\end{description}
+
  \begin{table}[H]
     \setlength{\extrarowheight}{2pt}
     \begin{tabular}{*{4}{c|}}
-      \multicolumn{2}{c}{} & \multicolumn{2}{c}{Agent \color{red}$i$}\\\cline{3-4}
-      \multicolumn{1}{c}{} &  & $D$  & $C$ \\\cline{2-4}
-      \multirow{2}*{Agent $j$}  & $D$ & $(4,\color{red}4\color{black})$ & $(4,\color{red}1\color{black})$ \\\cline{2-4}
-      & $C$ & $(1,\color{red}4\color{black})$ & $(1,\color{red}1\color{black})$ \\\cline{2-4}
+      \multicolumn{2}{c}{} & \multicolumn{2}{c}{\color{red}$\text{ArtistManagerAgent}$}\\\cline{3-4}
+      \multicolumn{1}{c}{} &  & $HQ$  & $LQ$ \\\cline{2-4}
+      \multirow{2}*{$\text{ProfilerAgent}$}  & $B$ & $(2,\color{red}1\color{black})$ & $(1,\color{red}2\color{black})$ \\\cline{2-4}
+      & $NB$ & $(0,\color{red}-2\color{black})$ & $(0,\color{red}-1\color{black})$ \\\cline{2-4}
+    \end{tabular}
+  \end{table}
+
+As the matrix shows, there is a single nash equilibrium, namely the actions: $(B, \color{red}LQ)$. Assuming that ProfilerAgent chooses to buy the good the best strategy for ArtistManagerAgent is to produce/sell a low quality product and likewise assuming that the ArtistManagerAgent chooses to produce/sell a low-quality product the best strategy for the ProfilerAgent is to buy, i.e. neither agent has any incentive to deviate from the equilibrium. Note that the nash equlibrium in this case is also Pareto efficient.
+
+The strategy for finding the nash equilibrium can be done in steps, since there exists a dominant strategy for ProfilerAgent we can exclude all outcomes that are dominated, since in either of the dominated cases the ProfilerAgent would always prefer to choose another strategy, no-matter what strategy ArtistManagerAgent chooses: 
+
+ \begin{table}[H]
+    \setlength{\extrarowheight}{2pt}
+    \begin{tabular}{*{4}{c|}}
+      \multicolumn{2}{c}{} & \multicolumn{2}{c}{\color{red}$\text{ArtistManagerAgent}$}\\\cline{3-4}
+      \multicolumn{1}{c}{} &  & $HQ$  & $LQ$ \\\cline{2-4}
+      \multirow{2}*{$\text{ProfilerAgent}$}  & $B$ & $(2,\color{red}1\color{black})$ & $(1,\color{red}2\color{black})$ \\\cline{2-4}
+      & $NB$ & \st{$(0,\color{red}-2\color{black})$} & \st{$(0,\color{red}-1\color{black})$} \\\cline{2-4}
+    \end{tabular}
+  \end{table}
+Now there are only two combination of strategies to analyze, and we then see that if the ProfilerAgent chooses the strategy to buy then the dominant strategy for ArtistManagerAgent is to produce a low-quality product, so then we get:
+ \begin{table}[H]
+    \setlength{\extrarowheight}{2pt}
+    \begin{tabular}{*{4}{c|}}
+      \multicolumn{2}{c}{} & \multicolumn{2}{c}{\color{red}$\text{ArtistManagerAgent}$}\\\cline{3-4}
+      \multicolumn{1}{c}{} &  & $HQ$  & $LQ$ \\\cline{2-4}
+      \multirow{2}*{$\text{ProfilerAgent}$}  & $B$ & \st{$(2,\color{red}1\color{black})$} & $(1,\color{red}2\color{black})$ \\\cline{2-4}
+      & $NB$ & \st{$(0,\color{red}-2\color{black})$} & \st{$(0,\color{red}-1\color{black})$} \\\cline{2-4}
     \end{tabular}
   \end{table}
 \section*{Conclusions}
+Auctions are mechanisms to reach agreement on the issue of allocating resources between entities and can be used just as well for agents as for humans. Dutch auctions are a special type of auction that is \textit{open-cry descending}, which requires minimal communication between bidder and auctioneer agents to reach agreement on allocating resources.
 
+In a M.A.S with self-interested agents that are operating in the same environment, finding the  \textit{best decision} for each agent in many cases resembles studies from game theory. Concepts like dominant strategies, Pareto efficiency and Nash eqilibrium can often be applied when analyzing interactions between self-interested agents in a M.A.S.
 
 \section*{Attachments}
 Documented source code can be found in the attached zipfile. See README.MD in the root directory for instruction on how to execute and build the program.
