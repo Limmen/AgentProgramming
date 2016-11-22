@@ -62,31 +62,31 @@ All possible strategies for the agents were considered to find which strategies 
 
 \subsection*{Task 1: Implementation}
 \subsubsection*{Agent design}
-Two type agents are used for the dutch auction scenario:
+Two type of agents are used in the dutch auction scenario for this assignment:
 \begin{itemize} 
 \item \texttt{ArtistManagerAgent} 
 
-The \texttt{ArtistManagerAgent} is the \textit{auctioneer} in this scenario; it auctions out artifacts from artists through dutch auctions. When carrying out a dutch auction the auctioneer tries to find the market price for a given good, i.e the auctioneer starts out offering the good at some artificially high price and then continously lowers the price for each round until some bidder accepts the price or the price reaches the reserved price. The reserved price is the lowest price that the auctioneer is willing to sell the good for, if no bidder accepts that price then the auction is cancelled and the good is not sold. 
+The \texttt{ArtistManagerAgent} is the \textit{auctioneer} in this scenario; it auctions out artifacts from artists through dutch auctions. When carrying out a dutch auction the auctioneer tries to find the market price for a given good, i.e. the auctioneer starts out offering the good at some artificially high price and then continously lowers the price for each round until some bidder accepts the price or the price reaches the reserved price. The reserved price is the lowest price that the auctioneer is willing to sell the good for, if no bidder accepts that price then the auction is cancelled and the good is not sold. 
 
 The \texttt{ArtistManagerAgent} is self-interested and wants to sell goods for as high price as possible to increase its personal revenue. For each auction $i$ the  \texttt{ArtistManagerAgent} will select a $\text{strategy }s_i$ consisting of:
 \begin{enumerate}[I]
 \item Initial price
-\item Rate of reduction (i.e how much to lower price from one round to the next one if no buyer was found)
+\item Rate of reduction (i.e. how much to lower price from one round to the next one if no buyer was found)
 \item Reserve price
 \end{enumerate}
 Frankly, a self-interested auctioneer with infinite time would put the initial price arbitrary high and the rate of reduction arbitrary low since that would guarantee that the auctioneer would receive the highest price possible for a certain good. However if we assume that the auctioneer to some degree values his time, then he would start the auction at an initial price that is higher than what he expect that good to be sold for, but still within a realistic price-range. Further more, the auctioneer would choose a rate of reduction high enough such that participans in the auction that chose not to bid in a previous round might consider to bid in the next round. 
 
 The best strategy for the auctioneer is the strategy that optimizes the expected revenue. The expected revenue depends on the type of auction as well as the strategies of the bidders. Dutch auction gives best expected revenue if the agents use \textit{risk-averse} strategies.
 
-The \texttt{ArtistManagerAgent} is implemented with a \texttt{FSMBehaviour} with all the different states of a dutch auction, i.e: \texttt{FIND\_BIDDERS\_STATE}, \texttt{OPEN\_AUCTION\_STATE}, \texttt{SEND\_CFP\_STATE}, \texttt{COLLECT\_BIDS\_STATE}, \texttt{MODIFY\_PRICE\_STATE}, \texttt{SELECT\_WINNER\_STATE}, \texttt{CLOSE\_AUCTION\_STATE}.
+The \texttt{ArtistManagerAgent} is implemented with a \texttt{FSMBehaviour} with all the different states of a dutch auction, i.e.: \texttt{FIND\_BIDDERS\_STATE}, \texttt{OPEN\_AUCTION\_STATE}, \texttt{SEND\_CFP\_STATE}, \texttt{COLLECT\_BIDS\_STATE}, \texttt{MODIFY\_PRICE\_STATE}, \texttt{SELECT\_WINNER\_STATE}, \texttt{CLOSE\_AUCTION\_STATE}.
 
 \item \texttt{CuratorAgent}
 
-The \texttt{CuratorAgent} acts as a \textit{bidder} in this scenario, it receives the current price of each round in the dutch auction and can choose to either bid and accept the price or to ignore the price (i.e not bid). The agent is self-interested and wants to obtain artifacts that it is interested in for as low price as possible. 
+The \texttt{CuratorAgent} acts as a \textit{bidder} in this scenario, it receives the current price of each round in the dutch auction and can choose to either bid and accept the price or to ignore the price (i.e. not bid). The agent is self-interested and wants to obtain artifacts that it is interested in for as low price as possible. 
 
 Typically for each dutch auction $i$ a participating bidder would have a personal valuation of the good that is being auctioned and then follow a $\text{strategy }s_i$ that decides when to bid and when not to bid. The agent could be \textit{risk-neutral} and bid for the auction at the first round that has an announced price less than or equal to its private valuation. The agent could also be \textit{risk-averse}, if the true value of some good is unknown an agent might be willing to bid higher than its private valuation. Or, the agent could be \textit{risk-inclined} and try to obtain the good for a price lower than its private valuation but with a increased risk of loosing the good to another bidder. 
 
-The essential thing here is that the best strategy for a particular \texttt{CuratorAgent} depends on what strategies the auctioneer and other bidders choose. For instance if a curator agent knows that the auctioneer has a reserved price far lower than its own valuation of the good and that the other bidders will not bid unless the price reaches some even lower value, then the best strategy for the agent is to be \textit{risk-inclined}. Unless the winner of the auction has complete information about the auctioneer's and the other bidder's strategies then it will always be susceptible to the winner's curse, e.g the agent does'nt know if it should be happy with winning the auction or worried because he might have overvalued the good.
+The essential thing here is that the best strategy for a particular \texttt{CuratorAgent} depends on what strategies the auctioneer and other bidders choose. For instance if a curator agent knows that the auctioneer has a reserved price far lower than its own valuation of the good and that the other bidders will not bid unless the price reaches some even lower value, then the best strategy for the agent is to be \textit{risk-inclined}. Unless the winner of the auction has complete information about the auctioneer's and the other bidder's strategies then it will always be susceptible to the winner's curse, i.e. the agent does'nt know if it should be happy with winning the auction or worried because he might have overvalued the good.
 
 The \texttt{CuratorAgent} is implemented with a \texttt{ParallelBehaviour} for receiving different messages of the FIPA Dutch Auction Interaction Protocol and taking the appropriate action.
 
@@ -124,7 +124,7 @@ $u_{AMA}(\omega_1) = 1 \quad u_{AMA}(\omega_2) = -2 \quad u_{AMA}(\omega_3) = 1 
 $u_{AMA}(\omega_5) = 2 \quad u_{AMA}(\omega_6) = -1 \quad u_{AMA}(\omega_7) = 2 \quad u_{AMA}(\omega_8) = -1$
 
 Preference ordering of ArtistManagerAgent for the different outcomes:\\
-$\{\omega_5, \omega_7\}\prec_{AMA} \{\omega_1, \omega_3\} \prec_{AMA} \{\omega_6, \omega_8\} \prec_{AMA} \{\omega_2, \omega_4\}$
+$\{\omega_5, \omega_7\}\succ_{AMA} \{\omega_1, \omega_3\} \succ_{AMA} \{\omega_6, \omega_8\} \succ_{AMA} \{\omega_2, \omega_4\}$
 
 \textbf{CuratorAgent}\\
 $u_{CA}(\omega_1) = 1 \quad u_{CA}(\omega_2) = 1 \quad u_{CA}(\omega_3) = 1 \quad u_{CA}(\omega_4) = 1$ \\
@@ -135,11 +135,11 @@ $u_{PA}(\omega_1) = 2 \quad u_{PA}(\omega_2) = 0 \quad u_{PA}(\omega_3) = 2 \qua
 $u_{PA}(\omega_5) = 1 \quad u_{PA}(\omega_6) = 0 \quad u_{PA}(\omega_7) = 1 \quad u_{PA}(\omega_8) = 0$
 
 Preference ordering of ProfilerAgent for the different outcomes:\\
-$\{\omega_1, \omega_3\} \prec_{PA} \{\omega_5, \omega_7\} \prec_{PA} \{\omega_2, \omega_4, \omega_6, \omega_8\}$
+$\{\omega_1, \omega_3\} \succ_{PA} \{\omega_5, \omega_7\} \succ_{PA} \{\omega_2, \omega_4, \omega_6, \omega_8\}$
 
 Since the CuratorAgent cannot affect the outcome and has a role of a simple intermediate point in the buying and selling between $\text{ArtistManagerAgent}$ and $\text{ProfilerAgent}$, we can neglect it in the analysis of strategies and nash equilibriums.
 
-There exists a dominant strategy for the ProfilerAgent, which is to always buy, however there exist no dominant strategy for the ArtistManagerAgent, the bestb strategy for the ArtistManagerAgent depends on the strategy chosen by the ProfilerAgent. The payoff matrix between the agents looks like the following.
+There exists a \textit{dominant} strategy for the ProfilerAgent, which is to always buy, and furthermore there exist a dominant strategy for the ArtistManagerAgent aswell which is to always produce a low quality product (it follows from the assumption in the assignment that the ProfilerAgent does not know the quality of the product until after buying it). The payoff matrix between the agents looks like the following.
 
 \end{description}
 
@@ -153,20 +153,10 @@ There exists a dominant strategy for the ProfilerAgent, which is to always buy, 
     \end{tabular}
   \end{table}
 
-As the matrix shows, there is a single nash equilibrium, namely the actions: $(B, \color{red}LQ)$. Assuming that ProfilerAgent chooses to buy the good the best strategy for ArtistManagerAgent is to produce/sell a low quality product and likewise assuming that the ArtistManagerAgent chooses to produce/sell a low-quality product the best strategy for the ProfilerAgent is to buy, i.e. neither agent has any incentive to deviate from the equilibrium. Note that the nash equlibrium in this case is also Pareto efficient.
+As the matrix shows, there is a single nash equilibrium, namely the actions: $(B, \color{red}LQ)$. Assuming that ProfilerAgent chooses to buy, the best strategy for ArtistManagerAgent is to produce/sell a low quality product and likewise assuming that the ArtistManagerAgent chooses to produce/sell a low-quality product the best strategy for the ProfilerAgent is to buy, i.e. neither agent has any incentive to deviate from the equilibrium. Note that the nash equlibrium in this case is also Pareto efficient.
 
-The strategy for finding the nash equilibrium can be done in steps, since there exists a dominant strategy for ProfilerAgent we can exclude all outcomes that are dominated, since in either of the dominated cases the ProfilerAgent would always prefer to choose another strategy, no-matter what strategy ArtistManagerAgent chooses: 
+The strategy for finding the nash equilibrium is to eliminate dominated outcomes, since there exists a dominant strategy for both of the agents we can exclude all outcomes that are dominated, because in either of the dominated outcomes there is atleast one agent will be better of choosing another strategy, no matter what the other agent chooses. 
 
- \begin{table}[H]
-    \setlength{\extrarowheight}{2pt}
-    \begin{tabular}{*{4}{c|}}
-      \multicolumn{2}{c}{} & \multicolumn{2}{c}{\color{red}$\text{ArtistManagerAgent}$}\\\cline{3-4}
-      \multicolumn{1}{c}{} &  & $HQ$  & $LQ$ \\\cline{2-4}
-      \multirow{2}*{$\text{ProfilerAgent}$}  & $B$ & $(2,\color{red}1\color{black})$ & $(1,\color{red}2\color{black})$ \\\cline{2-4}
-      & $NB$ & \st{$(0,\color{red}-2\color{black})$} & \st{$(0,\color{red}-1\color{black})$} \\\cline{2-4}
-    \end{tabular}
-  \end{table}
-Now there are only two combination of strategies to analyze, and we then see that if the ProfilerAgent chooses the strategy to buy then the dominant strategy for ArtistManagerAgent is to produce a low-quality product, so then we get:
  \begin{table}[H]
     \setlength{\extrarowheight}{2pt}
     \begin{tabular}{*{4}{c|}}

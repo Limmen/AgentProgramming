@@ -21,7 +21,10 @@ public class CloseAuction extends OneShotBehaviour {
     public void action() {
         ACLMessage closeAuctionMsg = new ACLMessage(ACLMessage.INFORM);
         Auction auction = (Auction) getDataStore().get(ArtistManagerAgent.AUCTION);
+        if(auction.getWinner() != null)
         closeAuctionMsg.setContent("Auction for " + auction.getArtifactTitle() + " closed at price: " + auction.getCurrentPrice() + " | winner: " + auction.getWinner().getName().toString());
+        else
+            closeAuctionMsg.setContent("Auction for " + auction.getArtifactTitle() + " closed at price: " + auction.getCurrentPrice() + " | no buyer was found, reached the reserved price");
         closeAuctionMsg.setOntology("closed");
         DFAgentDescription[] bidders = (DFAgentDescription[]) getDataStore().get(ArtistManagerAgent.BIDDERS);
         for (int i = 0; i < bidders.length; i++) {

@@ -38,7 +38,7 @@ public class AuctioneerBehaviour extends FSMBehaviour {
         selectWinner.setDataStore(getDataStore());
         CloseAuction closeAuction = new CloseAuction();
         closeAuction.setDataStore(getDataStore());
-        CollectBids collectBids = new CollectBids(myAgent, 10000);
+        CollectBids collectBids = new CollectBids(myAgent, 4000);
         collectBids.setDataStore(getDataStore());
         SendCFP sendCFP = new SendCFP();
         sendCFP.setDataStore(getDataStore());
