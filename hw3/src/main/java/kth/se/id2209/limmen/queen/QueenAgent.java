@@ -2,14 +2,16 @@ package kth.se.id2209.limmen.queen;
 
 
 import jade.core.Agent;
+import jade.core.behaviours.ParallelBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import kth.se.id2209.limmen.queen.behaviours.QueenBehaviour;
-import kth.se.id2209.limmen.queen.gui.BoardFrame;
 
 /**
+ * Agent that acts as a Queen in a M.A.S that tries to solve the Queens Puzzle
+ *
  * @author Kim Hammar on 2016-11-22.
  */
 public class QueenAgent extends Agent {
@@ -28,13 +30,10 @@ public class QueenAgent extends Agent {
         if (args != null && args.length > 1) {
             id = Integer.parseInt((String) args[0]);
             numberOfAgents = Integer.parseInt((String) args[1]);
-            System.out.println("id is: " + id + " number of agents: " + numberOfAgents);
         }
         registerAtYellowPages(id);
         int[][] board = new int[numberOfAgents][numberOfAgents];
-        BoardFrame boardFrame = new BoardFrame(board);
-
-        QueenBehaviour queenBehaviour = new QueenBehaviour(this, boardFrame, id ,numberOfAgents, board);
+        QueenBehaviour queenBehaviour = new QueenBehaviour(ParallelBehaviour.WHEN_ANY, this, id ,numberOfAgents, board);
         addBehaviour(queenBehaviour);
     }
 
@@ -53,7 +52,7 @@ public class QueenAgent extends Agent {
     }
 
     /**
-     * Register the service as an art-bidder at the "yellow pages" aka the Directory Facilitator (DF)
+     * Register the service as an queen at the "yellow pages" aka the Directory Facilitator (DF)
      * that runs on the platform.
      */
     private void registerAtYellowPages(int id) {
