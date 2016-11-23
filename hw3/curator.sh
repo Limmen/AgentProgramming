@@ -1,6 +1,6 @@
 #!/bin/bash
 
-AGENT_CLASS=kth.se.id2209.limmen.hw3.queen.QueenAgent;
+AGENT_CLASS=kth.se.id2209.limmen.hw3.curator.CuratorAgent;
 
 if [[ "$#" == 2 ]]; then
     HOST=$1
@@ -9,16 +9,16 @@ fi
 
 if [[ "$#" == 1 ]]; then
     HOST=$1
-    AGENT="queen-agent-1"
+    AGENT="curator-agent-1"
 fi
 
 if [[ "$#" == 0 ]]; then
     HOST="localhost"
-    AGENT="queen-agent-1"
+    AGENT="curator-agent-1"
 fi
 
 if [[ "$#" < 3 ]]; then
-    AGENTS="-agents '$AGENT:$AGENT_CLASS(0,1)'"
+    AGENTS="-agents '$AGENT:$AGENT_CLASS()'"
 fi
 
 if [[ "$#" == 3 ]]; then
@@ -27,13 +27,13 @@ if [[ "$#" == 3 ]]; then
     AGENTS="-agents '"
     for i in `seq 1 $3`;
         do
-                AGENTS="$AGENTS$AGENT-$(($i-1)):$AGENT_CLASS($(($i-1)),$3);"
+                AGENTS="$AGENTS$AGENT-$i:$AGENT_CLASS();"
         done
      AGENTS="$AGENTS'"
 fi
 
 if [[ "$#" > 3 ]]; then
-    echo "Usage: $0 (main container host) (number of agents)" >&2
+    echo "Usage: $0 (main container host) (curator agent name) (number of agents)" >&2
     exit 1
 fi
 
