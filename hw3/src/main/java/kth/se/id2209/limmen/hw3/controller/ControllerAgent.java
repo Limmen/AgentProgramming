@@ -1,4 +1,4 @@
-package kth.se.id2209.limmen.hw3.artistmanager;
+package kth.se.id2209.limmen.hw3.controller;
 
 import jade.content.ContentElement;
 import jade.content.lang.sl.SLCodec;

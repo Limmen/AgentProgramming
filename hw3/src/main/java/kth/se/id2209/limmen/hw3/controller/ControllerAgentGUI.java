@@ -1,6 +1,7 @@
-package kth.se.id2209.limmen.hw3.artistmanager;
+package kth.se.id2209.limmen.hw3.controller;
 
 import jade.gui.GuiEvent;
+import kth.se.id2209.limmen.hw3.artistmanager.ArtistManagerAgent;
 import kth.se.id2209.limmen.hw3.curator.CuratorAgent;
 import net.miginfocom.swing.MigLayout;
 

@@ -1,10 +1,12 @@
 package kth.se.id2209.limmen.hw3.artistmanager.behaviours.auctioneer.subbehaviours;
 
+import jade.core.AID;
 import jade.core.behaviours.OneShotBehaviour;
-import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.lang.acl.ACLMessage;
 import kth.se.id2209.limmen.hw3.artistmanager.ArtistManagerAgent;
 import kth.se.id2209.limmen.hw3.artistmanager.model.Auction;
+
+import java.util.ArrayList;
 
 
 /**
@@ -21,14 +23,13 @@ public class OpenAuction extends OneShotBehaviour {
     public void action() {
         ACLMessage closeAuctionMsg = new ACLMessage(ACLMessage.INFORM);
         closeAuctionMsg.setOntology("open");
-        closeAuctionMsg.setContent(((Auction) getDataStore().get(ArtistManagerAgent.AUCTION)).getArtifactTitle());
-        DFAgentDescription[] bidders = (DFAgentDescription[]) getDataStore().get(ArtistManagerAgent.BIDDERS);
-        for (int i = 0; i < bidders.length; i++) {
-            closeAuctionMsg.addReceiver(bidders[i].getName());
+        Auction auction = ((ArtistManagerAgent) myAgent).getAuction();
+        closeAuctionMsg.setContent(auction.getArtifactTitle());
+        ArrayList<AID> bidders = (ArrayList<AID>) getDataStore().get(ArtistManagerAgent.BIDDERS);
+        for(AID aid : bidders){
+            closeAuctionMsg.addReceiver(aid);
         }
         myAgent.send(closeAuctionMsg);
-        System.out.println("------------------------------------------------------------------------------------------------------------------");
-        System.out.println("AUCTION OPENED, good is: " + ((Auction) getDataStore().get(ArtistManagerAgent.AUCTION)).getArtifactTitle());
-        System.out.println("------------------------------------------------------------------------------------------------------------------");
+        ((ArtistManagerAgent) myAgent).updateLog("AUCTION OPENED, good is: " + auction.getArtifactTitle());
     }
 }

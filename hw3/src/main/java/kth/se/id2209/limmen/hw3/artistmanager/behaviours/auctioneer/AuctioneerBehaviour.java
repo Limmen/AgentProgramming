@@ -28,8 +28,6 @@ public class AuctioneerBehaviour extends FSMBehaviour {
          */
         FindBidders findBidders = new FindBidders();
         findBidders.setDataStore(getDataStore());
-        DecideAuctionDetails decideAuctionDetails = new DecideAuctionDetails();
-        decideAuctionDetails.setDataStore(getDataStore());
         OpenAuction openAuction = new OpenAuction();
         openAuction.setDataStore(getDataStore());
         openAuction.setDataStore(getDataStore());
@@ -46,13 +44,12 @@ public class AuctioneerBehaviour extends FSMBehaviour {
         /**
          * Register states of the FSM
          */
-        registerFirstState(decideAuctionDetails, DECIDE_AUCTION_DETAILS_STATE);
-        registerState(findBidders, FIND_BIDDERS_STATE);
+        registerFirstState(findBidders, FIND_BIDDERS_STATE);
         registerState(openAuction, OPEN_AUCTION_STATE);
         registerState(sendCFP, SEND_CFP_STATE);
         registerState(collectBids, COLLECT_BIDS_STATE);
         registerState(modifyPrice, MODIFY_PRICE_STATE);
-        registerState(closeAuction, CLOSE_AUCTION_STATE);
+        registerLastState(closeAuction, CLOSE_AUCTION_STATE);
         registerState(selectWinner, SELECT_WINNER_STATE);
         /**
          * Register transitions between states
@@ -66,6 +63,5 @@ public class AuctioneerBehaviour extends FSMBehaviour {
         registerDefaultTransition(SELECT_WINNER_STATE, CLOSE_AUCTION_STATE);
         registerTransition(MODIFY_PRICE_STATE, SEND_CFP_STATE, 0);
         registerTransition(MODIFY_PRICE_STATE, CLOSE_AUCTION_STATE, 1);
-        registerDefaultTransition(CLOSE_AUCTION_STATE, DECIDE_AUCTION_DETAILS_STATE);
     }
 }

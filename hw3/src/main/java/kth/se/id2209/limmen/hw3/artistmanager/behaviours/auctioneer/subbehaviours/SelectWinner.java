@@ -21,11 +21,11 @@ public class SelectWinner extends OneShotBehaviour {
      */
     @Override
     public void action() {
-        Auction auction = ((Auction) getDataStore().get(ArtistManagerAgent.AUCTION));
+        Auction auction = ((ArtistManagerAgent) myAgent).getAuction();
         ArrayList<ACLMessage> possibleWinners = (ArrayList<ACLMessage>) getDataStore().get(ArtistManagerAgent.WINNERS);
         AID winner = possibleWinners.get(0).getSender();
         auction.setWinner(winner);
-        getDataStore().put(ArtistManagerAgent.AUCTION, auction);
+        ((ArtistManagerAgent) myAgent).setAuction(auction);
         ACLMessage reply = new ACLMessage(ACLMessage.ACCEPT_PROPOSAL);
         reply.setOntology("Ontology(Class(SelectWinner partial OneShotBehaviour))");
         reply.setContent("Your won auction for artifact '" + auction.getArtifactTitle() + "' with a bid of " + auction.getCurrentPrice());
@@ -39,8 +39,6 @@ public class SelectWinner extends OneShotBehaviour {
             reply.addReceiver(loser.getSender());
         }
         myAgent.send(reply);
-        System.out.println("------------------------------------------------------------------------------------------------------------------");
-        System.out.println("AUCTION CLOSED, winner is: " + winner.getName().toString());
-        System.out.println("------------------------------------------------------------------------------------------------------------------");
+        ((ArtistManagerAgent) myAgent).updateLog("AUCTION CLOSED, winner is: " + winner.getName().toString());
     }
 }

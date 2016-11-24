@@ -3,13 +3,16 @@ package kth.se.id2209.limmen.hw3.artistmanager;
 import jade.content.lang.sl.SLCodec;
 import jade.core.AID;
 import jade.core.Location;
+import jade.core.behaviours.DataStore;
 import jade.core.behaviours.ParallelBehaviour;
 import jade.domain.mobility.MobilityOntology;
 import jade.gui.GuiAgent;
 import jade.gui.GuiEvent;
 import kth.se.id2209.limmen.hw3.HW3Agent;
 import kth.se.id2209.limmen.hw3.artgallery.ArtGallery;
+import kth.se.id2209.limmen.hw3.artistmanager.behaviours.auctioneer.AuctioneerBehaviour;
 import kth.se.id2209.limmen.hw3.artistmanager.behaviours.receivecommands.ReceiveCommands;
+import kth.se.id2209.limmen.hw3.artistmanager.model.Auction;
 
 
 /**
@@ -20,7 +23,6 @@ import kth.se.id2209.limmen.hw3.artistmanager.behaviours.receivecommands.Receive
 public class ArtistManagerAgent extends GuiAgent implements HW3Agent {
     private ArtGallery artGallery = new ArtGallery();
     public static String BIDDERS = "Bidders";
-    public static String AUCTION = "Auction";
     public static String WINNERS = "Winners";
 
     private AID controller;
@@ -28,6 +30,8 @@ public class ArtistManagerAgent extends GuiAgent implements HW3Agent {
     transient protected ArtistManagerGUI myGui;
     private ParallelBehaviour parallelBehaviour;
     private String log = "";
+    private DataStore dataStore;
+    private Auction auction;
 
     /**
      * Agent initialization. Called by the JADE runtime envrionment when the agent is started
@@ -40,11 +44,14 @@ public class ArtistManagerAgent extends GuiAgent implements HW3Agent {
         Object[] args = getArguments();
         controller = (AID) args[0];
         destination = here();
-
+        dataStore = new DataStore();
         init();
 
         parallelBehaviour = new ParallelBehaviour();
-        parallelBehaviour.addSubBehaviour(new ReceiveCommands(this));
+        parallelBehaviour.setDataStore(dataStore);
+        ReceiveCommands receiveCommands = new ReceiveCommands(this);
+        receiveCommands.setDataStore(parallelBehaviour.getDataStore());
+        parallelBehaviour.addSubBehaviour(receiveCommands);
         addBehaviour(parallelBehaviour);
 
     }
@@ -56,8 +63,7 @@ public class ArtistManagerAgent extends GuiAgent implements HW3Agent {
         myGui = new ArtistManagerGUI(this);
         myGui.setVisible(true);
         myGui.setLocation(destination.getName());
-        log = log + " Initializing myself at " + destination.getName() + " \n";
-        myGui.updateLog(log);
+        updateLog(" Initializing myself at " + destination.getName());
     }
 
     protected void onGuiEvent(GuiEvent e) {
@@ -65,27 +71,31 @@ public class ArtistManagerAgent extends GuiAgent implements HW3Agent {
     }
 
     protected void beforeMove() {
-        System.out.println("Moving now to location : " + destination.getName());
-        log = log + "Moving now to location : " + destination.getName() + "\n";
-        myGui.updateLog(log);
+        updateLog("Moving now to location : " + destination.getName());
         myGui.setVisible(false);
         myGui.dispose();
     }
 
     protected void afterMove() {
         init();
-        log = log + "Arrived at location : " + destination.getName() + "\n";
-        myGui.updateLog(log);
+        updateLog("Arrived at location : " + destination.getName());
     }
 
     protected void beforeClone() {
-        log = log + "Cloning myself to location : " + destination.getName() + "\n";
-        myGui.updateLog(log);
+        updateLog("Cloning myself to location : " + destination.getName());
     }
 
     protected void afterClone() {
         log = "";
+        dataStore = new DataStore();
         init();
+    }
+
+    public void startAuction(Auction auction) {
+        this.auction = auction;
+        AuctioneerBehaviour auctioneerBehaviour = new AuctioneerBehaviour();
+        auctioneerBehaviour.setDataStore(parallelBehaviour.getDataStore());
+        parallelBehaviour.addSubBehaviour(auctioneerBehaviour);
     }
 
     /**
@@ -114,5 +124,18 @@ public class ArtistManagerAgent extends GuiAgent implements HW3Agent {
 
     public void setDestination(Location destination) {
         this.destination = destination;
+    }
+
+    public void updateLog(String info){
+        log = log + info + "\n";
+        myGui.updateLog(log);
+    }
+
+    public Auction getAuction() {
+        return auction;
+    }
+
+    public void setAuction(Auction auction) {
+        this.auction = auction;
     }
 }

@@ -14,22 +14,20 @@ public class ModifyPrice extends OneShotBehaviour {
     private boolean reachedBelowReservedPrice = false;
     @Override
     public void action() {
-        Auction auction = ((Auction) getDataStore().get(ArtistManagerAgent.AUCTION));
+        Auction auction = ((ArtistManagerAgent) myAgent).getAuction();
         double modifiedPrice = auction.getCurrentPrice() * (1 - auction.getRateOfReduction());
-        System.out.println("------------------------------------------------------------------------------------------------------------------");
         if(modifiedPrice < auction.getReservePrice()){
             reachedBelowReservedPrice = true;
-            System.out.println("Reached reserved price, your reserved price: " + auction.getReservePrice());
-            System.out.println("AUCTION CLOSED");
+            ((ArtistManagerAgent) myAgent).updateLog("Reached reserved price, your reserved price: " + auction.getReservePrice());
+            ((ArtistManagerAgent) myAgent).updateLog("AUCTION CLOSED");
         } else{
             auction.setCurrentPrice(modifiedPrice);
-            getDataStore().put(ArtistManagerAgent.AUCTION, auction);
-            System.out.println("No bids received, modifying price...");
-            System.out.println("Price modified, new price: " + auction.getCurrentPrice());
-            System.out.println("Your reserved price is: " + auction.getReservePrice());
+            ((ArtistManagerAgent) myAgent).setAuction(auction);
+            ((ArtistManagerAgent) myAgent).updateLog("No bids received, modifying price...");
+            ((ArtistManagerAgent) myAgent).updateLog("Price modified, new price: " + auction.getCurrentPrice());
+            ((ArtistManagerAgent) myAgent).updateLog("Your reserved price is: " + auction.getReservePrice());
             reachedBelowReservedPrice = false;
         }
-        System.out.println("------------------------------------------------------------------------------------------------------------------");
     }
 
     /**

@@ -1,6 +1,7 @@
 package kth.se.id2209.limmen.hw3.artistmanager;
 
-import jade.gui.GuiAgent;
+import kth.se.id2209.limmen.hw3.artgallery.Artifact;
+import kth.se.id2209.limmen.hw3.artistmanager.model.Auction;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -14,9 +15,11 @@ public class ArtistManagerGUI extends JFrame {
 
     private JLabel container;
     private JTextArea log;
-    private GuiAgent myAgent;
+    private ArtistManagerAgent myAgent;
+    private JComboBox good;
+    private JTextField initialPrice, reservePrice, rateOfReduction;
 
-    public ArtistManagerGUI(GuiAgent artistManagerAgent) {
+    public ArtistManagerGUI(ArtistManagerAgent artistManagerAgent) {
         myAgent = artistManagerAgent;
         setTitle(myAgent.getLocalName());
         setLayout(new MigLayout());
@@ -26,15 +29,16 @@ public class ArtistManagerGUI extends JFrame {
         setVisible(true);
     }
 
-    private class Container extends JPanel{
-        private Container(){
+    private class Container extends JPanel {
+        private Container() {
             setLayout(new MigLayout("wrap 1"));
             add(new MainPanel(), "span 1");
+            add(new CreateAuction(), "span 1, gaptop 30");
         }
     }
 
-    private class MainPanel extends JPanel{
-        private MainPanel(){
+    private class MainPanel extends JPanel {
+        private MainPanel() {
             setLayout(new MigLayout("wrap 2"));
             add(new JLabel("Name: "), "span 1");
             add(new JLabel(myAgent.getLocalName()), "span 1");
@@ -43,7 +47,7 @@ public class ArtistManagerGUI extends JFrame {
             add(new JLabel("Container: "), "span 1");
             container = new JLabel(myAgent.here().getName());
             add(container, "span 1");
-            add(new JLabel("Log:" ) , "span 2");
+            add(new JLabel("Log:"), "span 2");
             log = new JTextArea("");
             log.setLineWrap(true);
             log.setEditable(false);
@@ -53,12 +57,42 @@ public class ArtistManagerGUI extends JFrame {
             add(logPane, "span 2, center");
         }
     }
-    public void setLocation(String loc){
+
+    private class CreateAuction extends JPanel {
+        private CreateAuction() {
+            setLayout(new MigLayout("wrap 2"));
+            add(new JLabel("Create Auction"), "span 2");
+            add(new JLabel("Good for auction: "), "span 1");
+            good = new JComboBox(myAgent.getArtGallery().getGallery().toArray());
+            add(good, "span 1");
+            add(new JLabel("Initial price: "), "span 1");
+            initialPrice = new JTextField(25);
+            add(initialPrice, "span 1");
+            add(new JLabel("Reserve price: "), "span 1");
+            reservePrice = new JTextField(25);
+            add(reservePrice, "span 1");
+            add(new JLabel("Rate of reduction: "), "span 1");
+            rateOfReduction = new JTextField(25);
+            add(rateOfReduction, "span 1");
+            JButton startAuction = new JButton("StartAuction");
+            add(startAuction, "span 2");
+            startAuction.addActionListener(e -> {
+                Double initPrice = Double.parseDouble(initialPrice.getText());
+                Double resPrice = Double.parseDouble(reservePrice.getText());
+                Double rate = Double.parseDouble(rateOfReduction.getText());
+                Auction auction = new Auction(initPrice, ((Artifact) good.getSelectedItem()).getName(), resPrice, rate);
+                myAgent.startAuction(auction);
+            });
+        }
+
+    }
+
+    public void setLocation(String loc) {
 
         this.container.setText(loc);
     }
 
-    public void updateLog(String log){
+    public void updateLog(String log) {
         this.log.setText(log);
     }
 

@@ -1,23 +1,25 @@
 package kth.se.id2209.limmen.hw3.artistmanager.behaviours.auctioneer.subbehaviours;
 
+import jade.content.OntoAID;
 import jade.content.lang.Codec;
 import jade.content.lang.sl.SLCodec;
 import jade.content.onto.OntologyException;
 import jade.content.onto.basic.Action;
 import jade.content.onto.basic.Result;
 import jade.core.AID;
-import jade.core.Location;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
-import jade.domain.JADEAgentManagement.WhereIsAgentAction;
+import jade.domain.JADEAgentManagement.QueryAgentsOnLocation;
 import jade.domain.mobility.MobilityOntology;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
-import jade.util.leap.Iterator;
 import kth.se.id2209.limmen.hw3.artistmanager.ArtistManagerAgent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -33,47 +35,36 @@ public class FindBidders extends OneShotBehaviour {
      */
     @Override
     public void action() {
-        DFAgentDescription dfAgentDescription = new DFAgentDescription();
-        ServiceDescription bidderDescription = new ServiceDescription();
-        bidderDescription.setType("art-bidder");
-        dfAgentDescription.addServices(bidderDescription);
-        DFAgentDescription[] bidders = new DFAgentDescription[0];
-        try {
-            bidders = DFService.search(myAgent, dfAgentDescription);
-        } catch (FIPAException e) {
-            e.printStackTrace();
+        ArrayList<AID> allBidders = findAllBidders();
+        ArrayList<OntoAID> agentsOnContainer = (ArrayList<OntoAID>) findAgentsOnContainer();
+        ArrayList<AID> bidders = new ArrayList<>();
+        for (OntoAID ontoAID : agentsOnContainer) {
+            AID aid = ontoAID;
+            if (allBidders.contains(aid)) {
+                bidders.add(aid);
+            }
         }
-        findLocations(bidders);
+        ((ArtistManagerAgent) myAgent).updateLog("Found " + agentsOnContainer.size() + " agents on container, where " + bidders.size() + " are bidders");
         getDataStore().put(ArtistManagerAgent.BIDDERS, bidders);
     }
 
-    private void findLocations(DFAgentDescription[] bidders) {
-        ACLMessage request = prepareRequestToAMS(bidders[0].getName());
-        System.out.println("Sending request to AMS: " + myAgent.getAMS().getName());
+    private List findAgentsOnContainer() {
+        ACLMessage request = prepareRequestToAMS();
         myAgent.send(request);
-        //Receive response from AMS
-       /* MessageTemplate mt = MessageTemplate.and(
-                MessageTemplate.MatchSender(myAgent.getAMS()),
-                MessageTemplate.MatchPerformative(ACLMessage.INFORM)); */
         MessageTemplate mt = MessageTemplate.MatchAll();
-        System.out.println("request sent, entering blocking receive");
         ACLMessage resp = myAgent.blockingReceive(mt);
-        System.out.println("Received response: " + resp.toString());
-        Location location = parseAMSResponse(resp);
-        System.out.println("Received location name: " + location.getName() + " | address:" + location.getAddress());
+        return parseAMSResponse(resp);
     }
 
-    private ACLMessage prepareRequestToAMS(AID agent) {
-        myAgent.getContentManager().registerLanguage(new SLCodec());
-        myAgent.getContentManager().registerOntology(MobilityOntology.getInstance());
+    private ACLMessage prepareRequestToAMS() {
         ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
         request.addReceiver(myAgent.getAMS());
         request.setLanguage(new SLCodec().getName());
         request.setOntology(MobilityOntology.getInstance().getName());
         Action act = new Action();
         act.setActor(myAgent.getAMS());
-        WhereIsAgentAction action = new WhereIsAgentAction();
-        action.setAgentIdentifier(agent);
+        QueryAgentsOnLocation action = new QueryAgentsOnLocation();
+        action.setLocation(myAgent.here());
         act.setAction(action);
         try {
             myAgent.getContentManager().fillContent(request, act);
@@ -83,16 +74,32 @@ public class FindBidders extends OneShotBehaviour {
         return request;
     }
 
-    private Location parseAMSResponse(ACLMessage response) {
+    private List parseAMSResponse(ACLMessage response) {
         Result results = null;
         try {
             results = (Result) myAgent.getContentManager().extractContent(response);
         } catch (Codec.CodecException | OntologyException e) {
         }
-        Iterator it = results.getItems().iterator();
-        Location loc = null;
-        if (it.hasNext())
-            loc = (Location) it.next();
-        return loc;
+        return ((jade.util.leap.ArrayList) results.getItems()).toList();
+    }
+
+    private ArrayList<AID> findAllBidders() {
+        DFAgentDescription dfAgentDescription = new DFAgentDescription();
+        ServiceDescription bidderDescription = new ServiceDescription();
+        bidderDescription.setType("art-bidder");
+        dfAgentDescription.addServices(bidderDescription);
+        ArrayList<AID> allBidders = new ArrayList<>();
+        DFAgentDescription[] bidders = new DFAgentDescription[0];
+        try {
+            bidders = DFService.search(myAgent, dfAgentDescription);
+            for (int i = 0; i < bidders.length; i++) {
+                allBidders.add(bidders[i].getName());
+            }
+
+
+        } catch (FIPAException e) {
+            e.printStackTrace();
+        }
+        return allBidders;
     }
 }

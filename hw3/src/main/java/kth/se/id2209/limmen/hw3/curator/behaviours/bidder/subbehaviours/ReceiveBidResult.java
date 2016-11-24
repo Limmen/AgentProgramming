@@ -5,6 +5,7 @@ import jade.core.behaviours.DataStore;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.proto.states.MsgReceiver;
+import kth.se.id2209.limmen.hw3.curator.CuratorAgent;
 
 /**
  * Behaviour for receiving result after having placed a bid in a dutch auction
@@ -24,15 +25,13 @@ public class ReceiveBidResult extends MsgReceiver {
      * @param msg the result of the bid, sent by the auctioneer
      */
     protected void handleMessage(ACLMessage msg) {
-        System.out.println("------------------------------------------------------------------------------------------------------------------");
         if(msg.getPerformative() == ACLMessage.ACCEPT_PROPOSAL){
-            System.out.println("Congratulations!");
-            System.out.println(msg.getContent());
+            ((CuratorAgent)myAgent).updateLog("Congratulations!");
+            ((CuratorAgent)myAgent).updateLog(msg.getContent());
         }
         if(msg.getPerformative() == ACLMessage.REJECT_PROPOSAL){
-            System.out.println("Bad luck");
-            System.out.println(msg.getContent());
+            ((CuratorAgent)myAgent).updateLog("Bad luck");
+            ((CuratorAgent)myAgent).updateLog(msg.getContent());
         }
-        System.out.println("------------------------------------------------------------------------------------------------------------------");
     }
 }

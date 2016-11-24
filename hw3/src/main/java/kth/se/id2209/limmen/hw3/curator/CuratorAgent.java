@@ -3,6 +3,7 @@ package kth.se.id2209.limmen.hw3.curator;
 import jade.content.lang.sl.SLCodec;
 import jade.core.AID;
 import jade.core.Location;
+import jade.core.behaviours.DataStore;
 import jade.core.behaviours.ParallelBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
@@ -13,6 +14,7 @@ import jade.gui.GuiAgent;
 import jade.gui.GuiEvent;
 import kth.se.id2209.limmen.hw3.HW3Agent;
 import kth.se.id2209.limmen.hw3.artistmanager.behaviours.receivecommands.ReceiveCommands;
+import kth.se.id2209.limmen.hw3.curator.behaviours.bidder.BidderBehaviour;
 import kth.se.id2209.limmen.hw3.curator.model.Strategy;
 
 import java.util.ArrayList;
@@ -24,14 +26,14 @@ import java.util.ArrayList;
  */
 public class CuratorAgent extends GuiAgent implements HW3Agent {
     public static String AUCTION_NAME = "Auction Name";
-    public static String AUCTION_VALUATION = "Auction Valuation";
-    public static String AUCTION_STRATEGY = "Auction Strategy";
     private ArrayList<Strategy> strategies = new ArrayList();
     private AID controller;
     private Location destination;
     transient protected CuratorAgentGUI myGui;
     private ParallelBehaviour parallelBehaviour;
     private String log = "";
+    private DataStore dataStore;
+    private Strategy strategy;
 
     /**
      * Agent initialization. Called by the JADE runtime envrionment when the agent is started
@@ -46,7 +48,8 @@ public class CuratorAgent extends GuiAgent implements HW3Agent {
         strategies.add(new Strategy(0.5));
         strategies.add(new Strategy(0.25));
         registerAtYellowPages();
-
+        strategy = strategies.get(2);
+        dataStore = new DataStore();
         /**
          * Create behaviours and set datastores
          */
@@ -69,7 +72,12 @@ public class CuratorAgent extends GuiAgent implements HW3Agent {
         init();
 
         parallelBehaviour = new ParallelBehaviour();
-        parallelBehaviour.addSubBehaviour(new ReceiveCommands(this));
+        parallelBehaviour.setDataStore(dataStore);
+        ReceiveCommands receiveCommands = new ReceiveCommands(this);
+        receiveCommands.setDataStore(parallelBehaviour.getDataStore());
+        parallelBehaviour.addSubBehaviour(receiveCommands);
+        BidderBehaviour bidderBehaviour = new BidderBehaviour(dataStore);
+        parallelBehaviour.addSubBehaviour(bidderBehaviour);
         addBehaviour(parallelBehaviour);
 
     }
@@ -81,8 +89,7 @@ public class CuratorAgent extends GuiAgent implements HW3Agent {
         myGui = new CuratorAgentGUI(this);
         myGui.setVisible(true);
         myGui.setLocation(destination.getName());
-        log = log + " Initializing myself at " + destination.getName() + " \n";
-        myGui.updateLog(log);
+        updateLog("Initializing myself at " + destination.getName());
     }
 
     protected void onGuiEvent(GuiEvent e) {
@@ -90,26 +97,24 @@ public class CuratorAgent extends GuiAgent implements HW3Agent {
     }
 
     protected void beforeMove() {
-        System.out.println("Moving now to location : " + destination.getName());
-        log = log + "Moving now to location : " + destination.getName() + "\n";
-        myGui.updateLog(log);
+        updateLog("Moving now to location : " + destination.getName());
         myGui.setVisible(false);
         myGui.dispose();
     }
 
     protected void afterMove() {
         init();
-        log = log + "Arrived at location : " + destination.getName() + "\n";
-        myGui.updateLog(log);
+        updateLog("Arrived at location : " + destination.getName());
     }
 
     protected void beforeClone() {
-        log = log + "Cloning myself to location : " + destination.getName() + "\n";
-        myGui.updateLog(log);
+        updateLog("Cloning myself to location : " + destination.getName());
     }
 
     protected void afterClone() {
         log = "";
+        dataStore = new DataStore();
+        strategy = strategies.get(2);
         init();
     }
 
@@ -145,6 +150,11 @@ public class CuratorAgent extends GuiAgent implements HW3Agent {
         }
     }
 
+    public void updateStrategy(Strategy strategy) {
+        this.strategy = strategy;
+        System.out.println("Strategy updated");
+    }
+
     public ArrayList<Strategy> getStrategies() {
         return strategies;
     }
@@ -163,5 +173,14 @@ public class CuratorAgent extends GuiAgent implements HW3Agent {
 
     public void setDestination(Location destination) {
         this.destination = destination;
+    }
+
+    public Strategy getStrategy(){
+        return strategy;
+    }
+
+    public void updateLog(String info){
+        log = log + info + "\n";
+        myGui.updateLog(log);
     }
 }

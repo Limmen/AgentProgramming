@@ -22,18 +22,13 @@ public class AuctionServer extends CyclicBehaviour {
         ACLMessage msg = myAgent.receive(mt);
         if (msg != null) {
             if (msg.getOntology().equals("closed")) {
-                System.out.println("------------------------------------------------------------------------------------------------------------------");
-                System.out.println("AUCTION CLOSED");
-                System.out.println(msg.getContent());
-                getDataStore().put(CuratorAgent.AUCTION_VALUATION, null);
-                System.out.println("------------------------------------------------------------------------------------------------------------------");
+                ((CuratorAgent)myAgent).updateLog("AUCTION CLOSED");
+                ((CuratorAgent)myAgent).updateLog(msg.getContent());
             } else if (msg.getOntology().equals("open")) {
-                System.out.println("------------------------------------------------------------------------------------------------------------------");
-                System.out.println("AUCTION OPENED");
+                ((CuratorAgent)myAgent).updateLog("AUCTION OPENED");
                 String auctionName = msg.getContent();
                 getDataStore().put(CuratorAgent.AUCTION_NAME, auctionName);
-                System.out.println("Good of the auction is : '" + auctionName + "'");
-                System.out.println("------------------------------------------------------------------------------------------------------------------");
+                ((CuratorAgent)myAgent).updateLog("Good of the auction is : '" + auctionName + "'");
             }
         } else {
             block();

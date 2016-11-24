@@ -1,10 +1,12 @@
 package kth.se.id2209.limmen.hw3.artistmanager.behaviours.auctioneer.subbehaviours;
 
+import jade.core.AID;
 import jade.core.behaviours.OneShotBehaviour;
-import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.lang.acl.ACLMessage;
 import kth.se.id2209.limmen.hw3.artistmanager.ArtistManagerAgent;
 import kth.se.id2209.limmen.hw3.artistmanager.model.Auction;
+
+import java.util.ArrayList;
 
 
 /**
@@ -21,15 +23,15 @@ public class CloseAuction extends OneShotBehaviour {
     @Override
     public void action() {
         ACLMessage closeAuctionMsg = new ACLMessage(ACLMessage.INFORM);
-        Auction auction = (Auction) getDataStore().get(ArtistManagerAgent.AUCTION);
+        Auction auction = ((ArtistManagerAgent) myAgent).getAuction();
         if(auction.getWinner() != null)
         closeAuctionMsg.setContent("Auction for " + auction.getArtifactTitle() + " closed at price: " + auction.getCurrentPrice() + " | winner: " + auction.getWinner().getName().toString());
         else
             closeAuctionMsg.setContent("Auction for " + auction.getArtifactTitle() + " closed at price: " + auction.getCurrentPrice() + " | no buyer was found, reached the reserved price");
         closeAuctionMsg.setOntology("closed");
-        DFAgentDescription[] bidders = (DFAgentDescription[]) getDataStore().get(ArtistManagerAgent.BIDDERS);
-        for (int i = 0; i < bidders.length; i++) {
-            closeAuctionMsg.addReceiver(bidders[i].getName());
+        ArrayList<AID> bidders = (ArrayList<AID>) getDataStore().get(ArtistManagerAgent.BIDDERS);
+        for(AID aid : bidders){
+            closeAuctionMsg.addReceiver(aid);
         }
         myAgent.send(closeAuctionMsg);
     }
