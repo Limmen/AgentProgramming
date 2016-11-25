@@ -95,8 +95,6 @@ public class FindBidders extends OneShotBehaviour {
             for (int i = 0; i < bidders.length; i++) {
                 allBidders.add(bidders[i].getName());
             }
-
-
         } catch (FIPAException e) {
             e.printStackTrace();
         }

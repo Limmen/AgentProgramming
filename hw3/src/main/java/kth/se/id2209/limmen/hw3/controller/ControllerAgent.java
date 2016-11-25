@@ -65,10 +65,6 @@ public class ControllerAgent extends GuiAgent {
             container[0] = runtime.createAgentContainer(curatorContainer1);
             container[1] = runtime.createAgentContainer(curatorContainer2);
             container[2] = runtime.createAgentContainer(artistManagerContainer);
-            /*
-            for (int i = 0; i < 5; i++){
-                container[0] = runtime.createAgentContainer(new ProfileImpl());
-            }*/
             doWait(2000);
 
             // Get available locations with AMS
@@ -171,8 +167,6 @@ public class ControllerAgent extends GuiAgent {
 
 
     void sendRequest(Action action) {
-// ---------------------------------
-
         ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
         request.setLanguage(new SLCodec().getName());
         request.setOntology(MobilityOntology.getInstance().getName());
@@ -185,5 +179,5 @@ public class ControllerAgent extends GuiAgent {
         }
     }
 
-}//class Controller
+}
 

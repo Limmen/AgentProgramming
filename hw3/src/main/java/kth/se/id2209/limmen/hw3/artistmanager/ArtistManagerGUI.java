@@ -13,7 +13,7 @@ import java.awt.*;
 public class ArtistManagerGUI extends JFrame {
 // -----------------------------------------
 
-    private JLabel container;
+    private JLabel container, subResults;
     private JTextArea log;
     private ArtistManagerAgent myAgent;
     private JComboBox good;
@@ -47,6 +47,7 @@ public class ArtistManagerGUI extends JFrame {
             add(new JLabel("Container: "), "span 1");
             container = new JLabel(myAgent.here().getName());
             add(container, "span 1");
+            add(new ClonesResult(), "span 2");
             add(new JLabel("Log:"), "span 2");
             log = new JTextArea("");
             log.setLineWrap(true);
@@ -84,7 +85,24 @@ public class ArtistManagerGUI extends JFrame {
                 myAgent.startAuction(auction);
             });
         }
+    }
 
+    private class ClonesResult extends JPanel {
+        private ClonesResult(){
+            setLayout(new MigLayout("wrap 2"));
+            add(new JLabel("Number of sub-results received from clones:"), "span 1");
+            subResults = new JLabel(Integer.toString(myAgent.getClonesResult().size()));
+            add(subResults, "span 1");
+            JButton synthesizeResults = new JButton("Synthesize results");
+            add(synthesizeResults, "span 2");
+            synthesizeResults.addActionListener(e -> {
+                myAgent.synthesizeResults();
+            });
+        }
+    }
+
+    public void updateClonesResult(){
+        this.subResults.setText(Integer.toString(myAgent.getClonesResult().size()));
     }
 
     public void setLocation(String loc) {

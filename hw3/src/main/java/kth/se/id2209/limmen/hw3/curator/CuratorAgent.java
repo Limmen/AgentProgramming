@@ -50,19 +50,7 @@ public class CuratorAgent extends GuiAgent implements HW3Agent {
         registerAtYellowPages();
         strategy = strategies.get(2);
         dataStore = new DataStore();
-        /**
-         * Create behaviours and set datastores
-         */
-        /*
-        DataStore dataStore = new DataStore();
-        ChooseStrategy chooseStrategy = new ChooseStrategy(dataStore);
-        BidderBehaviour bidderBehaviour = new BidderBehaviour(dataStore);
-        addBehaviour(chooseStrategy);
-        */
-        /**
-         * Add behaviour
-         */
-        //addBehaviour(bidderBehaviour);
+
 
         // Retrieve arguments passed during this agent creation
         Object[] args = getArguments();
@@ -113,6 +101,7 @@ public class CuratorAgent extends GuiAgent implements HW3Agent {
 
     protected void afterClone() {
         log = "";
+        registerAtYellowPages();
         dataStore = new DataStore();
         strategy = strategies.get(2);
         init();
@@ -152,7 +141,6 @@ public class CuratorAgent extends GuiAgent implements HW3Agent {
 
     public void updateStrategy(Strategy strategy) {
         this.strategy = strategy;
-        System.out.println("Strategy updated");
     }
 
     public ArrayList<Strategy> getStrategies() {

@@ -8,11 +8,17 @@ import jade.core.behaviours.ParallelBehaviour;
 import jade.domain.mobility.MobilityOntology;
 import jade.gui.GuiAgent;
 import jade.gui.GuiEvent;
+import jade.lang.acl.ACLMessage;
 import kth.se.id2209.limmen.hw3.HW3Agent;
 import kth.se.id2209.limmen.hw3.artgallery.ArtGallery;
 import kth.se.id2209.limmen.hw3.artistmanager.behaviours.auctioneer.AuctioneerBehaviour;
+import kth.se.id2209.limmen.hw3.artistmanager.behaviours.clonesserver.ClonesServer;
 import kth.se.id2209.limmen.hw3.artistmanager.behaviours.receivecommands.ReceiveCommands;
 import kth.se.id2209.limmen.hw3.artistmanager.model.Auction;
+import kth.se.id2209.limmen.hw3.artistmanager.model.AuctionResult;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 
 /**
@@ -27,11 +33,13 @@ public class ArtistManagerAgent extends GuiAgent implements HW3Agent {
 
     private AID controller;
     private Location destination;
+    private AID parent;
     transient protected ArtistManagerGUI myGui;
     private ParallelBehaviour parallelBehaviour;
     private String log = "";
     private DataStore dataStore;
     private Auction auction;
+    private ArrayList<AuctionResult> clonesResult = new ArrayList<>();
 
     /**
      * Agent initialization. Called by the JADE runtime envrionment when the agent is started
@@ -43,6 +51,7 @@ public class ArtistManagerAgent extends GuiAgent implements HW3Agent {
         // Retrieve arguments passed during this agent creation
         Object[] args = getArguments();
         controller = (AID) args[0];
+        parent = getAID();
         destination = here();
         dataStore = new DataStore();
         init();
@@ -51,7 +60,10 @@ public class ArtistManagerAgent extends GuiAgent implements HW3Agent {
         parallelBehaviour.setDataStore(dataStore);
         ReceiveCommands receiveCommands = new ReceiveCommands(this);
         receiveCommands.setDataStore(parallelBehaviour.getDataStore());
+        ClonesServer clonesServer = new ClonesServer();
+        clonesServer.setDataStore(parallelBehaviour.getDataStore());
         parallelBehaviour.addSubBehaviour(receiveCommands);
+        parallelBehaviour.addSubBehaviour(clonesServer);
         addBehaviour(parallelBehaviour);
 
     }
@@ -64,6 +76,7 @@ public class ArtistManagerAgent extends GuiAgent implements HW3Agent {
         myGui.setVisible(true);
         myGui.setLocation(destination.getName());
         updateLog(" Initializing myself at " + destination.getName());
+        updateLog("Parent is: " + parent.getLocalName());
     }
 
     protected void onGuiEvent(GuiEvent e) {
@@ -83,6 +96,7 @@ public class ArtistManagerAgent extends GuiAgent implements HW3Agent {
 
     protected void beforeClone() {
         updateLog("Cloning myself to location : " + destination.getName());
+        this.parent = getAID();
     }
 
     protected void afterClone() {
@@ -126,7 +140,7 @@ public class ArtistManagerAgent extends GuiAgent implements HW3Agent {
         this.destination = destination;
     }
 
-    public void updateLog(String info){
+    public void updateLog(String info) {
         log = log + info + "\n";
         myGui.updateLog(log);
     }
@@ -137,5 +151,53 @@ public class ArtistManagerAgent extends GuiAgent implements HW3Agent {
 
     public void setAuction(Auction auction) {
         this.auction = auction;
+    }
+
+    public void addCloneAuctionResult(AuctionResult auctionResult, AID clone) {
+        clonesResult.add(auctionResult);
+        myGui.updateClonesResult();
+        updateLog("Received subresult from clone: " + clone.getLocalName());
+    }
+
+    public ArrayList<AuctionResult> getClonesResult() {
+        return clonesResult;
+    }
+
+    public void updateClonesResult() {
+        myGui.updateClonesResult();
+    }
+
+    public void synthesizeResults() {
+        updateLog("Received results from " + clonesResult.size() + " clones that performed dutch auctions. The subresults are:");
+        AuctionResult winner = null;
+        for (AuctionResult auctionResult : clonesResult) {
+            updateLog("Result by clone " + auctionResult.getAuctioneer().getLocalName() + ": " + auctionResult.getResult());
+            if (winner == null) {
+                winner = auctionResult;
+            } else {
+                if (winner.getPrice() < auctionResult.getPrice() && auctionResult.isSold()) {
+                    winner = auctionResult;
+                }
+            }
+        }
+        if (winner != null)
+            updateLog("The best price obtained from bidder is: " + winner.getPrice() + " this was from the auction made by clone: " + winner.getAuctioneer().getLocalName());
+        else{
+            updateLog("The good was not sold by any of the clones");
+        }
+    }
+
+    public void reportToParent(AuctionResult auctionResult) {
+        if (parent != getAID()) {
+            ACLMessage inform = new ACLMessage(ACLMessage.INFORM);
+            try {
+                inform.setContentObject(auctionResult);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            inform.setOntology("clones-update");
+            inform.addReceiver(parent);
+            send(inform);
+        }
     }
 }
