@@ -95,7 +95,6 @@ public class ArtistManagerAgent extends GuiAgent implements HW3Agent {
         myGui.setVisible(true);
         myGui.setLocation(destination.getName());
         updateLog(" Initializing myself at " + destination.getName());
-        updateLog("Parent is: " + parent.getLocalName());
     }
 
 
@@ -222,7 +221,7 @@ public class ArtistManagerAgent extends GuiAgent implements HW3Agent {
             if (winner == null) {
                 winner = auctionResult;
             } else {
-                if (winner.getPrice() < auctionResult.getPrice() && auctionResult.isSold()) {
+                if (winner.getPrice() > auctionResult.getPrice() && auctionResult.isSold()) {
                     winner = auctionResult;
                 }
             }

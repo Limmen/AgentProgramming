@@ -78,10 +78,13 @@ public class ControllerAgentGUI extends JFrame implements ActionListener {
             ge.addParameter((String) locations.getSelectedItem());
             myAgent.postGuiEvent(ge);
         } else if (ae.getSource() == clone) {
-
+            String name = JOptionPane.showInputDialog(this, "Name of the clone: ");
+            if(name == null)//user cancelled
+                return;
             GuiEvent ge = new GuiEvent(this, myAgent.CLONE_AGENT);
             ge.addParameter((String) list.getSelectedValue());
             ge.addParameter((String) locations.getSelectedItem());
+            ge.addParameter((String) name);
             myAgent.postGuiEvent(ge);
         } else if (ae.getSource() == kill) {
 

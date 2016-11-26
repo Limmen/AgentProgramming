@@ -146,10 +146,10 @@ public class ControllerAgent extends GuiAgent {
 
             String destName = (String) ev.getParameter(1);
             Location dest = (Location) locations.get(destName);
+            String newName = (String) ev.getParameter(2);
             MobileAgentDescription mad = new MobileAgentDescription();
             mad.setName(aid);
             mad.setDestination(dest);
-            String newName = "Clone-" + agentName;
             CloneAction ca = new CloneAction();
             ca.setNewName(newName);
             ca.setMobileAgentDescription(mad);

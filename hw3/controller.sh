@@ -1,6 +1,6 @@
 #!/bin/bash
 
-AGENT_CLASS=kth.se.id2209.limmen.hw3.artistmanager.ControllerAgent;
+AGENT_CLASS=kth.se.id2209.limmen.hw3.controller.ControllerAgent;
 
 if [[ "$#" == 2 ]]; then
     HOST=$1
