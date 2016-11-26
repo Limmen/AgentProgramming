@@ -23,16 +23,16 @@ import java.util.Map;
 import java.util.Vector;
 
 /**
+ * ControllerAgent that initializes containers, receives commands from user and delegates commands to agents.
+ * Derived from example at: http://www.iro.umontreal.ca/~vaucher/Agents/Jade/Mobility.html
+ *
  * @author Kim Hammar on 2016-11-23.
  */
 public class ControllerAgent extends GuiAgent {
-// --------------------------------------------
-
     private jade.wrapper.AgentContainer home;
     private jade.wrapper.AgentContainer[] container = null;
     private Map locations = new HashMap();
     private Vector agents = new Vector();
-    private int agentCnt = 0;
     private int command;
     transient protected ControllerAgentGUI myGui;
 
@@ -45,9 +45,10 @@ public class ControllerAgent extends GuiAgent {
     // Get a JADE Runtime instance
     jade.core.Runtime runtime = jade.core.Runtime.instance();
 
+    /**
+     * Agent initialization. Called by the JADE runtime environment when the agent is started
+     */
     protected void setup() {
-// ------------------------
-
         // Register language and ontology
         getContentManager().registerLanguage(new SLCodec());
         getContentManager().registerOntology(MobilityOntology.getInstance());
@@ -86,15 +87,17 @@ public class ControllerAgent extends GuiAgent {
             e.printStackTrace();
         }
 
-
         // Create and show the gui
         myGui = new ControllerAgentGUI(this, locations.keySet());
         myGui.setVisible(true);
     }
 
-
+    /**
+     * Called when GUI-event happens by one of the agents.
+     *
+     * @param ev event that occurred
+     */
     protected void onGuiEvent(GuiEvent ev) {
-
         command = ev.getType();
 
         if (command == QUIT) {
@@ -165,7 +168,11 @@ public class ControllerAgent extends GuiAgent {
         }
     }
 
-
+    /**
+     * Method for sending request to AMS for an action
+     *
+     * @param action action to send
+     */
     void sendRequest(Action action) {
         ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
         request.setLanguage(new SLCodec().getName());

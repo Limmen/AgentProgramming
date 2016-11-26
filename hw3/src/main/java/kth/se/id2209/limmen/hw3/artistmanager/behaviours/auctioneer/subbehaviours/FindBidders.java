@@ -23,7 +23,8 @@ import java.util.List;
 
 
 /**
- * Behaviour for searching at the DF for registered art-bidders.
+ * Behaviour for searching at the DF for registered art-bidders and sending request to the AMS to see the locations
+ * of the agents in order to know which agents are located on the same container as the auctioneer.
  *
  * @author Kim Hammar on 2016-11-17.
  */
@@ -31,7 +32,8 @@ public class FindBidders extends OneShotBehaviour {
 
     /**
      * Action of the behaviour.
-     * Searches the yellow pages (aka DF) for registered art-bidders and updates the datastore.
+     * Searches the yellow pages (aka DF) for registered art-bidders, sends request to AMS for locations
+     * and updates the datastore.
      */
     @Override
     public void action() {

@@ -1,9 +1,11 @@
 package kth.se.id2209.limmen.hw3.artistmanager.behaviours.receivecommands;
 
 /**
+ *
+ * Behaviour for receiving commands from controller-agent
+ *
  * @author Kim Hammar on 2016-11-23.
  */
-
 import jade.content.Concept;
 import jade.content.ContentElement;
 import jade.content.onto.basic.Action;
@@ -24,6 +26,9 @@ public class ReceiveCommands extends CyclicBehaviour {
         super(a);
     }
 
+    /**
+     * Main action, receives messages from controller and takes appropriate action.
+     */
     public void action() {
 
         ACLMessage msg = myAgent.receive(MessageTemplate.MatchSender(((HW3Agent) myAgent).getController()));

@@ -20,9 +20,11 @@ import kth.se.id2209.limmen.hw3.curator.model.Strategy;
 import java.util.ArrayList;
 
 /**
- * CuratorAgent that participates in auctions for art-artifacts.
+ * CuratorAgent that participates in auctions for art-artifacts. Can be cloned and moved to other  containers.
  *
- * @author Kim Hammar on 2016-11-08.
+ * Inspired from example at: http://www.iro.umontreal.ca/~vaucher/Agents/Jade/Mobility.html
+ *
+ * @author Kim Hammar on 2016-11-23.
  */
 public class CuratorAgent extends GuiAgent implements HW3Agent {
     public static String AUCTION_NAME = "Auction Name";
@@ -40,6 +42,9 @@ public class CuratorAgent extends GuiAgent implements HW3Agent {
      */
     @Override
     protected void setup() {
+        /**
+         * Initialize session data, register at DF, create datastore, retrieve initialization arguments
+         */
         System.out.println("CuratorAgent " + getAID().getName() + " starting up.");
         strategies.add(new Strategy(1.5));
         strategies.add(new Strategy(1.25));
@@ -50,26 +55,36 @@ public class CuratorAgent extends GuiAgent implements HW3Agent {
         registerAtYellowPages();
         strategy = strategies.get(2);
         dataStore = new DataStore();
-
-
-        // Retrieve arguments passed during this agent creation
         Object[] args = getArguments();
         controller = (AID) args[0];
         destination = here();
-
         init();
 
+        /**
+         * Create behaviours and set datastores
+         */
         parallelBehaviour = new ParallelBehaviour();
         parallelBehaviour.setDataStore(dataStore);
         ReceiveCommands receiveCommands = new ReceiveCommands(this);
         receiveCommands.setDataStore(parallelBehaviour.getDataStore());
-        parallelBehaviour.addSubBehaviour(receiveCommands);
         BidderBehaviour bidderBehaviour = new BidderBehaviour(dataStore);
+
+        /**
+         * Add sub-behaviours
+         */
+        parallelBehaviour.addSubBehaviour(receiveCommands);
         parallelBehaviour.addSubBehaviour(bidderBehaviour);
+
+        /**
+         * Add behaviour
+         */
         addBehaviour(parallelBehaviour);
 
     }
 
+    /**
+     * Initialization function that is called after being created/cloned/moved, initializes the GUI and updates the log.
+     */
     void init() {
         getContentManager().registerLanguage(new SLCodec());
         getContentManager().registerOntology(MobilityOntology.getInstance());
@@ -84,21 +99,33 @@ public class CuratorAgent extends GuiAgent implements HW3Agent {
         //No interaction with the gui
     }
 
+    /**
+     * Called just before agent is moved
+     */
     protected void beforeMove() {
         updateLog("Moving now to location : " + destination.getName());
         myGui.setVisible(false);
         myGui.dispose();
     }
 
+    /**
+     * Called after agent have successfully moved to a new container
+     */
     protected void afterMove() {
         init();
         updateLog("Arrived at location : " + destination.getName());
     }
 
+    /**
+     * Called just before agent is cloned
+     */
     protected void beforeClone() {
         updateLog("Cloning myself to location : " + destination.getName());
     }
 
+    /**
+     * Called after agent have been succesfully cloned
+     */
     protected void afterClone() {
         log = "";
         registerAtYellowPages();
@@ -167,6 +194,11 @@ public class CuratorAgent extends GuiAgent implements HW3Agent {
         return strategy;
     }
 
+    /**
+     * Method for updating the log in the gui
+     *
+     * @param info text to add to the log
+     */
     public void updateLog(String info){
         log = log + info + "\n";
         myGui.updateLog(log);

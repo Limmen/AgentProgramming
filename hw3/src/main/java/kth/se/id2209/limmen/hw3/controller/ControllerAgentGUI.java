@@ -18,11 +18,14 @@ import java.util.Set;
 import java.util.Vector;
 
 /**
+ *
+ * JFrame for the controllerAgent. Takes commands from user and delegates to AMS/agents.
+ *
+ * Derived from example at: http://www.iro.umontreal.ca/~vaucher/Agents/Jade/Mobility.html
+ *
  * @author Kim Hammar on 2016-11-23.
  */
 public class ControllerAgentGUI extends JFrame implements ActionListener {
-// -----------------------------------------------------------------------
-
     private JList list;
     private DefaultListModel listModel;
     private JComboBox locations, agentTypes;
@@ -33,6 +36,12 @@ public class ControllerAgentGUI extends JFrame implements ActionListener {
     private ControllerAgentGUI controllerAgentGUI;
     private String[] agentClasses = new String[]{CuratorAgent.class.getName(), ArtistManagerAgent.class.getName()};
 
+    /**
+     * Class constructor initializing the frame
+     *
+     * @param a controlleragent that this frame represents
+     * @param s set of locations
+     */
     public ControllerAgentGUI(ControllerAgent a, Set s) {
         super("ControllerFrame");
         this.myAgent = a;
@@ -50,6 +59,11 @@ public class ControllerAgentGUI extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    /**
+     * Handles user-invoked actions
+     *
+     * @param ae actionevent
+     */
     public void actionPerformed(ActionEvent ae) {
 
         if (ae.getSource() == newAgent) {
@@ -79,11 +93,18 @@ public class ControllerAgentGUI extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Method for generating a shutdown event
+     */
     void shutDown() {
         GuiEvent ge = new GuiEvent(this, myAgent.QUIT);
         myAgent.postGuiEvent(ge);
     }
 
+    /**
+     * Method for updating the list of  agents
+     * @param v
+     */
     public void updateList(Vector v) {
         listModel.clear();
         for (int i = 0; i < v.size(); i++) {

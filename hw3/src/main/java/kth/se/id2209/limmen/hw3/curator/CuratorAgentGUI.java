@@ -7,8 +7,12 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
+ *
+ * JFrame for representing the status of a CuratorAgent and for taking commands from the user.
+ *
  * @author Kim Hammar on 2016-11-23.
  */
+
 public class CuratorAgentGUI extends JFrame {
     private JLabel container;
     private JComboBox strategy;
@@ -16,6 +20,11 @@ public class CuratorAgentGUI extends JFrame {
     private JTextArea log;
     private CuratorAgent myAgent;
 
+    /**
+     * Class constructor for initializing the frame
+     *
+     * @param curatorAgent agent that this frame is representing
+     */
     public CuratorAgentGUI(CuratorAgent curatorAgent) {
         myAgent = curatorAgent;
         setTitle(myAgent.getLocalName());
@@ -78,11 +87,21 @@ public class CuratorAgentGUI extends JFrame {
         }
     }
 
+    /**
+     * Method for updating the current location of the agent.
+     *
+     * @param loc new location
+     */
     public void setLocation(String loc) {
 
         this.container.setText(loc);
     }
 
+    /**
+     * Method for updating the log of the agent
+     *
+     * @param log new log
+     */
     public void updateLog(String log) {
         this.log.setText(log);
     }

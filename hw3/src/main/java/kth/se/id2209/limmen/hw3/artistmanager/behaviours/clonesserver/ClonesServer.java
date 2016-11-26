@@ -8,6 +8,9 @@ import kth.se.id2209.limmen.hw3.artistmanager.ArtistManagerAgent;
 import kth.se.id2209.limmen.hw3.artistmanager.model.AuctionResult;
 
 /**
+ *
+ * Behaviour for receiving auctionresults from clones
+ *
  * @author Kim Hammar on 2016-11-25.
  */
 public class ClonesServer extends CyclicBehaviour {

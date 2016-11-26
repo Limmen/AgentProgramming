@@ -5,6 +5,8 @@ import jade.core.AID;
 import java.io.Serializable;
 
 /**
+ * Class representing an auction result.
+ *
  * @author Kim Hammar on 2016-11-25.
  */
 public class AuctionResult implements Serializable {

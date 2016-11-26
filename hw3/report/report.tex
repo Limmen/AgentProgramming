@@ -1,0 +1,110 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[T1]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage[english]{babel} 
+\usepackage{natbib}
+\usepackage{cite}
+\usepackage[parfill]{parskip}
+\usepackage{enumerate}
+\usepackage{float}%for image positions
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{invariant}[theorem]{Invariant}
+\newtheorem{breakpoint}[theorem]{Breakpoint}
+\newtheorem{problem}{Problem}
+\newtheorem{definition}{Definition} 
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{pifont}
+\usepackage{multirow,array}
+\usepackage{centernot}
+\usepackage{comment} % enables the use of multi-line comments (\ifx \fi) 
+\usepackage{lipsum} %This package just generates Lorem Ipsum filler text. 
+\usepackage{fullpage} % changes the margin
+\usepackage{soul}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\begin{document}
+\noindent
+\large\textbf{Homework 3} \hfill \textbf{Kim Hammar} \\
+\normalsize ID2209 \hfill Due Date: 29 November 2016 \\
+Distributed Artifical Intelligence and Intelligent Agents \hfill \\
+
+\section*{Problem Statement}
+Implement the following using the JAVA Agent Development Framework (JADE) \citep{jade}
+\begin{description}
+\item[Task \#1] M.A.S for solving the N-Queens problem where agents coordinate with each other to choose the right positions.
+\item[Task \#2] M.A.S with mobile agents that can perform dutch auction in different places. Mobility in jade means in this context that agents have the possibility to move between containers.
+\end{description}
+
+\subsection*{N-Queens}
+\subsubsection*{Agent Design}
+The M.A.S for task \#1 consists of only one agent-type, the \texttt{QueenAgent}. The \texttt{QueenAgent} is designed to be reactive and receiving messages from other agents, upon receipt of a message from another queen, the agent will compute a ``safe'' position on the board according to the following algorithm (randomness is used to be able to find different solutions to the same puzzle):
+\begin{algorithm}[H]
+\caption{QueenAgent algorithm for selecting a slot on the board}
+\label{queen_algo}
+\begin{algorithmic}[H]
+\Require 
+\State $B$ \Comment{Board}
+\State $id$ \Comment{Id of the agent}
+\State $T$ \Comment{Safe positions on the current board that have already been tried}
+\Ensure 
+\State $p$ is the selected safe position which have not previously been tried. If no safe position is found, $p = -1$.
+\Procedure{SELECT\_SAFES\_SLOT}{B,id,T}
+\State
+\State $R$  $\leftarrow$ \texttt{Shuffle($B[id]$)} \Comment{random shuffle the row of possible positions}
+\State $p \leftarrow -1$
+\For{$r \in R$}
+\State $i \leftarrow $\texttt{indexOf(r)}
+\If{\texttt{safeDiagonally($i$)} $\land$ \texttt{safeVertically($i$)} $\land \neg i \in T$}
+\State $p \leftarrow i$
+\State \texttt{break}
+\EndIf
+\EndFor
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+\subsubsection*{Society Design}
+Each \texttt{QueenAgent} will communicate with three agents:
+\begin{itemize}
+\item After selecting a slot on the board it will forward the board to the \texttt{QueenAgent} on the ``next row'' on the board. Also the agent can receive messages from the agent on the next row that indicates that it could not find a safe slot on the board and asks if this agent could change is position.
+\item If the agent cannot find a safe slot on the board it will send a message to the agent on the previous row on the board and ask it to change it position.
+\item The agent will interact with the \texttt{DirectoryFacilitator} to find the other \texttt{QueenAgent}s participating in the puzzle
+\end{itemize}
+\subsection*{Mobile Agents}
+\subsubsection*{Agent Design}
+The \texttt{CuratorAgent} and \texttt{ArtistManagerAgent} in this scenario uses the same behaviours as for Homework2 with few modifications:
+\begin{itemize}
+\item Both agents runs a cyclic behaviour \texttt{ReceiveCommands} for receiving commands from a controller agent to do one of the following: $(i)$ Move to a container $(ii)$ clone itself $(iii)$ kill itself
+\item Both agents use GUI's for interacting with the user and start/stopping auctions rather than the command-line as used in Homework2.
+\item The \texttt{ArtistManagerAgent} will run a cyclic behaviour \texttt{ClonesServer} for receiving auction-results from clones. Consequently, after finnishing an auction, if the \texttt{ArtistManagerAgent} is a clone and has a ``parent''-agent, it will send the result to the parent.
+\item Auctions are ran locally on containers, not globally on the platform.
+\end{itemize}
+The \texttt{ControllerAgent} and \texttt{ControllerGUI} is used more or less as-is from the example code at the tutorial \citep{jade_tutorial2} that the homework is based upon.
+\subsubsection*{Society Design}
+The dutch auction interactions from Homework2 have been extended for intra-platform mobility where auctions are performed locally on containers instead of globally on platforms. Further more the results of auctions are forwarded by clones to parent-agents which will synthesize the results and present the best price from its point of view. The interactions between bidders and auctioneers in the actual auction is identical to the interactions presented in Homework2.
+\section*{Conclusions}
+Extending simple agents to be intra-platform mobile allows for designing agents with further capabilities for acting autonomously. The agents for this homework were limited to mobility within a single platform but the same design principles could be applied for inter-platform mobility if the underlying agent-architecture allows for it.
+
+\section*{Attachments}
+Documented source code can be found in the attached zipfile. See README.MD in the root directory for instruction on how to execute and build the program.
+
+\bibliography{references}{}
+\bibliographystyle{plain}
+\end{document}

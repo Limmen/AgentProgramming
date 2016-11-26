@@ -8,17 +8,22 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
+ * JFrame for representing the status of a ArtistManagerAgent and for taking commands from the user.
+ *
  * @author Kim Hammar on 2016-11-23.
  */
 public class ArtistManagerGUI extends JFrame {
-// -----------------------------------------
-
     private JLabel container, subResults;
     private JTextArea log;
     private ArtistManagerAgent myAgent;
     private JComboBox good;
     private JTextField initialPrice, reservePrice, rateOfReduction;
 
+    /**
+     * Class constructor initializing the frame
+     *
+     * @param artistManagerAgent agent that his frame represents
+     */
     public ArtistManagerGUI(ArtistManagerAgent artistManagerAgent) {
         myAgent = artistManagerAgent;
         setTitle(myAgent.getLocalName());
@@ -101,15 +106,28 @@ public class ArtistManagerGUI extends JFrame {
         }
     }
 
+    /**
+     * Method for updating the number of sub-results received from clones
+     */
     public void updateClonesResult(){
         this.subResults.setText(Integer.toString(myAgent.getClonesResult().size()));
     }
 
+    /**
+     * Method for updating the current location of the agent.
+     *
+     * @param loc new location
+     */
     public void setLocation(String loc) {
 
         this.container.setText(loc);
     }
 
+    /**
+     * Method for updating the log of the agent
+     *
+     * @param log new log
+     */
     public void updateLog(String log) {
         this.log.setText(log);
     }
