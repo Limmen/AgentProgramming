@@ -8,14 +8,12 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
-import java.util.Set;
 
 /**
  *
@@ -32,20 +30,20 @@ public class ControllerAgentGUI extends JFrame implements ActionListener {
     private JButton newAgentButton, moveButton, cloneButton, killButton, quitButton;
     private JTextField agentNameField;
     private ControllerAgent myAgent;
-    private Set set;
+    private String[] containerNames;
     private ControllerAgentGUI controllerAgentGUI;
     private String[] agentClasses = new String[]{CuratorAgent.class.getName(), ArtistManagerAgent.class.getName()};
 
     /**
      * Class constructor initializing the frame
      *
-     * @param a controlleragent that this frame represents
-     * @param s set of containers
+     * @param controllerAgent controlleragent that this frame represents
+     * @param containerNames names of containers on the platform
      */
-    public ControllerAgentGUI(ControllerAgent a, Set s) {
+    public ControllerAgentGUI(ControllerAgent controllerAgent, String[] containerNames) {
         super("ControllerFrame");
-        this.myAgent = a;
-        this.set = s;
+        this.myAgent = controllerAgent;
+        this.containerNames = containerNames;
         controllerAgentGUI = this;
         setLayout(new MigLayout());
         setContentPane(new Container());
@@ -147,7 +145,7 @@ public class ControllerAgentGUI extends JFrame implements ActionListener {
             listPane.setPreferredSize(new Dimension(400, 250));
             add(listPane, "span 3, center");
             add(new JLabel("Destination :"), "span 1");
-            containers = new JComboBox(set.toArray());
+            containers = new JComboBox(containerNames);
             add(containers, "span 2");
             add(moveButton = new JButton("Move"), "span 1");
             moveButton.setToolTipText("Move agent to a new location");
@@ -161,17 +159,15 @@ public class ControllerAgentGUI extends JFrame implements ActionListener {
             moveButton.setEnabled(false);
             cloneButton.setEnabled(false);
             killButton.setEnabled(false);
-            listOfAgents.addListSelectionListener(new ListSelectionListener()  {
-                public void valueChanged(ListSelectionEvent e) {
-                    if (listOfAgents.getSelectedIndex() == -1) {
-                        moveButton.setEnabled(false);
-                        cloneButton.setEnabled(false);
-                        killButton.setEnabled(false);
-                    } else {
-                        moveButton.setEnabled(true);
-                        cloneButton.setEnabled(true);
-                        killButton.setEnabled(true);
-                    }
+            listOfAgents.addListSelectionListener((ListSelectionEvent e) -> {
+                if (listOfAgents.getSelectedIndex() == -1) {
+                    moveButton.setEnabled(false);
+                    cloneButton.setEnabled(false);
+                    killButton.setEnabled(false);
+                } else {
+                    moveButton.setEnabled(true);
+                    cloneButton.setEnabled(true);
+                    killButton.setEnabled(true);
                 }
             });
         }

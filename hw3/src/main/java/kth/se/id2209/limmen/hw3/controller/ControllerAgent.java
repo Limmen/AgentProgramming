@@ -30,6 +30,7 @@ import java.util.Map;
 
 /**
  * ControllerAgent that initializes containers, receives commands from user and delegates commands to agents.
+ *
  * Inspired from example at: http://www.iro.umontreal.ca/~vaucher/Agents/Jade/Mobility.html
  *
  * @author Kim Hammar on 2016-11-28.
@@ -84,8 +85,7 @@ public class ControllerAgent extends GuiAgent {
         /**
          * Initialize gui
          */
-        // Create and show the gui
-        myGui = new ControllerAgentGUI(this, containersOnPlatform.keySet());
+        myGui = new ControllerAgentGUI(this, (String []) containersOnPlatform.keySet().toArray());
         myGui.setVisible(true);
 
     }
@@ -137,7 +137,7 @@ public class ControllerAgent extends GuiAgent {
         String agentName = (String) guiEvent.getParameter(0);
         AID agentAID = new AID(agentName, AID.ISLOCALNAME);
         if (eventType == KILL_AGENT) {
-            sendKillAgentRequestToAMS(agentAID);
+            sendKillAgentRequestToAgent(agentAID);
             agentNames.remove(agentName);
             myGui.updateAgentsList(agentNames);
             myGui.pack();
@@ -221,11 +221,11 @@ public class ControllerAgent extends GuiAgent {
     }
 
     /**
-     * Method for sending a kill-agent request to AMS
+     * Method for sending a kill-agent request to an agent
      *
      * @param agentAID AID for agent to be killed
      */
-    private void sendKillAgentRequestToAMS(AID agentAID){
+    private void sendKillAgentRequestToAgent(AID agentAID){
         KillAgent killAgentAction = new KillAgent(); //Class representing the kill-agent action that can be requested to the AMS
         killAgentAction.setAgent(agentAID);
         sendRequest(new Action(agentAID, killAgentAction));

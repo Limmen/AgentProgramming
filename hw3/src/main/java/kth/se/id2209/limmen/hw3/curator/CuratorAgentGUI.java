@@ -35,6 +35,9 @@ public class CuratorAgentGUI extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Container panel
+     */
     private class Container extends JPanel {
         private Container() {
             setLayout(new MigLayout("wrap 1"));
@@ -43,6 +46,9 @@ public class CuratorAgentGUI extends JFrame {
         }
     }
 
+    /**
+     * Panel with general information about the agent
+     */
     private class MainPanel extends JPanel {
         private MainPanel() {
             setLayout(new MigLayout("wrap 2"));
@@ -64,6 +70,9 @@ public class CuratorAgentGUI extends JFrame {
         }
     }
 
+    /**
+     * Panel for selecting strategy for dutch auctions
+     */
     private class SetStrategyPanel extends JPanel {
         private SetStrategyPanel() {
             setLayout(new MigLayout("wrap 2"));

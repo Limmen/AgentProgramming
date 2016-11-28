@@ -14,10 +14,10 @@ import java.awt.*;
  */
 public class ArtistManagerGUI extends JFrame {
     private JLabel container, subResults;
-    private JTextArea log;
+    private JTextArea logArea;
     private ArtistManagerAgent myAgent;
-    private JComboBox good;
-    private JTextField initialPrice, reservePrice, rateOfReduction;
+    private JComboBox auctiongoodComboBox;
+    private JTextField initialPriceField, reservePriceField, rateOfReductionField;
 
     /**
      * Class constructor initializing the frame
@@ -34,6 +34,9 @@ public class ArtistManagerGUI extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Container panel
+     */
     private class Container extends JPanel {
         private Container() {
             setLayout(new MigLayout("wrap 1"));
@@ -42,6 +45,9 @@ public class ArtistManagerGUI extends JFrame {
         }
     }
 
+    /**
+     * Panel containing general information about the agent
+     */
     private class MainPanel extends JPanel {
         private MainPanel() {
             setLayout(new MigLayout("wrap 2"));
@@ -54,44 +60,50 @@ public class ArtistManagerGUI extends JFrame {
             add(container, "span 1");
             add(new ClonesResult(), "span 2");
             add(new JLabel("Log:"), "span 2");
-            log = new JTextArea("");
-            log.setLineWrap(true);
-            log.setEditable(false);
-            JScrollPane logPane = new JScrollPane(log);
+            logArea = new JTextArea("");
+            logArea.setLineWrap(true);
+            logArea.setEditable(false);
+            JScrollPane logPane = new JScrollPane(logArea);
             logPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
             logPane.setPreferredSize(new Dimension(400, 250));
             add(logPane, "span 2, center");
         }
     }
 
+    /**
+     * Panel for creating a new auction
+     */
     private class CreateAuction extends JPanel {
         private CreateAuction() {
             setLayout(new MigLayout("wrap 2"));
             add(new JLabel("Create Auction"), "span 2");
             add(new JLabel("Good for auction: "), "span 1");
-            good = new JComboBox(myAgent.getArtGallery().getGallery().toArray());
-            add(good, "span 1");
+            auctiongoodComboBox = new JComboBox(myAgent.getArtGallery().getGallery().toArray());
+            add(auctiongoodComboBox, "span 1");
             add(new JLabel("Initial price: "), "span 1");
-            initialPrice = new JTextField(25);
-            add(initialPrice, "span 1");
+            initialPriceField = new JTextField(25);
+            add(initialPriceField, "span 1");
             add(new JLabel("Reserve price: "), "span 1");
-            reservePrice = new JTextField(25);
-            add(reservePrice, "span 1");
+            reservePriceField = new JTextField(25);
+            add(reservePriceField, "span 1");
             add(new JLabel("Rate of reduction: "), "span 1");
-            rateOfReduction = new JTextField(25);
-            add(rateOfReduction, "span 1");
+            rateOfReductionField = new JTextField(25);
+            add(rateOfReductionField, "span 1");
             JButton startAuction = new JButton("StartAuction");
             add(startAuction, "span 2");
             startAuction.addActionListener(e -> {
-                Double initPrice = Double.parseDouble(initialPrice.getText());
-                Double resPrice = Double.parseDouble(reservePrice.getText());
-                Double rate = Double.parseDouble(rateOfReduction.getText());
-                Auction auction = new Auction(initPrice, ((Artifact) good.getSelectedItem()).getName(), resPrice, rate);
+                Double initPrice = Double.parseDouble(initialPriceField.getText());
+                Double resPrice = Double.parseDouble(reservePriceField.getText());
+                Double rate = Double.parseDouble(rateOfReductionField.getText());
+                Auction auction = new Auction(initPrice, ((Artifact) auctiongoodComboBox.getSelectedItem()).getName(), resPrice, rate);
                 myAgent.startAuction(auction);
             });
         }
     }
 
+    /**
+     * Panel for managing auction-results received from clones
+     */
     private class ClonesResult extends JPanel {
         private ClonesResult(){
             setLayout(new MigLayout("wrap 2"));
@@ -124,12 +136,12 @@ public class ArtistManagerGUI extends JFrame {
     }
 
     /**
-     * Method for updating the log of the agent
+     * Method for updating the logArea of the agent
      *
-     * @param log new log
+     * @param log new logArea
      */
     public void updateLog(String log) {
-        this.log.setText(log);
+        this.logArea.setText(log);
     }
 
 }
