@@ -14,22 +14,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.Set;
-import java.util.Vector;
 
 /**
  *
  * JFrame for the controllerAgent. Takes commands from user and delegates to AMS/agents.
  *
- * Derived from example at: http://www.iro.umontreal.ca/~vaucher/Agents/Jade/Mobility.html
+ * Inspired from example at: http://www.iro.umontreal.ca/~vaucher/Agents/Jade/Mobility.html
  *
  * @author Kim Hammar on 2016-11-23.
  */
 public class ControllerAgentGUI extends JFrame implements ActionListener {
-    private JList list;
-    private DefaultListModel listModel;
-    private JComboBox locations, agentTypes;
-    private JButton newAgent, move, clone, kill, quit;
+    private JList listOfAgents;
+    private DefaultListModel listOfAgentsModel;
+    private JComboBox containers, agentTypes;
+    private JButton newAgentButton, moveButton, cloneButton, killButton, quitButton;
     private JTextField agentNameField;
     private ControllerAgent myAgent;
     private Set set;
@@ -40,7 +40,7 @@ public class ControllerAgentGUI extends JFrame implements ActionListener {
      * Class constructor initializing the frame
      *
      * @param a controlleragent that this frame represents
-     * @param s set of locations
+     * @param s set of containers
      */
     public ControllerAgentGUI(ControllerAgent a, Set s) {
         super("ControllerFrame");
@@ -62,36 +62,36 @@ public class ControllerAgentGUI extends JFrame implements ActionListener {
     /**
      * Handles user-invoked actions
      *
-     * @param ae actionevent
+     * @param actionEvent actionevent
      */
-    public void actionPerformed(ActionEvent ae) {
+    public void actionPerformed(ActionEvent actionEvent) {
 
-        if (ae.getSource() == newAgent) {
+        if (actionEvent.getSource() == newAgentButton) {
             GuiEvent ge = new GuiEvent(this, myAgent.NEW_AGENT);
-            ge.addParameter((String) agentTypes.getSelectedItem());
-            ge.addParameter((String) agentNameField.getText());
+            ge.addParameter(agentTypes.getSelectedItem());
+            ge.addParameter(agentNameField.getText());
             myAgent.postGuiEvent(ge);
-        } else if (ae.getSource() == move) {
+        } else if (actionEvent.getSource() == moveButton) {
 
             GuiEvent ge = new GuiEvent(this, myAgent.MOVE_AGENT);
-            ge.addParameter((String) list.getSelectedValue());
-            ge.addParameter((String) locations.getSelectedItem());
+            ge.addParameter(listOfAgents.getSelectedValue());
+            ge.addParameter(containers.getSelectedItem());
             myAgent.postGuiEvent(ge);
-        } else if (ae.getSource() == clone) {
-            String name = JOptionPane.showInputDialog(this, "Name of the clone: ");
+        } else if (actionEvent.getSource() == cloneButton) {
+            String name = JOptionPane.showInputDialog(this, "Name of the cloneButton: ");
             if(name == null)//user cancelled
                 return;
             GuiEvent ge = new GuiEvent(this, myAgent.CLONE_AGENT);
-            ge.addParameter((String) list.getSelectedValue());
-            ge.addParameter((String) locations.getSelectedItem());
-            ge.addParameter((String) name);
+            ge.addParameter(listOfAgents.getSelectedValue());
+            ge.addParameter(containers.getSelectedItem());
+            ge.addParameter(name);
             myAgent.postGuiEvent(ge);
-        } else if (ae.getSource() == kill) {
+        } else if (actionEvent.getSource() == killButton) {
 
             GuiEvent ge = new GuiEvent(this, myAgent.KILL_AGENT);
-            ge.addParameter((String) list.getSelectedValue());
+            ge.addParameter(listOfAgents.getSelectedValue());
             myAgent.postGuiEvent(ge);
-        } else if (ae.getSource() == quit) {
+        } else if (actionEvent.getSource() == quitButton) {
             shutDown();
         }
     }
@@ -105,73 +105,81 @@ public class ControllerAgentGUI extends JFrame implements ActionListener {
     }
 
     /**
-     * Method for updating the list of  agents
-     * @param v
+     * Method for updating the listOfAgents of  agents
+     * @param agentNames names of agents
      */
-    public void updateList(Vector v) {
-        listModel.clear();
-        for (int i = 0; i < v.size(); i++) {
-            listModel.addElement(v.get(i));
+    public void updateAgentsList(ArrayList<String> agentNames) {
+        listOfAgentsModel.clear();
+        for(String agentName : agentNames){
+            listOfAgentsModel.addElement(agentName);
         }
     }
 
+    /**
+     * Container panel
+     */
     private class Container extends JPanel {
         private Container(){
             setLayout(new MigLayout("wrap 1, insets 50 50 50 50"));
             add(new AgentsNavigation(), "span 1");
             add(new CreateAgent(), "span 1, gaptop 100");
-            add(quit = new JButton("Quit"), "span 1");
-            quit.setToolTipText("Terminate this program");
-            quit.addActionListener(controllerAgentGUI);
+            add(quitButton = new JButton("Quit"), "span 1");
+            quitButton.setToolTipText("Terminate this program");
+            quitButton.addActionListener(controllerAgentGUI);
         }
     }
 
+    /**
+     * Panel for navigating agents
+     */
     private class AgentsNavigation extends JPanel {
-
         private AgentsNavigation(){
             setLayout(new MigLayout("wrap 3"));
             add(new JLabel("List of agents: "), "span 3, center");
-            listModel = new DefaultListModel();
-            list = new JList(listModel);
-            list.setBorder(new EmptyBorder(2, 2, 2, 2));
-            list.setVisibleRowCount(5);
-            list.setFixedCellHeight(18);
-            list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-            JScrollPane listPane = new JScrollPane(list);
+            listOfAgentsModel = new DefaultListModel();
+            listOfAgents = new JList(listOfAgentsModel);
+            listOfAgents.setBorder(new EmptyBorder(2, 2, 2, 2));
+            listOfAgents.setVisibleRowCount(5);
+            listOfAgents.setFixedCellHeight(18);
+            listOfAgents.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+            JScrollPane listPane = new JScrollPane(listOfAgents);
             listPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
             listPane.setPreferredSize(new Dimension(400, 250));
             add(listPane, "span 3, center");
             add(new JLabel("Destination :"), "span 1");
-            locations = new JComboBox(set.toArray());
-            add(locations, "span 2");
-            add(move = new JButton("Move"), "span 1");
-            move.setToolTipText("Move agent to a new location");
-            move.addActionListener(controllerAgentGUI);
-            add(clone = new JButton("Clone"), "span 1");
-            clone.setToolTipText("Clone selected agent");
-            clone.addActionListener(controllerAgentGUI);
-            add(kill = new JButton("Kill"), "span 1");
-            kill.setToolTipText("Kill selected agent");
-            kill.addActionListener(controllerAgentGUI);
-            move.setEnabled(false);
-            clone.setEnabled(false);
-            kill.setEnabled(false);
-            list.addListSelectionListener(new ListSelectionListener() {
+            containers = new JComboBox(set.toArray());
+            add(containers, "span 2");
+            add(moveButton = new JButton("Move"), "span 1");
+            moveButton.setToolTipText("Move agent to a new location");
+            moveButton.addActionListener(controllerAgentGUI);
+            add(cloneButton = new JButton("Clone"), "span 1");
+            cloneButton.setToolTipText("Clone selected agent");
+            cloneButton.addActionListener(controllerAgentGUI);
+            add(killButton = new JButton("Kill"), "span 1");
+            killButton.setToolTipText("Kill selected agent");
+            killButton.addActionListener(controllerAgentGUI);
+            moveButton.setEnabled(false);
+            cloneButton.setEnabled(false);
+            killButton.setEnabled(false);
+            listOfAgents.addListSelectionListener(new ListSelectionListener()  {
                 public void valueChanged(ListSelectionEvent e) {
-                    if (list.getSelectedIndex() == -1) {
-                        move.setEnabled(false);
-                        clone.setEnabled(false);
-                        kill.setEnabled(false);
+                    if (listOfAgents.getSelectedIndex() == -1) {
+                        moveButton.setEnabled(false);
+                        cloneButton.setEnabled(false);
+                        killButton.setEnabled(false);
                     } else {
-                        move.setEnabled(true);
-                        clone.setEnabled(true);
-                        kill.setEnabled(true);
+                        moveButton.setEnabled(true);
+                        cloneButton.setEnabled(true);
+                        killButton.setEnabled(true);
                     }
                 }
             });
         }
     }
 
+    /**
+     * Panel for creating new agents
+     */
     private class CreateAgent extends JPanel {
         private CreateAgent(){
             setLayout(new MigLayout("wrap 2"));
@@ -184,9 +192,9 @@ public class ControllerAgentGUI extends JFrame implements ActionListener {
             add(lbl, "span 1");
             agentNameField = new JTextField(25);
             add(agentNameField, "span 1");
-            add(newAgent = new JButton("New agent"), "span 2");
-            newAgent.setToolTipText("Create a new agent");
-            newAgent.addActionListener(controllerAgentGUI);
+            add(newAgentButton = new JButton("New agent"), "span 2");
+            newAgentButton.setToolTipText("Create a new agent");
+            newAgentButton.addActionListener(controllerAgentGUI);
         }
 
     }
