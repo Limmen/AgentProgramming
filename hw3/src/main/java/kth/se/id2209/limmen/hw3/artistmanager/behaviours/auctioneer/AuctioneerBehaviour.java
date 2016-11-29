@@ -2,6 +2,7 @@ package kth.se.id2209.limmen.hw3.artistmanager.behaviours.auctioneer;
 
 import jade.core.behaviours.FSMBehaviour;
 import kth.se.id2209.limmen.hw3.artistmanager.behaviours.auctioneer.subbehaviours.*;
+import kth.se.id2209.limmen.hw3.artistmanager.behaviours.closeauction.CloseAuction;
 
 
 /**
@@ -16,8 +17,9 @@ public class AuctioneerBehaviour extends FSMBehaviour {
     private static final String SEND_CFP_STATE = "Send CFP";
     private static final String COLLECT_BIDS_STATE = "Collect bids";
     private static final String MODIFY_PRICE_STATE = "Modify price";
-    private static final String CLOSE_AUCTION_STATE = "Close auction";
-    private static final String SELECT_WINNER_STATE = "Select winner";
+    private static final String BIDDING_CLOSED = "Bidding closed";
+    //private static final String CLOSE_AUCTION_STATE = "Close auction";
+    //private static final String SELECT_WINNER_STATE = "Select winner";
 
     /**
      * Class constructor that initializes the behaviour by setting up the different states and transitions.
@@ -33,14 +35,14 @@ public class AuctioneerBehaviour extends FSMBehaviour {
         openAuction.setDataStore(getDataStore());
         ModifyPrice modifyPrice = new ModifyPrice();
         modifyPrice.setDataStore(getDataStore());
-        SelectWinner selectWinner = new SelectWinner();
-        selectWinner.setDataStore(getDataStore());
         CloseAuction closeAuction = new CloseAuction();
         closeAuction.setDataStore(getDataStore());
         CollectBids collectBids = new CollectBids(myAgent, 4000);
         collectBids.setDataStore(getDataStore());
         SendCFP sendCFP = new SendCFP();
         sendCFP.setDataStore(getDataStore());
+        BiddingClosed biddingClosed = new BiddingClosed();
+        biddingClosed.setDataStore(getDataStore());
         /**
          * Register states of the FSM
          */
@@ -49,8 +51,7 @@ public class AuctioneerBehaviour extends FSMBehaviour {
         registerState(sendCFP, SEND_CFP_STATE);
         registerState(collectBids, COLLECT_BIDS_STATE);
         registerState(modifyPrice, MODIFY_PRICE_STATE);
-        registerLastState(closeAuction, CLOSE_AUCTION_STATE);
-        registerState(selectWinner, SELECT_WINNER_STATE);
+        registerLastState(biddingClosed, BIDDING_CLOSED);
         /**
          * Register transitions between states
          */
@@ -59,9 +60,9 @@ public class AuctioneerBehaviour extends FSMBehaviour {
         registerDefaultTransition(OPEN_AUCTION_STATE, SEND_CFP_STATE);
         registerDefaultTransition(SEND_CFP_STATE, COLLECT_BIDS_STATE, new String[] {COLLECT_BIDS_STATE});
         registerTransition(COLLECT_BIDS_STATE, MODIFY_PRICE_STATE, 1);
-        registerTransition(COLLECT_BIDS_STATE, SELECT_WINNER_STATE, 0);
-        registerDefaultTransition(SELECT_WINNER_STATE, CLOSE_AUCTION_STATE);
+        registerTransition(COLLECT_BIDS_STATE, BIDDING_CLOSED, 0);
+        //registerDefaultTransition(SELECT_WINNER_STATE, CLOSE_AUCTION_STATE);
         registerTransition(MODIFY_PRICE_STATE, SEND_CFP_STATE, 0);
-        registerTransition(MODIFY_PRICE_STATE, CLOSE_AUCTION_STATE, 1);
+        registerTransition(MODIFY_PRICE_STATE, BIDDING_CLOSED, 1);
     }
 }

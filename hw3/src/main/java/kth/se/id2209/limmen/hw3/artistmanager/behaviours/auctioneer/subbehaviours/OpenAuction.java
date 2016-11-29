@@ -25,7 +25,7 @@ public class OpenAuction extends OneShotBehaviour {
         closeAuctionMsg.setOntology("open");
         Auction auction = ((ArtistManagerAgent) myAgent).getAuction();
         closeAuctionMsg.setContent(auction.getArtifactTitle());
-        ArrayList<AID> bidders = (ArrayList<AID>) getDataStore().get(ArtistManagerAgent.BIDDERS);
+        ArrayList<AID> bidders = ((ArtistManagerAgent) myAgent).getBidders();
         for(AID aid : bidders){
             closeAuctionMsg.addReceiver(aid);
         }

@@ -1,8 +1,10 @@
 package kth.se.id2209.limmen.hw3.artistmanager.model;
 
 import jade.core.AID;
+import jade.lang.acl.ACLMessage;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Class representing an auction result.
@@ -12,6 +14,7 @@ import java.io.Serializable;
 public class AuctionResult implements Serializable {
 
     private String result;
+    private ArrayList<ACLMessage> bids = new ArrayList<>();
     private double price;
     private boolean sold;
     private AID auctioneer;
@@ -37,5 +40,13 @@ public class AuctionResult implements Serializable {
 
     public AID getAuctioneer() {
         return auctioneer;
+    }
+
+    public ArrayList<ACLMessage> getBids() {
+        return bids;
+    }
+
+    public void setBids(ArrayList<ACLMessage> bids) {
+        this.bids = bids;
     }
 }

@@ -13,8 +13,9 @@ import java.awt.*;
  * @author Kim Hammar on 2016-11-23.
  */
 public class ArtistManagerGUI extends JFrame {
-    private JLabel container, subResults;
+    private JLabel container, subResults, auctionOnGoing;
     private JTextArea logArea;
+    private JButton closeAuction, reportToParent, startAuction, synthesizeResults;
     private ArtistManagerAgent myAgent;
     private JComboBox auctiongoodComboBox;
     private JTextField initialPriceField, reservePriceField, rateOfReductionField;
@@ -58,6 +59,9 @@ public class ArtistManagerGUI extends JFrame {
             add(new JLabel("Container: "), "span 1");
             container = new JLabel(myAgent.here().getName());
             add(container, "span 1");
+            add(new JLabel("Auction onGoing: "), "span 1");
+            auctionOnGoing = new JLabel(Boolean.toString(myAgent.isAuctionOngoing()));
+            add(auctionOnGoing, "span 1");
             add(new ClonesResult(), "span 2");
             add(new JLabel("Log:"), "span 2");
             logArea = new JTextArea("");
@@ -89,7 +93,8 @@ public class ArtistManagerGUI extends JFrame {
             add(new JLabel("Rate of reduction: "), "span 1");
             rateOfReductionField = new JTextField(25);
             add(rateOfReductionField, "span 1");
-            JButton startAuction = new JButton("StartAuction");
+            startAuction = new JButton("StartAuction");
+            startAuction.setEnabled(!myAgent.isBiddingClosed());
             add(startAuction, "span 2");
             startAuction.addActionListener(e -> {
                 Double initPrice = Double.parseDouble(initialPriceField.getText());
@@ -98,6 +103,12 @@ public class ArtistManagerGUI extends JFrame {
                 Auction auction = new Auction(initPrice, ((Artifact) auctiongoodComboBox.getSelectedItem()).getName(), resPrice, rate);
                 myAgent.startAuction(auction);
             });
+            closeAuction = new JButton("CloseAuction");
+            closeAuction.setEnabled(myAgent.isAuctionReadyToBeClosed());
+            add(closeAuction, "span 2");
+            closeAuction.addActionListener(e -> {
+                myAgent.closeAuction();
+            });
         }
     }
 
@@ -105,15 +116,22 @@ public class ArtistManagerGUI extends JFrame {
      * Panel for managing auction-results received from clones
      */
     private class ClonesResult extends JPanel {
-        private ClonesResult(){
+        private ClonesResult() {
             setLayout(new MigLayout("wrap 2"));
             add(new JLabel("Number of sub-results received from clones:"), "span 1");
             subResults = new JLabel(Integer.toString(myAgent.getClonesResult().size()));
             add(subResults, "span 1");
-            JButton synthesizeResults = new JButton("Synthesize results");
+            synthesizeResults = new JButton("Synthesize results");
+            synthesizeResults.setEnabled(myAgent.getClonesResult().size() > 0);
             add(synthesizeResults, "span 2");
             synthesizeResults.addActionListener(e -> {
                 myAgent.synthesizeResults();
+            });
+            reportToParent = new JButton("Report to parent-agent");
+            reportToParent.setEnabled(myAgent.isBiddingClosed() && !myAgent.isHaveReported());
+            add(reportToParent, "span 2");
+            reportToParent.addActionListener(e -> {
+                myAgent.reportToParent();
             });
         }
     }
@@ -121,8 +139,16 @@ public class ArtistManagerGUI extends JFrame {
     /**
      * Method for updating the number of sub-results received from clones
      */
-    public void updateClonesResult(){
+    public void updateClonesResult() {
         this.subResults.setText(Integer.toString(myAgent.getClonesResult().size()));
+        synthesizeResults.setEnabled(myAgent.getClonesResult().size() > 0);
+    }
+
+    /**
+     * Method for updating the label that tells if the auction is ongoing
+     */
+    public void updateAuctionOnGoing() {
+        this.auctionOnGoing.setText(Boolean.toString(myAgent.isAuctionOngoing()));
     }
 
     /**
@@ -136,12 +162,27 @@ public class ArtistManagerGUI extends JFrame {
     }
 
     /**
+     * Method to update gui after bidding closed/opened
+     */
+    public void updateBiddingClosed() {
+        reportToParent.setEnabled(myAgent.isBiddingClosed() && !myAgent.isHaveReported());
+        startAuction.setEnabled(!myAgent.isBiddingClosed());
+    }
+
+    /**
      * Method for updating the logArea of the agent
      *
      * @param log new logArea
      */
     public void updateLog(String log) {
         this.logArea.setText(log);
+    }
+
+    /**
+     * Method to update gui after receiving auction result from parent
+     */
+    public void updateAuctionDone() {
+        closeAuction.setEnabled(myAgent.isAuctionReadyToBeClosed());
     }
 
 }

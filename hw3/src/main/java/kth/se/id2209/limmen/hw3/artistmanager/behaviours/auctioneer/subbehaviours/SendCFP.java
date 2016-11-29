@@ -25,7 +25,7 @@ public class SendCFP extends OneShotBehaviour {
         ((ArtistManagerAgent) myAgent).updateLog("SENDING CFP");
         ACLMessage cfpMessage = new ACLMessage(ACLMessage.CFP);
         Auction auction = ((ArtistManagerAgent) myAgent).getAuction();
-        ArrayList<AID> bidders = (ArrayList<AID>) getDataStore().get(ArtistManagerAgent.BIDDERS);
+        ArrayList<AID> bidders = ((ArtistManagerAgent) myAgent).getBidders();
         for(AID aid : bidders){
             cfpMessage.addReceiver(aid);
         }

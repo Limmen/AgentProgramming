@@ -1,13 +1,14 @@
 package kth.se.id2209.limmen.hw3.artistmanager.model;
 
 import jade.core.AID;
+import jade.util.leap.Serializable;
 
 /**
  * Class representing an auction.
  *
  * @author Kim Hammar on 2016-11-17.
  */
-public class Auction {
+public class Auction implements Serializable {
 
     private double initialPrice;
     private String artifactTitle;

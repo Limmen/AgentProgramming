@@ -43,7 +43,7 @@ public class CollectBids extends WakerBehaviour {
         if (receivedBids.size() == 0) {
             receivedBid = false;
         } else {
-            getDataStore().put(ArtistManagerAgent.WINNERS, receivedBids);
+            ((ArtistManagerAgent) myAgent).setPossibleWinners(receivedBids);
             receivedBid = true;
         }
     }

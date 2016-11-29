@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.4.16)  28 NOV 2016 12:58
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.4.16)  29 NOV 2016 16:09
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -574,6 +574,13 @@ File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <10.95> not available
 (Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 89.
 
+Overfull \hbox (42.97441pt too wide) in paragraph at lines 91--92
+[]\T1/lmr/m/n/10.95 The \T1/lmtt/m/n/10.95 ArtistManagerAgent \T1/lmr/m/n/10.95
+ will run two cyclic be-haviours \T1/lmtt/m/n/10.95 ClonesServer \T1/lmr/m/n/10
+.95 and \T1/lmtt/m/n/10.95 AuctionResultServer
+ []
+
+
 Overfull \hbox (10.39844pt too wide) in paragraph at lines 94--95
 \T1/lmr/m/n/10.95 In ad-di-tion to the \T1/lmtt/m/n/10.95 CuratorAgent \T1/lmr/
 m/n/10.95 and \T1/lmtt/m/n/10.95 ArtistManagerAgent\T1/lmr/m/n/10.95 , a third 
@@ -607,7 +614,7 @@ f/fonts/type1/public/lm/lmcsc10.pfb></usr/share/texmf/fonts/type1/public/lm/lmm
 i10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fon
 ts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pf
 b></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb>
-Output written on report.pdf (3 pages, 162378 bytes).
+Output written on report.pdf (3 pages, 162629 bytes).
 PDF statistics:
  80 PDF objects out of 1000 (max. 8388607)
  66 compressed objects within 1 object stream

@@ -47,7 +47,7 @@ public class FindBidders extends OneShotBehaviour {
             }
         }
         ((ArtistManagerAgent) myAgent).updateLog("Found " + agentsOnContainer.size() + " agents on container, where " + bidders.size() + " are bidders");
-        getDataStore().put(ArtistManagerAgent.BIDDERS, bidders);
+        ((ArtistManagerAgent) myAgent).setBidders(bidders);
     }
 
     private List findAgentsOnContainer() {
