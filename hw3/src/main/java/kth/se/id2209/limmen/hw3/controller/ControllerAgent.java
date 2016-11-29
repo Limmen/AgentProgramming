@@ -85,9 +85,9 @@ public class ControllerAgent extends GuiAgent {
         /**
          * Initialize gui
          */
-        myGui = new ControllerAgentGUI(this, (String []) containersOnPlatform.keySet().toArray());
-        myGui.setVisible(true);
 
+        myGui = new ControllerAgentGUI(this, (String[]) containersOnPlatform.keySet().toArray(new String[containersOnPlatform.keySet().size()]));
+        myGui.setVisible(true);
     }
 
     /**

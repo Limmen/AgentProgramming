@@ -94,7 +94,7 @@ public class QueenServer extends SimpleBehaviour {
         if (selectSafeSlot()) {
             if (id == numberOfAgents - 1) {
                 System.out.println("------------------------------------------------------------------------------------------------------------------");
-                System.out.println("Game finnished");
+                System.out.println("Game finished, solution found:");
                 prettyPrintBoard();
                 System.out.println("------------------------------------------------------------------------------------------------------------------");
                 exitAndShutDown();
@@ -105,7 +105,7 @@ public class QueenServer extends SimpleBehaviour {
         } else {
             if (id == 0) {
                 System.out.println("------------------------------------------------------------------------------------------------------------------");
-                System.out.println("Game over");
+                System.out.println("Game over, no solution found:");
                 prettyPrintBoard();
                 System.out.println("------------------------------------------------------------------------------------------------------------------");
                 exitAndShutDown();

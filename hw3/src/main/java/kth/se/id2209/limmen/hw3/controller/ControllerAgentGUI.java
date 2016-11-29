@@ -76,7 +76,7 @@ public class ControllerAgentGUI extends JFrame implements ActionListener {
             ge.addParameter(containers.getSelectedItem());
             myAgent.postGuiEvent(ge);
         } else if (actionEvent.getSource() == cloneButton) {
-            String name = JOptionPane.showInputDialog(this, "Name of the cloneButton: ");
+            String name = JOptionPane.showInputDialog(this, "Name of the clone: ");
             if(name == null)//user cancelled
                 return;
             GuiEvent ge = new GuiEvent(this, myAgent.CLONE_AGENT);
