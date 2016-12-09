@@ -97,7 +97,7 @@ The SmartMuseum organization has the purpose of connecting different people and 
 The activity of a consumer viewing an art-artifact involves atleast three, sometimes four, or five main divisions: \textit{tour-guide division}, \textit{art-curator division}, \textit{artist-management division}, \textit{user-service division} and \textit{artist-division}.
 The activity is initiated by the  consumer who contacts the user-service division and selects some type of art-service, the user-service divison support the consumer in requesting/retrieving the service from either the art-curator division or tour-guide-division. In parellel to managing consumer requests the tour-guide division browses art-artifacts that is curated by the art-curator division. Further more, the art-curator divison participates in auctions for obtaining art-artifacts from the artist-management division, in parallel to managing requests from consumers and tourguides. Finally, the artist-management division initiates auctions for art-artifacts on request from artists.
 
-The activities described above can the be modelled as an organization in the following way. The organization consists of $8$ roles. The \textsc{ArtConsumer} who consumes arts in different forms. The \textsc{UserHandler} which the consumer uses to purchase and browse services for art-artifacts. The \textsc{TourGuideAdvertiser} which presents and attempts to sell virtual tours. The \textsc{TourGuideBuilder} which constructs a virtual tour of arts by retrieving arts matching some given preferences. The \textsc{ArtBuyer} who buys art to include in its gallery/museum. The \textsc{ArtSeller} who sells art-artifacts. The \textsc{ArtAdvertiser} who promotes the curated artifacts to be included in virtual tours, visisted directly by consumers or sold. And finally the \textsc{Artist} who produces art.
+The activities described above can the be modelled as an organization in the following way. The organization consists of $7$ roles. The \textsc{ArtConsumer (AC)} who consumes arts in different forms. The \textsc{UserHandler (UH)} which the consumer uses to purchase and browse services related to art. The \textsc{TourGuide (TA)} which builds and offers virtual tours. The \textsc{ArtBuyer (AB)} who buys art to include in its gallery/museum, the \textsc{ArtQuoter (AQ)} who quotes the price for arts and sells it to consumers. The \textsc{ArtSeller (AS)} who sells art-artifacts produced by artists. And finally the \textsc{Artist (A)} who produces art.
 \subsubsection{Roles Model}
 \begin{assumption}{1}{A}\label{1A}
 Roles can find each other in some way in order to communicate
@@ -106,7 +106,7 @@ Roles can find each other in some way in order to communicate
   \begin{center}
 \noindent\fbox{%
     \parbox{\textwidth}{%
-\setlength\parindent{14pt} Role Schema: \hspace{5em} \textit{ArtConsumer}\\
+\setlength\parindent{14pt} Role Schema: \hspace{1em} \textsc{ArtConsumer (AC)}\\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 
 \setlength\parindent{14pt} Description: 
@@ -115,19 +115,27 @@ Roles can find each other in some way in order to communicate
 
 \setlength\parindent{14pt} Protocols and activities: 
 \par\setlength\parindent{44pt} {\fontfamily{\sfdefault}\selectfont 
-SelectService, PayForService, \underline{ConsumeService}
+DownloadVirtualTour, BuyArt, \underline{ConsumeService}
 } \\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 
 \setlength\parindent{14pt} Permissions: 
-\par\setlength\parindent{104pt}$\text{\textbf{reads}} \quad \text{{\fontfamily{\sfdefault}\selectfont supplied }}availableServices \quad \text{\textit{//}} \quad \text{\textit{list of services}}$\\
+\par\setlength\parindent{104pt}$\text{\textbf{reads}}$ \hspace{2.8em} $\text{{\fontfamily{\sfdefault}\selectfont supplied }}availableServices \quad \text{\textit{//}} \quad \text{\textit{list of services}}$
+\par\setlength\parindent{162pt}$money$\hspace{8.9em} $\text{\textit{//}} \quad \text{\textit{money of the consumer}}$
+\par\setlength\parindent{104pt}$\text{\textbf{generates}}$ \hspace{0.9em} $valuation$\hspace{7.5em} $\text{\textit{//}} \quad \text{\textit{valuation of selected artifact}}$
+\par\setlength\parindent{162pt}$artifactTitle$\hspace{6.1em} $\text{\textit{//}} \quad \text{\textit{title of selected artifact}}$\
+\par\setlength\parindent{162pt}$virtualTourTitle$\hspace{4.4em} $\text{\textit{//}} \quad \text{\textit{title of selected virtual-tour}}$\
+\par\setlength\parindent{162pt}$virtualTourTitle$\hspace{4.4em} $\text{\textit{//}} \quad \text{\textit{valuation of selected virtualTour}}$
+\par\setlength\parindent{162pt}$moneyForArtifact$\hspace{3.4em} $\text{\textit{//}} \quad \text{\textit{money for selected artifact}}$\\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 
 \setlength\parindent{14pt} Responsibilities
 \par \setlength\parindent{14pt} Liveness:
 \par\setlength\parindent{75pt}$\text{\textsc{ArtConsumer}} = (\text{{\fontfamily{\sfdefault}\selectfont 
-SelectService. PayForService. \underline{ConsumeService}
+GetService. \underline{ConsumeService}
 }})^{\omega}$
+\par\setlength\parindent{75pt}$\text{\textsc{GetService}} = (\text{{\fontfamily{\sfdefault}\selectfont 
+DownloadVirtualTour |  BuyArt}})$
 
 \par \setlength\parindent{14pt} Safety:
 \begin{itemize}[leftmargin=20mm]
@@ -144,7 +152,7 @@ SelectService. PayForService. \underline{ConsumeService}
   \begin{center}
 \noindent\fbox{%
     \parbox{\textwidth}{%
-\setlength\parindent{14pt} Role Schema: \hspace{5em} \textit{UserHandler}\\
+\setlength\parindent{14pt} Role Schema: \hspace{1em} \textsc{UserHandler (UH)}\\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 
 \setlength\parindent{14pt} Description: 
@@ -153,29 +161,37 @@ SelectService. PayForService. \underline{ConsumeService}
 
 \setlength\parindent{14pt} Protocols and activities: 
 \par\setlength\parindent{44pt} {\fontfamily{\sfdefault}\selectfont 
-SelectService, PayForService, BuyArt, BuyVirtualTour, GetArtifacts,
+ManageArtPayment, GetVirtualTour, GetArtifactsList,
 } 
-\par\setlength\parindent{44pt} {\fontfamily{\sfdefault}\selectfont GetPublishedVirtualTours, \underline{GenerateListOfArtServices}}\\
+\par\setlength\parindent{44pt} {\fontfamily{\sfdefault}\selectfont GetVirtualTourList, \underline{GenerateListOfArtServices}}\\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 
 \setlength\parindent{14pt} Permissions: 
-\par\setlength\parindent{84pt}$\text{\textbf{generates}}$ \hspace{1em} $ availableServices \quad $ \hspace{5.4em} $\text{\textit{//}} \quad \text{\textit{list of services}}$
-\par\setlength\parindent{84pt}$\text{\textbf{reads}}$ \hspace{2.9em} $ \text{{\fontfamily{\sfdefault}\selectfont supplied }}publishedVirtualTours$ \hspace{0.2em} $\text{\textit{//}} \quad \text{\textit{list of published virtual tours}}$
-\par\setlength\parindent{143pt}$\text{{\fontfamily{\sfdefault}\selectfont supplied }}artifacts $ \hspace{6.5em}$\text{\textit{//}} \quad \text{\textit{list of art-artifacts}}$\\
+\par\setlength\parindent{84pt}$\text{\textbf{generates}}$ \hspace{1em} $ availableServices \quad $ \hspace{3.6em} $\text{\textit{//}} \quad \text{\textit{list of services}}$
+\par\setlength\parindent{143pt}$bid \quad $ \hspace{9.6em} $\text{\textit{//}} \quad \text{\textit{bid to attempt to buy artifact}}$
+\par\setlength\parindent{84pt}$\text{\textbf{reads}}$ \hspace{2.9em} $ \text{{\fontfamily{\sfdefault}\selectfont supplied }}virtualTours$ \hspace{2.8em} $\text{\textit{//}} \quad \text{\textit{list of virtual tours}}$
+\par\setlength\parindent{143pt}$\text{{\fontfamily{\sfdefault}\selectfont supplied }}artifacts $ \hspace{4.5em}$\text{\textit{//}} \quad \text{\textit{list of art-artifacts}}$
+\par\setlength\parindent{143pt}$\text{{\fontfamily{\sfdefault}\selectfont supplied }}money$\hspace{5.5em} $\text{\textit{//}} \quad \text{\textit{money of the consumer}}$
+\par\setlength\parindent{143pt}$\text{{\fontfamily{\sfdefault}\selectfont supplied }}artifactTitle$\hspace{2.9em} $\text{\textit{//}} \quad \text{\textit{title of artifact-purchase}}$
+\par\setlength\parindent{143pt}$\text{{\fontfamily{\sfdefault}\selectfont supplied }}virtualTourTitle$\hspace{1.1em} $\text{\textit{//}} \quad \text{\textit{title of virtual-tour selection}}$
+\par\setlength\parindent{143pt}$\text{{\fontfamily{\sfdefault}\selectfont supplied }}artifact$\hspace{4.7em} $\text{\textit{//}} \quad \text{\textit{bhought artifact or nil}}$
+\par\setlength\parindent{143pt}$\text{{\fontfamily{\sfdefault}\selectfont supplied }}virtualTour$\hspace{3.0em} $\text{\textit{//}} \quad \text{\textit{virtual-tour downloaded by consumer}}$
+\\
+
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 
 \setlength\parindent{14pt} Responsibilities
 \par \setlength\parindent{14pt} Liveness:
 \par\setlength\parindent{75pt}$\text{\textsc{UserHandler}} = (All)^{\omega}$ 
 \par\setlength\parindent{75pt}$\text{\textsc{All}} = (\text{{\fontfamily{\sfdefault}\selectfont 
-GetServices. \underline{GenerateListOfArtServices}. UserInteraction. Service}})^{\omega}$
-\par\setlength\parindent{75pt}$\text{\textsc{UserInteraction}} = \text{{\fontfamily{\sfdefault}\selectfont SelectService. PayForService}}$
-\par\setlength\parindent{75pt}$\text{\textsc{GetServices}} = \text{{\fontfamily{\sfdefault}\selectfont GetArtifacts. GetPublishedVirtualTours}}$
-\par\setlength\parindent{75pt}$\text{\textsc{Service}} = \text{{\fontfamily{\sfdefault}\selectfont BuyArt | BuyVirtualTour}}$
+PresentServices || HandleConsumerRequest}})^{\omega}$
+\par\setlength\parindent{75pt}$\text{\textsc{PresentServices}} = \text{{\fontfamily{\sfdefault}\selectfont GetServices. \underline{GenerateListOfArtServices}}}$
+\par\setlength\parindent{75pt}$\text{\textsc{GetServices}} = \text{{\fontfamily{\sfdefault}\selectfont GetArtifactsList. GetVirtualToursList}}$
+\par\setlength\parindent{75pt}$\text{\textsc{HandleConsumerRequest}} = \text{{\fontfamily{\sfdefault}\selectfont ManageArtPaymen | GetVirtualTour}}$
 
 \par \setlength\parindent{14pt} Safety:
 \begin{itemize}[leftmargin=20mm]
-\item $availableServices = artifacts + publishedVirtualTours$
+\item $availableServices = artifacts + virtualTours$
 \end{itemize}
     }%
 }
@@ -188,64 +204,35 @@ GetServices. \underline{GenerateListOfArtServices}. UserInteraction. Service}})^
   \begin{center}
 \noindent\fbox{%
     \parbox{\textwidth}{%
-\setlength\parindent{14pt} Role Schema: \hspace{5em} \textit{TourGuideAdvertiser}\\
-\setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
-
-\setlength\parindent{14pt} Description: 
-\par\setlength\parindent{44pt} Presents virtual tours to potential buyers and sells tours. \\
-\setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
-
-\setlength\parindent{14pt} Protocols and activities: 
-\par\setlength\parindent{44pt} {\fontfamily{\sfdefault}\selectfont 
-\underline{PublishVirtualTour}, RetrieveVirtualTour  
-} \\
-\setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
-\setlength\parindent{14pt} Permissions: 
-\par\setlength\parindent{104pt}$\text{\textbf{generates}}$ \hspace{1em} $ publishedVirtualTour \quad $ \hspace{1em} $\text{\textit{//}} \quad \text{\textit{published description of tour}}$
-\par\setlength\parindent{104pt}$\text{\textbf{reads}}$ \hspace{2.9em} $ \text{{\fontfamily{\sfdefault}\selectfont supplied }}virtualTours$ \hspace{2.2em} $\text{\textit{//}} \quad \text{\textit{list of virtual tours}}$\\
-\setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
-
-\setlength\parindent{14pt} Responsibilities
-\par \setlength\parindent{14pt} Liveness:
-\par\setlength\parindent{75pt}$\text{\textsc{TourGuideAdvertiser}} = (\text{{\fontfamily{\sfdefault}\selectfont $[$PublishVirtualTour$]$ || RetrieveVirtualTour}})^{\omega}$ 
-
-\par \setlength\parindent{14pt} Safety:
-\begin{itemize}[leftmargin=20mm]
-\item $publishedVirtualTour \implies \exists \{x \in virtualTours \quad | \quad x \equiv publishedVirtualTour\} $
-\end{itemize}
-    }%
-}
-\caption{Schema for role \textsc{TourGuideAdvertiser}}
-\label{fig:role_tour_guide_advertiser}
-\end{center}
-\end{figure}
-
-\begin{figure}[H]
-  \begin{center}
-\noindent\fbox{%
-    \parbox{\textwidth}{%
-\setlength\parindent{14pt} Role Schema: \hspace{5em} \textit{TourGuideBuilder}\\
+\setlength\parindent{14pt} Role Schema: \hspace{1em} \textsc{TourGuide (TG)}\\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 
 \setlength\parindent{14pt} Description: 
 \par\setlength\parindent{44pt} Responsible for constructing virtual tours of art-artifacts. Looks up available 
-\par\setlength\parindent{44pt} artifacts at curators and then builds different types of tours. \\
+\par\setlength\parindent{44pt} artifacts at curators and then builds different types of tours.
+\par\setlength\parindent{44pt} Sends tours to user-handlers. \\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 
 \setlength\parindent{14pt} Protocols and activities: 
 \par\setlength\parindent{44pt} {\fontfamily{\sfdefault}\selectfont 
-GetArtifacts, \underline{BuildVirtualTour}
+SendVirtualTours, SendVirtualTour, GetArtifactList, \underline{BuildVirtualTour}
 } \\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 \setlength\parindent{14pt} Permissions: 
-\par\setlength\parindent{104pt}$\text{\textbf{generates}}$ \hspace{1em} $ virtualTour \quad $ \hspace{2.0em} $\text{\textit{//}} \quad \text{\textit{virtual tour of art-artifacts}}$
-\par\setlength\parindent{104pt}$\text{\textbf{reads}}$ \hspace{2.9em} $ \text{{\fontfamily{\sfdefault}\selectfont supplied }}artifacts$ \hspace{0.6em} $\text{\textit{//}} \quad \text{\textit{list of artifacts}}$\\
+\par\setlength\parindent{104pt}$\text{\textbf{generates}}$ \hspace{1em} $ virtualTour \quad $ \hspace{5.3em} $\text{\textit{//}} \quad \text{\textit{virtual tour of art-artifacts}}$
+\par\setlength\parindent{163pt} $ virtualTours \quad $ \hspace{5.0em} $\text{\textit{//}} \quad \text{\textit{list of virtual-tours}}$
+\par\setlength\parindent{104pt}$\text{\textbf{reads}}$ \hspace{2.9em} $ \text{{\fontfamily{\sfdefault}\selectfont supplied }}artifacts$ \hspace{3.8em} $\text{\textit{//}} \quad \text{\textit{list of artifacts}}$
+\par\setlength\parindent{163pt}$ \text{{\fontfamily{\sfdefault}\selectfont supplied }}virtualTourTitle$ \hspace{0.6em} $\text{\textit{//}} \quad \text{\textit{specific virtual-tour title}}$\\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 
 \setlength\parindent{14pt} Responsibilities
 \par \setlength\parindent{14pt} Liveness:
 \par\setlength\parindent{75pt}$\text{\textsc{TourGuideBuilder}} = (\text{{\fontfamily{\sfdefault}\selectfont 
-GetArtifacts. \text{\underline{BuildVirtualTour}}}})^{\omega}$
+ConstructTour || $[$Send$]$}})^{\omega}$
+\par\setlength\parindent{75pt}$\text{\textsc{ConstructTour}} = (\text{{\fontfamily{\sfdefault}\selectfont 
+GetArtifactList. \text{\underline{BuildVirtualTour}}}})^{\omega}$
+\par\setlength\parindent{75pt}$\text{\textsc{Send}} = \text{{\fontfamily{\sfdefault}\selectfont 
+SendVirtualTours | SendVirtualTour}}$
 
 \par \setlength\parindent{14pt} Safety:
 \begin{itemize}[leftmargin=20mm]
@@ -253,8 +240,8 @@ GetArtifacts. \text{\underline{BuildVirtualTour}}}})^{\omega}$
 \end{itemize}
     }%
 }
-\caption{Schema for role \textsc{TourGuideBuilder}}
-\label{fig:role_tour_guide_builder}
+\caption{Schema for role \textsc{TourGuide}}
+\label{fig:role_tour_guide}
 \end{center}
 \end{figure}
 
@@ -263,26 +250,32 @@ GetArtifacts. \text{\underline{BuildVirtualTour}}}})^{\omega}$
   \begin{center}
 \noindent\fbox{%
     \parbox{\textwidth}{%
-\setlength\parindent{14pt} Role Schema: \hspace{5em} \textit{ArtBuyer}\\
+\setlength\parindent{14pt} Role Schema: \hspace{1em} \textsc{ArtBuyer (AB)}\\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 
 \setlength\parindent{14pt} Description: 
-\par\setlength\parindent{44pt} Buys art-artifacts.\\
+\par\setlength\parindent{44pt} Buys art-artifacts from art-sellers.\\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 
 \setlength\parindent{14pt} Protocols and activities: 
 \par\setlength\parindent{44pt} {\fontfamily{\sfdefault}\selectfont 
-BuyArt
+BuyArt, SendArtifacts
 } \\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 \setlength\parindent{14pt} Permissions: 
-\par\setlength\parindent{104pt}$\text{\textbf{generates}}$ \hspace{1em} $ artifacts$ \hspace{1em} $\text{\textit{//}} \quad \text{\textit{list of purchased artifacts}}$\\
+\par\setlength\parindent{104pt}$\text{\textbf{generates}}$ \hspace{1em} $ artifacts$ \hspace{4.9em} $\text{\textit{//}} \quad \text{\textit{list of purchased artifacts}}$
+\par\setlength\parindent{163pt}$bid \quad $ \hspace{6.4em} $\text{\textit{//}} \quad \text{\textit{bid to attempt to buy artifact}}$
+\par\setlength\parindent{105pt}$\text{\textbf{reads}}$ \hspace{2.7em} $ money$ \hspace{6.0em} $\text{\textit{//}} \quad \text{\textit{the buyer's money}}$
+\par\setlength\parindent{163pt}$artifactTitle$ \hspace{3.1em} $\text{\textit{//}} \quad \text{\textit{title for a specific artifact}}$
+\par\setlength\parindent{163pt}$\text{{\fontfamily{\sfdefault}\selectfont supplied }}artifact$ \hspace{1.3em} $\text{\textit{//}} \quad \text{\textit{bhought artifact or nil}}$\\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
+
+%\text{{\fontfamily{\sfdefault}\selectfont 
 
 \setlength\parindent{14pt} Responsibilities
 \par \setlength\parindent{14pt} Liveness:
 \par\setlength\parindent{75pt}$\text{\textsc{ArtBuyer}} = (\text{{\fontfamily{\sfdefault}\selectfont 
-BuyArt }})^{\omega}$
+$[$BuyArt$]$ || $[$SendArtifacts$]$ }})^{\omega}$
 
 \par \setlength\parindent{14pt} Safety:
 \begin{itemize}[leftmargin=20mm]
@@ -299,26 +292,27 @@ BuyArt }})^{\omega}$
   \begin{center}
 \noindent\fbox{%
     \parbox{\textwidth}{%
-\setlength\parindent{14pt} Role Schema: \hspace{5em} \textit{ArtSeller}\\
+\setlength\parindent{14pt} Role Schema: \hspace{1em} \textsc{ArtQuoter (AQ)}\\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 
 \setlength\parindent{14pt} Description: 
-\par\setlength\parindent{44pt} Sells art-artifacts.\\
+\par\setlength\parindent{44pt} Quotes art and resells it to consumers\\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 
 \setlength\parindent{14pt} Protocols and activities: 
 \par\setlength\parindent{44pt} {\fontfamily{\sfdefault}\selectfont 
-SellArt
+\underline{QuoteArt}, SellArt, GetArtifacts, SendArtifacts
 } \\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 \setlength\parindent{14pt} Permissions: 
-\par\setlength\parindent{104pt}$\text{\textbf{read}}$ \hspace{1em} $ artifacts$ \hspace{1em} $\text{\textit{//}} \quad \text{\textit{list of artifacts}}$\\
+\par\setlength\parindent{84pt}$\text{\textbf{reads}}$ \hspace{5em} $\text{{\fontfamily{\sfdefault}\selectfont supplied }} artifacts$ \hspace{0.6em} $\text{\textit{//}} \quad \text{\textit{list of artifacts}}$
+\par\setlength\parindent{164pt}$\text{{\fontfamily{\sfdefault}\selectfont supplied }} bid$ \hspace{2.9em} $\text{\textit{//}} \quad \text{\textit{bid for artifact}}$
+\par\setlength\parindent{84pt}$\text{\textbf{generates}}$ \hspace{3.1em} $quote$ \hspace{5.6em} $\text{\textit{//}} \quad \text{\textit{quote of artifact}}$\\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
-
 \setlength\parindent{14pt} Responsibilities
 \par \setlength\parindent{14pt} Liveness:
-\par\setlength\parindent{75pt}$\text{\textsc{ArtSeller}} = (\text{{\fontfamily{\sfdefault}\selectfont 
-SellArt }})^{\omega}$
+\par\setlength\parindent{75pt}$\text{\textsc{ArtQuoter}} = (\text{{\fontfamily{\sfdefault}\selectfont 
+(GetArtifacts. \underline{QuoteArt}. SellArt) || SendArtifacts}})^{\omega}$
 
 \par \setlength\parindent{14pt} Safety:
 \begin{itemize}[leftmargin=20mm]
@@ -326,6 +320,44 @@ SellArt }})^{\omega}$
 \end{itemize}
     }%
 }
+
+\caption{Schema for role \textsc{ArtQuoter}}
+\label{fig:role_art_quoter}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{center}
+\noindent\fbox{%
+    \parbox{\textwidth}{%
+\setlength\parindent{14pt} Role Schema: \hspace{1em} \textsc{ArtSeller (AS)}\\
+\setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
+
+\setlength\parindent{14pt} Description: 
+\par\setlength\parindent{44pt} Sells art to art-traders/curators.\\
+\setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
+
+\setlength\parindent{14pt} Protocols and activities: 
+\par\setlength\parindent{44pt} {\fontfamily{\sfdefault}\selectfont 
+SellArt, GetArtDetails
+} \\
+\setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
+\setlength\parindent{14pt} Permissions: 
+\par\setlength\parindent{104pt}$\text{\textbf{reads}}$ \hspace{1em} $\text{{\fontfamily{\sfdefault}\selectfont supplied }} artifact$ \hspace{1em} $\text{\textit{//}} \quad \text{\textit{details of the artifact to be sold}}$\\
+\setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
+
+\setlength\parindent{14pt} Responsibilities
+\par \setlength\parindent{14pt} Liveness:
+\par\setlength\parindent{75pt}$\text{\textsc{ArtSeller}} = (\text{{\fontfamily{\sfdefault}\selectfont 
+GetArtifact. SellArt}})^{\omega}$
+
+\par \setlength\parindent{14pt} Safety:
+\begin{itemize}[leftmargin=20mm]
+\item \textbf{true}
+\end{itemize}
+    }%
+}
+
 \caption{Schema for role \textsc{ArtSeller}}
 \label{fig:role_art_seller}
 \end{center}
@@ -335,26 +367,26 @@ SellArt }})^{\omega}$
   \begin{center}
 \noindent\fbox{%
     \parbox{\textwidth}{%
-\setlength\parindent{14pt} Role Schema: \hspace{5em} \textit{ArtAdvertiser}\\
+\setlength\parindent{14pt} Role Schema: \hspace{1em} \textsc{Artist (A)}\\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 
 \setlength\parindent{14pt} Description: 
-\par\setlength\parindent{44pt} Advertises art, responds to queries of arts\\
+\par\setlength\parindent{44pt} Sells art to art-traders/curators.\\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 
 \setlength\parindent{14pt} Protocols and activities: 
 \par\setlength\parindent{44pt} {\fontfamily{\sfdefault}\selectfont 
-GetArtifacts
+\underline{ProduceArt}, SendArtDetails
 } \\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 \setlength\parindent{14pt} Permissions: 
-\par\setlength\parindent{104pt}$\text{\textbf{read}}$ \hspace{1em} $ artifacts$ \hspace{1em} $\text{\textit{//}} \quad \text{\textit{list of artifacts}}$\\
+\par\setlength\parindent{104pt}$\text{\textbf{generates}}$ \hspace{1em} $ artifact$ \hspace{1em} $\text{\textit{//}} \quad \text{\textit{details of the artifact to be sold}}$\\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 
 \setlength\parindent{14pt} Responsibilities
 \par \setlength\parindent{14pt} Liveness:
-\par\setlength\parindent{75pt}$\text{\textsc{GetArtifacts}} = (\text{{\fontfamily{\sfdefault}\selectfont 
-GetArtifacts}})^{\omega}$
+\par\setlength\parindent{75pt}$\text{\textsc{Artist}} = (\text{{\fontfamily{\sfdefault}\selectfont 
+\underline{ProduceArt}. SendArtifact}})^{\omega}$
 
 \par \setlength\parindent{14pt} Safety:
 \begin{itemize}[leftmargin=20mm]
@@ -362,9 +394,76 @@ GetArtifacts}})^{\omega}$
 \end{itemize}
     }%
 }
-\caption{Schema for role \textsc{ArtAdvertiser}}
-\label{fig:role_art_advertiser}
+\caption{Schema for role \textsc{Artist}}
+\label{fig:artist}
 \end{center}
+\end{figure}
+
+\subsubsection{Interaction Model}
+
+\begin{figure}[H]
+  \begin{center}
+    \scalebox{0.70}{
+      \includegraphics{ac_protocol.pdf}
+    }
+    \caption{Definition of protocols associated with the \textsc{ArtConsumer} role: (a) \fontfamily{\sfdefault}\selectfont DownloadVirtualTour, (b) BuyArt}
+    \label{fig:ac_protocol}
+  \end{center}
+\end{figure}
+\begin{figure}[H]
+  \begin{center}
+    \scalebox{0.70}{
+      \includegraphics{uh_protocol.pdf}
+    }
+    \caption{Definition of protocols associated with the \textsc{UserHandler} role: (a) \fontfamily{\sfdefault}\selectfont ManageArtPayment, (b) GetVirtualTourList, (c) GetVirtualTour, (d) GetArtifactsList}
+    \label{fig:uh_protocol}
+  \end{center}
+\end{figure}
+\begin{figure}[H]
+  \begin{center}
+    \scalebox{0.70}{
+      \includegraphics{tg_protocol.pdf}
+    }
+    \caption{Definition of protocols associated with the \textsc{TourGuide} role: (a) \fontfamily{\sfdefault}\selectfont SendVirtualTours, (b) SendVirtualTour, (c) GetArtifactList}
+    \label{fig:tg_protocol}
+  \end{center}
+\end{figure}
+\begin{figure}[H]
+  \begin{center}
+    \scalebox{0.70}{
+      \includegraphics{ab_protocol.pdf}
+    }
+    \caption{Definition of protocols associated with the \textsc{ArtBuyer} role: (a) \fontfamily{\sfdefault}\selectfont BuyArt, (b) SendArtifacts}
+    \label{fig:ab_protocol}
+  \end{center}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{center}
+    \scalebox{0.70}{
+      \includegraphics{aq_protocol.pdf}
+    }
+    \caption{Definition of protocols associated with the \textsc{ArtQuoter} role: \fontfamily{\sfdefault}\selectfont (a) SellArt, (b) GetArtifacts, (c) SendArtifacts}
+    \label{fig:aq_protocol}
+  \end{center}
+\end{figure}
+\begin{figure}[H]
+  \begin{center}
+    \scalebox{0.70}{
+      \includegraphics{as_protocol.pdf}
+    }
+    \caption{Definition of protocols associated with the \textsc{ArtSeller} role: \fontfamily{\sfdefault}\selectfont (a) SellArt, (b) GetArtDetails}
+    \label{fig:as_protocol}
+  \end{center}
+\end{figure}
+\begin{figure}[H]
+  \begin{center}
+    \scalebox{0.70}{
+      \includegraphics{a_protocol.pdf}
+    }
+    \caption{Definition of protocols associated with the \textsc{Artist} role: \fontfamily{\sfdefault}\selectfont (a) SendArtDetails}
+    \label{fig:a_protocol}
+  \end{center}
 \end{figure}
 \subsection{Design}
 
