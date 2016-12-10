@@ -604,7 +604,7 @@ send inform-auction-closed &$bidders$, $auctionResult$ & $informMessage$ & bidde
 
 \subsubsection{Mobility Model}
 \begin{assumption}{2}{A}\label{2A}
-I've assumed the mobile architecture that I used for homework 3, i.e that only artistmanager agents and curator agents are mobile and can close themself. Further more the cardinality of agents and places also follow from this assumption.
+I've assumed the mobile architecture that I used for homework 3, i.e that only artistmanager agents and curator agents are mobile and can clone themself. Further more the cardinality of agents and places also follow from this assumption.
 \end{assumption}
 \begin {table}[H]
 \caption {Place Types} \label{tab:placeTypes} 
@@ -783,33 +783,181 @@ ArtistManagerAgent & Yes & ArtistManagerAgentContainer, Museo Galileo Container,
 \setlength\parindent{14pt} Agent Type: \hspace{1em} \textsc{ProfilerAgent}\\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 
-\par \setlength\parindent{14pt} Description: 
-\par \setlength\parindent{14pt} Origin: 
-\par \setlength\parindent{14pt} Final Destination: 
+\par \setlength\parindent{14pt} Description: \hspace{30pt} Static agent, not mobile.
+\par \setlength\parindent{14pt} Origin: \hspace{53pt} ProfilerAgentContainer
+\par \setlength\parindent{14pt} Final Destination: \hspace{6pt} ProfilerAgentContainer
 \par \setlength\parindent{14pt} List of atomic movements:
-\\
-\par \setlength\parindent{44pt}\fbox{%
-    \parbox{300pt}{%
-\hspace{10pt} 1 \hspace{15pt} \vrule  \hspace{10pt} Description
-    }%
-}
+\par \setlength\parindent{44pt}The agent is static and don't have any atomic movements.
 \\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 
 \par \setlength\parindent{14pt} Paths: 
-\\
-\par \setlength\parindent{44pt}\fbox{%
-    \parbox{300pt}{%
-\hspace{10pt} 1 \hspace{15pt} \vrule  \hspace{10pt} Description
-    }%
-}
+\par \setlength\parindent{44pt} No paths
     }%
 }
 \caption{Travel schema for agent\textsc{ProfilerAgent}}
 \label{fig:travel_schema_profiler}
 \end{center}
 \end{figure}
+
+\begin{figure}[H]
+  \begin{center}
+\noindent\fbox{%
+    \parbox{\textwidth}{%
+\setlength\parindent{14pt} Agent Type: \hspace{1em} \textsc{TourGuideAgent}\\
+\setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
+
+\par \setlength\parindent{14pt} Description: \hspace{30pt} Static agent, not mobile.
+\par \setlength\parindent{14pt} Origin: \hspace{53pt} TourGuideAgentContainer
+\par \setlength\parindent{14pt} Final Destination: \hspace{6pt} TourGuideAgentContainer
+\par \setlength\parindent{14pt} List of atomic movements:
+\par \setlength\parindent{44pt}The agent is static and don't have any atomic movements.
+\\
+\setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
+
+\par \setlength\parindent{14pt} Paths: 
+\par \setlength\parindent{44pt} No paths
+    }%
+}
+\caption{Travel schema for agent\textsc{TourGuideAgent}}
+\label{fig:travel_schema_tourguide}
+\end{center}
+\end{figure}
 \section{Task 2 - Modeling with AgentUML}
+\subsection{The Overall Protocol}
+\subsubsection{ArtistManager Auction package}
+High-level overview of the protocol where ArtistManagerAgents auctions art-artifacts to CuratorAgents using dutch auctions.
+\begin{figure}[H]
+  \begin{center}
+    \scalebox{0.70}{
+      \includegraphics{artist_auction_template.pdf}
+    }
+    \caption{ArtistManager Auction package}
+    \label{fig:artist_auction_template}
+  \end{center}
+\end{figure}
+\subsubsection{Curator Auction package}
+High-level overview of the protocol where CuratorAgents auctions art-artifacts to ProfilerAgents using dutch auctions.
+\begin{figure}[H]
+  \begin{center}
+    \scalebox{0.70}{
+      \includegraphics{curator_auction_template.pdf}
+    }
+    \caption{Curator Auction package}
+    \label{fig:curator_auction_template}
+  \end{center}
+\end{figure}
+
+\subsubsection{BuildVirtualTour package}
+High-level overview of the protocol where TourGuideAgents sonds the terrain of artifacts at different curators and then build virtual tours of different type.
+\begin{figure}[H]
+  \begin{center}
+    \scalebox{0.70}{
+      \includegraphics{build_virtual_tour_temp.pdf}
+    }
+    \caption{BuildVirtualTour package}
+    \label{fig:build_virtual_tour_temp}
+  \end{center}
+\end{figure}
+
+\subsubsection{FindVirtualTour package}
+High-level overview of the protocol where ProfilerAgents searches for virtual tours and rejects or selects the virtual tours.
+\begin{figure}[H]
+  \begin{center}
+    \scalebox{0.70}{
+      \includegraphics{find_virtual_tour.pdf}
+    }
+    \caption{FindVirtualTour package}
+    \label{fig:find_virtual_tour}
+  \end{center}
+\end{figure}
+\subsubsection{VisitArtifact package}
+High-level overview of the protocol where ProfilerAgents visits artifacts from a virtual tour.
+\begin{figure}[H]
+  \begin{center}
+    \scalebox{0.70}{
+      \includegraphics{visit_artifact.pdf}
+    }
+    \caption{VisitArtifact package}
+    \label{fig:visit_artifact}
+  \end{center}
+\end{figure}
+\subsection{Interactions Among Agents}
+\subsubsection{ArtistManagerAgent Auction}
+Sequence diagram over the ArtistManagerAgent Auction protocol. When invoked the ArtistManagerAgent sends an $inform-start-of-auction$ message to $n$ number of CuratorAgents, then it sends a call for proposal  with the current price,  $cfp-1$ to $n$ CuratorAgents. CuratorAgents can then either not respond at all or respond with either $not-understood$ or $propose$. The diamond and $X$ indicates that one of the two choices, exlusive, need to be taken. The ArtistManagerAgent will then correspondingly take different action based on which response it receives. If it receives a $not-understood$ response it does nothing, if it receives a $propose$ response (bid) it will either reject or accept it. Finally if the ArtistManagerAgent did'nt receive any bids for a certain amount of time it can either send out another $cfp$ or close the auction by sending a $inform-end-of-auction$ message in case the reservedPrice was reached.
+\begin{figure}[H]
+  \begin{center}
+    \scalebox{0.70}{
+      \includegraphics{artist_auction_sequence.pdf}
+    }
+    \caption{Sequence diagram over the interaction for ArtistManagerAgent Auction}
+    \label{fig:artist_auction_sequence}
+  \end{center}
+\end{figure}
+\subsubsection{CuratorAgent Auction}
+Sequence diagram over the CuratorAgent Auction protocol, this protocol follows the same dutch auction protocol as ArtistManagerAgentProtocol.
+\begin{figure}[H]
+  \begin{center}
+    \scalebox{0.69}{
+      \includegraphics{curator_auction_sequence.pdf}
+    }
+    \caption{Sequence diagram over the interaction for CuratorAgent Auction}
+    \label{fig:curator_auction_sequence}
+  \end{center}
+\end{figure}
+\subsubsection{BuildVirtualTour}
+Sequence diagram over the BuildVirtualTour protocol. When invoked the TourGuideAgent sends a $call-for-artifact-lists$ to $n$ CuratorAgents. CuratorAgents can then choose to not respond or respond with either $not-understood$ or $artifact-list-response$.
+\begin{figure}[H]
+  \begin{center}
+    \scalebox{0.70}{
+      \includegraphics{build_virtual_tour.pdf}
+    }
+    \caption{Sequence diagram over the interaction for BuildVirtualTour}
+    \label{fig:build_virtual_tour_sequence}
+  \end{center}
+\end{figure}
+\subsubsection{FindVirtualTour}
+Sequence diagram over the FindVirtualTour protocol. When invoked the ProfilerAgent sends a $call-for-available-virtual-tours$ to $n$ TourGuideAgents. TourGuideAgents can then choose to not respond or respond with either $not-understood$ or $virtual-tour-response$. If the ProfilerAgent receives a $not-understood$ message it does nothing, if it receives a $virtual-tour-response$ it either responds with $select-virtual-tour$ upon the tourguide responds with the full virtual-tour, or $reject-virtual-tour$.
+\begin{figure}[H]
+  \begin{center}
+    \scalebox{0.70}{
+      \includegraphics{find_virtual_tour_sequence.pdf}
+    }
+    \caption{Sequence diagram over the interaction for FindVirtualTour}
+    \label{fig:find_virtual_tour_sequence}
+  \end{center}
+\end{figure}
+\subsubsection{VisitArtifact}
+Sequence diagram over the VisitArtifact protocol. When invoked the ProfilerAgent sends a $get-artifact$ message to $1$ CuratorAgent. The CuratorAgent can then choose to not respond or respond with either $not-understood$ or $artifact-response$.
+\begin{figure}[H]
+  \begin{center}
+    \scalebox{0.70}{
+      \includegraphics{visit_artifact_sequence.pdf}
+    }
+    \caption{Sequence diagram over the interaction for VisitArtifact}
+    \label{fig:visit_artifact_sequence}
+  \end{center}
+\end{figure}
+\subsection{Internal Agent Processing}
+\begin{figure}[H]
+  \begin{center}
+    \scalebox{0.70}{
+      \includegraphics{artistmanager_state.pdf}
+    }
+    \caption{Statechart diagram for ArtistManagerAgent}
+    \label{fig:artistmanager_state}
+  \end{center}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{center}
+    \scalebox{0.70}{
+      \includegraphics{tourguide_state.pdf}
+    }
+    \caption{Statechart diagram for TourGuideAgent}
+    \label{fig:tourguide_state}
+  \end{center}
+\end{figure}
 
 \bibliography{references}{}
 \bibliographystyle{plain}
