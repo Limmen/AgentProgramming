@@ -11,6 +11,7 @@
 \usepackage{blindtext}
 \usepackage{graphicx} 
 \usepackage{caption}
+\usepackage{makecell}
 \usepackage{subcaption}
 \usepackage[sc]{mathpazo} % Use the Palatino font
 \usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
@@ -97,8 +98,9 @@ The SmartMuseum organization has the purpose of connecting different people and 
 The activity of a consumer viewing an art-artifact involves atleast three, sometimes four, or five main divisions: \textit{tour-guide division}, \textit{art-curator division}, \textit{artist-management division}, \textit{user-service division} and \textit{artist-division}.
 The activity is initiated by the  consumer who contacts the user-service division and selects some type of art-service, the user-service divison support the consumer in requesting/retrieving the service from either the art-curator division or tour-guide-division. In parellel to managing consumer requests the tour-guide division browses art-artifacts that is curated by the art-curator division. Further more, the art-curator divison participates in auctions for obtaining art-artifacts from the artist-management division, in parallel to managing requests from consumers and tourguides. Finally, the artist-management division initiates auctions for art-artifacts on request from artists.
 
-The activities described above can the be modelled as an organization in the following way. The organization consists of $7$ roles. The \textsc{ArtConsumer (AC)} who consumes arts in different forms. The \textsc{UserHandler (UH)} which the consumer uses to purchase and browse services related to art. The \textsc{TourGuide (TA)} which builds and offers virtual tours. The \textsc{ArtBuyer (AB)} who buys art to include in its gallery/museum, the \textsc{ArtQuoter (AQ)} who quotes the price for arts and sells it to consumers. The \textsc{ArtSeller (AS)} who sells art-artifacts produced by artists. And finally the \textsc{Artist (A)} who produces art.
+The activities described above can the be modelled as an organization in the following way. The organization consists of $7$ roles. The \textsc{ArtConsumer (AC)} who consumes arts in different forms. The \textsc{UserHandler (UH)} which the consumer uses to purchase and browse services related to art. The \textsc{TourGuide (TA)} which builds and offers virtual tours. The \textsc{ArtBuyer (AB)} who buys art to include in its gallery/museum, the \textsc{ArtQuoter (AQ)} who quotes the price for arts and sells it to consumers. The \textsc{ArtSeller (AS)} who is hired by artists to sell their work to art buyers. And finally the \textsc{Artist (A)} who produces art.
 \subsubsection{Roles Model}
+The following assumption is necessary to avoid making decisions about implementation details when doing the analysis/design.
 \begin{assumption}{1}{A}\label{1A}
 Roles can find each other in some way in order to communicate
 \end{assumption}
@@ -110,7 +112,7 @@ Roles can find each other in some way in order to communicate
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 
 \setlength\parindent{14pt} Description: 
-\par\setlength\parindent{44pt} Initiates activity of consuming art, which includes purchasing some service \\
+\par\setlength\parindent{44pt} Initiates activity of consuming art, either buying artifact or downloading a virtual tour \\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 
 \setlength\parindent{14pt} Protocols and activities: 
@@ -122,11 +124,16 @@ DownloadVirtualTour, BuyArt, \underline{ConsumeService}
 \setlength\parindent{14pt} Permissions: 
 \par\setlength\parindent{104pt}$\text{\textbf{reads}}$ \hspace{2.8em} $\text{{\fontfamily{\sfdefault}\selectfont supplied }}availableServices \quad \text{\textit{//}} \quad \text{\textit{list of services}}$
 \par\setlength\parindent{162pt}$money$\hspace{8.9em} $\text{\textit{//}} \quad \text{\textit{money of the consumer}}$
+\par\setlength\parindent{162pt}$userProfile$\hspace{6.6em} $\text{\textit{//}} \quad \text{\textit{profile of the consumer}}$
+\par\setlength\parindent{162pt}$visitedArtifacts$\hspace{4.5em} $\text{\textit{//}} \quad \text{\textit{list of visited artifacts}}$
 \par\setlength\parindent{104pt}$\text{\textbf{generates}}$ \hspace{0.9em} $valuation$\hspace{7.5em} $\text{\textit{//}} \quad \text{\textit{valuation of selected artifact}}$
 \par\setlength\parindent{162pt}$artifactTitle$\hspace{6.1em} $\text{\textit{//}} \quad \text{\textit{title of selected artifact}}$\
 \par\setlength\parindent{162pt}$virtualTourTitle$\hspace{4.4em} $\text{\textit{//}} \quad \text{\textit{title of selected virtual-tour}}$\
-\par\setlength\parindent{162pt}$virtualTourTitle$\hspace{4.4em} $\text{\textit{//}} \quad \text{\textit{valuation of selected virtualTour}}$
-\par\setlength\parindent{162pt}$moneyForArtifact$\hspace{3.4em} $\text{\textit{//}} \quad \text{\textit{money for selected artifact}}$\\
+\par\setlength\parindent{162pt}$moneyForArtifact$\hspace{3.4em} $\text{\textit{//}} \quad \text{\textit{money for selected artifact}}$
+\par\setlength\parindent{162pt}$\text{{\fontfamily{\sfdefault}\selectfont supplied }}virtualTour$\hspace{2.5em} $\text{\textit{//}} \quad \text{\textit{downloaded virtual-tour}}$
+\par\setlength\parindent{162pt}$\text{{\fontfamily{\sfdefault}\selectfont supplied }}auctionResult$\hspace{1.4em} $\text{\textit{//}} \quad \text{\textit{bought artifact or nil}}$
+\\
+\\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 
 \setlength\parindent{14pt} Responsibilities
@@ -139,7 +146,9 @@ DownloadVirtualTour |  BuyArt}})$
 
 \par \setlength\parindent{14pt} Safety:
 \begin{itemize}[leftmargin=20mm]
-\item \textbf{true}
+\item $moneyForArtifact \leq money$
+\item $artifactTitle \in availableServices.artifacts$
+\item $virtualTourTitle \in availableServices.artifacts$
 \end{itemize}
     }%
 }
@@ -161,21 +170,22 @@ DownloadVirtualTour |  BuyArt}})$
 
 \setlength\parindent{14pt} Protocols and activities: 
 \par\setlength\parindent{44pt} {\fontfamily{\sfdefault}\selectfont 
-ManageArtPayment, GetVirtualTour, GetArtifactsList,
+GetArtifact, GetVirtualTour, GetArtifactsList,
 } 
 \par\setlength\parindent{44pt} {\fontfamily{\sfdefault}\selectfont GetVirtualTourList, \underline{GenerateListOfArtServices}}\\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 
 \setlength\parindent{14pt} Permissions: 
 \par\setlength\parindent{84pt}$\text{\textbf{generates}}$ \hspace{1em} $ availableServices \quad $ \hspace{3.6em} $\text{\textit{//}} \quad \text{\textit{list of services}}$
-\par\setlength\parindent{143pt}$bid \quad $ \hspace{9.6em} $\text{\textit{//}} \quad \text{\textit{bid to attempt to buy artifact}}$
+\par\setlength\parindent{143pt}$strategy \quad $ \hspace{7.6em} $\text{\textit{//}} \quad \text{\textit{strategy for dutch auction}}$
 \par\setlength\parindent{84pt}$\text{\textbf{reads}}$ \hspace{2.9em} $ \text{{\fontfamily{\sfdefault}\selectfont supplied }}virtualTours$ \hspace{2.8em} $\text{\textit{//}} \quad \text{\textit{list of virtual tours}}$
 \par\setlength\parindent{143pt}$\text{{\fontfamily{\sfdefault}\selectfont supplied }}artifacts $ \hspace{4.5em}$\text{\textit{//}} \quad \text{\textit{list of art-artifacts}}$
-\par\setlength\parindent{143pt}$\text{{\fontfamily{\sfdefault}\selectfont supplied }}money$\hspace{5.5em} $\text{\textit{//}} \quad \text{\textit{money of the consumer}}$
+\par\setlength\parindent{143pt}$\text{{\fontfamily{\sfdefault}\selectfont supplied }}moneyForArtifact$\hspace{0.3em} $\text{\textit{//}} \quad \text{\textit{consumer money to purchase artifact}}$
+\par\setlength\parindent{143pt}$\text{{\fontfamily{\sfdefault}\selectfont supplied }}valuation$\hspace{4.0em} $\text{\textit{//}} \quad \text{\textit{consumer valuation of artifact}}$
 \par\setlength\parindent{143pt}$\text{{\fontfamily{\sfdefault}\selectfont supplied }}artifactTitle$\hspace{2.9em} $\text{\textit{//}} \quad \text{\textit{title of artifact-purchase}}$
 \par\setlength\parindent{143pt}$\text{{\fontfamily{\sfdefault}\selectfont supplied }}virtualTourTitle$\hspace{1.1em} $\text{\textit{//}} \quad \text{\textit{title of virtual-tour selection}}$
-\par\setlength\parindent{143pt}$\text{{\fontfamily{\sfdefault}\selectfont supplied }}artifact$\hspace{4.7em} $\text{\textit{//}} \quad \text{\textit{bhought artifact or nil}}$
 \par\setlength\parindent{143pt}$\text{{\fontfamily{\sfdefault}\selectfont supplied }}virtualTour$\hspace{3.0em} $\text{\textit{//}} \quad \text{\textit{virtual-tour downloaded by consumer}}$
+\par\setlength\parindent{143pt}$\text{{\fontfamily{\sfdefault}\selectfont supplied }}auctionResult$\hspace{1.8em} $\text{\textit{//}} \quad \text{\textit{artifact bought by consumer or nil}}$
 \\
 
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
@@ -187,11 +197,13 @@ ManageArtPayment, GetVirtualTour, GetArtifactsList,
 PresentServices || HandleConsumerRequest}})^{\omega}$
 \par\setlength\parindent{75pt}$\text{\textsc{PresentServices}} = \text{{\fontfamily{\sfdefault}\selectfont GetServices. \underline{GenerateListOfArtServices}}}$
 \par\setlength\parindent{75pt}$\text{\textsc{GetServices}} = \text{{\fontfamily{\sfdefault}\selectfont GetArtifactsList. GetVirtualToursList}}$
-\par\setlength\parindent{75pt}$\text{\textsc{HandleConsumerRequest}} = \text{{\fontfamily{\sfdefault}\selectfont ManageArtPaymen | GetVirtualTour}}$
+\par\setlength\parindent{75pt}$\text{\textsc{HandleConsumerRequest}} = \text{{\fontfamily{\sfdefault}\selectfont GetArtifact | GetVirtualTour}}$
 
 \par \setlength\parindent{14pt} Safety:
 \begin{itemize}[leftmargin=20mm]
-\item $availableServices = artifacts + virtualTours$
+\item $availableServices = artifacts \cup virtualTours$
+\item $auctionResult \neq nil \implies auctionResult \in artifacts$
+\item $virtualTour \in virtualTours$
 \end{itemize}
     }%
 }
@@ -263,11 +275,13 @@ BuyArt, SendArtifacts
 } \\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 \setlength\parindent{14pt} Permissions: 
-\par\setlength\parindent{104pt}$\text{\textbf{generates}}$ \hspace{1em} $ artifacts$ \hspace{4.9em} $\text{\textit{//}} \quad \text{\textit{list of purchased artifacts}}$
-\par\setlength\parindent{163pt}$bid \quad $ \hspace{6.4em} $\text{\textit{//}} \quad \text{\textit{bid to attempt to buy artifact}}$
-\par\setlength\parindent{105pt}$\text{\textbf{reads}}$ \hspace{2.7em} $ money$ \hspace{6.0em} $\text{\textit{//}} \quad \text{\textit{the buyer's money}}$
-\par\setlength\parindent{163pt}$artifactTitle$ \hspace{3.1em} $\text{\textit{//}} \quad \text{\textit{title for a specific artifact}}$
-\par\setlength\parindent{163pt}$\text{{\fontfamily{\sfdefault}\selectfont supplied }}artifact$ \hspace{1.3em} $\text{\textit{//}} \quad \text{\textit{bhought artifact or nil}}$\\
+\par\setlength\parindent{104pt}$\text{\textbf{generates}}$ \hspace{1em} $ artifacts$ \hspace{8.0em} $\text{\textit{//}} \quad \text{\textit{list of purchased artifacts}}$
+\par\setlength\parindent{163pt}$strategy \quad $ \hspace{7.2em} $\text{\textit{//}} \quad \text{\textit{strategy for dutch auction}}$
+\par\setlength\parindent{163pt}$valuation \quad $ \hspace{6.6em} $\text{\textit{//}} \quad \text{\textit{valuation for artifact}}$
+\par\setlength\parindent{163pt}$moneyForArtifact \quad $ \hspace{2.6em} $\text{\textit{//}} \quad \text{\textit{money for artifact}}$
+\par\setlength\parindent{105pt}$\text{\textbf{reads}}$ \hspace{2.7em} $ money$ \hspace{8.8em} $\text{\textit{//}} \quad \text{\textit{the buyer's money}}$
+\par\setlength\parindent{163pt}$artifactTitle$ \hspace{6.1em} $\text{\textit{//}} \quad \text{\textit{title for a specific artifact}}$
+\par\setlength\parindent{163pt}$\text{{\fontfamily{\sfdefault}\selectfont supplied }}artifactResult$ \hspace{1.3em} $\text{\textit{//}} \quad \text{\textit{bought artifact or nil}}$\\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 
 %\text{{\fontfamily{\sfdefault}\selectfont 
@@ -279,7 +293,8 @@ $[$BuyArt$]$ || $[$SendArtifacts$]$ }})^{\omega}$
 
 \par \setlength\parindent{14pt} Safety:
 \begin{itemize}[leftmargin=20mm]
-\item \textbf{true}
+\item $moneyForArtifact \leq money$
+\item $artifactTitle \in artifacts$
 \end{itemize}
     }%
 }
@@ -306,8 +321,16 @@ $[$BuyArt$]$ || $[$SendArtifacts$]$ }})^{\omega}$
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 \setlength\parindent{14pt} Permissions: 
 \par\setlength\parindent{84pt}$\text{\textbf{reads}}$ \hspace{5em} $\text{{\fontfamily{\sfdefault}\selectfont supplied }} artifacts$ \hspace{0.6em} $\text{\textit{//}} \quad \text{\textit{list of artifacts}}$
-\par\setlength\parindent{164pt}$\text{{\fontfamily{\sfdefault}\selectfont supplied }} bid$ \hspace{2.9em} $\text{\textit{//}} \quad \text{\textit{bid for artifact}}$
-\par\setlength\parindent{84pt}$\text{\textbf{generates}}$ \hspace{3.1em} $quote$ \hspace{5.6em} $\text{\textit{//}} \quad \text{\textit{quote of artifact}}$\\
+\par\setlength\parindent{164pt}$\text{{\fontfamily{\sfdefault}\selectfont supplied }} artifact$ \hspace{0.8em} $\text{\textit{//}} \quad \text{\textit{artifact for auction}}$
+\par\setlength\parindent{84pt}$\text{\textbf{generates}}$ \hspace{3.1em} $quote$ \hspace{5.6em} $\text{\textit{//}} \quad \text{\textit{quote of artifact}}$
+\par\setlength\parindent{164pt}$rateOfReduction$ \hspace{0.4em} $\text{\textit{//}} \quad \text{\textit{rate of reduction for dutch auction}}$
+\par\setlength\parindent{164pt}$initialPrice$ \hspace{2.9em} $\text{\textit{//}} \quad \text{\textit{initial price for auction}}$
+\par\setlength\parindent{164pt}$reservePrice$ \hspace{2.6em} $\text{\textit{//}} \quad \text{\textit{reserved price for auction}}$
+\par\setlength\parindent{164pt}$price$ \hspace{5.6em} $\text{\textit{//}} \quad \text{\textit{price auction ended at}}$
+\par\setlength\parindent{164pt}$winner$ \hspace{4.6em} $\text{\textit{//}} \quad \text{\textit{winner of auction or nil}}$
+\par\setlength\parindent{164pt}$artifactResult$ \hspace{1.5em} $\text{\textit{//}} \quad \text{\textit{result of auction}}$
+\par\setlength\parindent{164pt}$bidders$ \hspace{4.6em} $\text{\textit{//}} \quad \text{\textit{bidders of auction}}$
+\\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 \setlength\parindent{14pt} Responsibilities
 \par \setlength\parindent{14pt} Liveness:
@@ -316,7 +339,8 @@ $[$BuyArt$]$ || $[$SendArtifacts$]$ }})^{\omega}$
 
 \par \setlength\parindent{14pt} Safety:
 \begin{itemize}[leftmargin=20mm]
-\item \textbf{true}
+\item $winner \in bidders$
+\item $reservePrice \leq price \leq initialPrice$
 \end{itemize}
     }%
 }
@@ -339,11 +363,19 @@ $[$BuyArt$]$ || $[$SendArtifacts$]$ }})^{\omega}$
 
 \setlength\parindent{14pt} Protocols and activities: 
 \par\setlength\parindent{44pt} {\fontfamily{\sfdefault}\selectfont 
-SellArt, GetArtDetails
+SellArt, GetArtifact
 } \\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 \setlength\parindent{14pt} Permissions: 
-\par\setlength\parindent{104pt}$\text{\textbf{reads}}$ \hspace{1em} $\text{{\fontfamily{\sfdefault}\selectfont supplied }} artifact$ \hspace{1em} $\text{\textit{//}} \quad \text{\textit{details of the artifact to be sold}}$\\
+\par\setlength\parindent{84pt}$\text{\textbf{reads}}$ \hspace{3.1em} $\text{{\fontfamily{\sfdefault}\selectfont supplied }} artifact$ \hspace{0.8em} $\text{\textit{//}} \quad \text{\textit{artifact to be sold}}$
+\par\setlength\parindent{84pt}$\text{\textbf{generates}}$ \hspace{1.1em} $rateOfReduction$ \hspace{0.5em} $\text{\textit{//}} \quad \text{\textit{rate of reduction for dutch auction}}$
+\par\setlength\parindent{144pt}$initialPrice$ \hspace{2.9em} $\text{\textit{//}} \quad \text{\textit{initial price for auction}}$
+\par\setlength\parindent{144pt}$reservePrice$ \hspace{2.6em} $\text{\textit{//}} \quad \text{\textit{reserved price for auction}}$
+\par\setlength\parindent{144pt}$price$ \hspace{5.6em} $\text{\textit{//}} \quad \text{\textit{price auction ended at}}$
+\par\setlength\parindent{144pt}$winner$ \hspace{4.6em} $\text{\textit{//}} \quad \text{\textit{winner of auction or nil}}$
+\par\setlength\parindent{144pt}$artifactResult$ \hspace{1.5em} $\text{\textit{//}} \quad \text{\textit{result of auction}}$
+\par\setlength\parindent{144pt}$bidders$ \hspace{4.5em} $\text{\textit{//}} \quad \text{\textit{bidders of auction}}$
+\\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 
 \setlength\parindent{14pt} Responsibilities
@@ -353,7 +385,8 @@ GetArtifact. SellArt}})^{\omega}$
 
 \par \setlength\parindent{14pt} Safety:
 \begin{itemize}[leftmargin=20mm]
-\item \textbf{true}
+\item $winner \in bidders$
+\item $reservePrice \leq price \leq initialPrice$
 \end{itemize}
     }%
 }
@@ -376,11 +409,11 @@ GetArtifact. SellArt}})^{\omega}$
 
 \setlength\parindent{14pt} Protocols and activities: 
 \par\setlength\parindent{44pt} {\fontfamily{\sfdefault}\selectfont 
-\underline{ProduceArt}, SendArtDetails
+\underline{ProduceArt}, SendArtifact
 } \\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 \setlength\parindent{14pt} Permissions: 
-\par\setlength\parindent{104pt}$\text{\textbf{generates}}$ \hspace{1em} $ artifact$ \hspace{1em} $\text{\textit{//}} \quad \text{\textit{details of the artifact to be sold}}$\\
+\par\setlength\parindent{104pt}$\text{\textbf{generates}}$ \hspace{1em} $ artifact$ \hspace{1em} $\text{\textit{//}} \quad \text{\textit{produced artifact}}$\\
 \setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
 
 \setlength\parindent{14pt} Responsibilities
@@ -415,7 +448,7 @@ GetArtifact. SellArt}})^{\omega}$
     \scalebox{0.70}{
       \includegraphics{uh_protocol.pdf}
     }
-    \caption{Definition of protocols associated with the \textsc{UserHandler} role: (a) \fontfamily{\sfdefault}\selectfont ManageArtPayment, (b) GetVirtualTourList, (c) GetVirtualTour, (d) GetArtifactsList}
+    \caption{Definition of protocols associated with the \textsc{UserHandler} role: (a) \fontfamily{\sfdefault}\selectfont GetArtifact, (b) GetVirtualTourList, (c) GetVirtualTour, (d) GetArtifactsList}
     \label{fig:uh_protocol}
   \end{center}
 \end{figure}
@@ -433,7 +466,7 @@ GetArtifact. SellArt}})^{\omega}$
     \scalebox{0.70}{
       \includegraphics{ab_protocol.pdf}
     }
-    \caption{Definition of protocols associated with the \textsc{ArtBuyer} role: (a) \fontfamily{\sfdefault}\selectfont BuyArt, (b) SendArtifacts}
+    \caption{Definition of protocols associated with the \textsc{ArtBuyer} role: (a) \fontfamily{\sfdefault}\selectfont BuyArt, (b) SendArtifacts (1), (c) SendArtifacts (2)}
     \label{fig:ab_protocol}
   \end{center}
 \end{figure}
@@ -443,7 +476,7 @@ GetArtifact. SellArt}})^{\omega}$
     \scalebox{0.70}{
       \includegraphics{aq_protocol.pdf}
     }
-    \caption{Definition of protocols associated with the \textsc{ArtQuoter} role: \fontfamily{\sfdefault}\selectfont (a) SellArt, (b) GetArtifacts, (c) SendArtifacts}
+    \caption{Definition of protocols associated with the \textsc{ArtQuoter} role: \fontfamily{\sfdefault}\selectfont (a) SellArt, (b) SendArtifacts, (c) GetArtifacts}
     \label{fig:aq_protocol}
   \end{center}
 \end{figure}
@@ -452,7 +485,7 @@ GetArtifact. SellArt}})^{\omega}$
     \scalebox{0.70}{
       \includegraphics{as_protocol.pdf}
     }
-    \caption{Definition of protocols associated with the \textsc{ArtSeller} role: \fontfamily{\sfdefault}\selectfont (a) SellArt, (b) GetArtDetails}
+    \caption{Definition of protocols associated with the \textsc{ArtSeller} role: \fontfamily{\sfdefault}\selectfont (a) SellArt, (b) GetArtifact}
     \label{fig:as_protocol}
   \end{center}
 \end{figure}
@@ -461,12 +494,322 @@ GetArtifact. SellArt}})^{\omega}$
     \scalebox{0.70}{
       \includegraphics{a_protocol.pdf}
     }
-    \caption{Definition of protocols associated with the \textsc{Artist} role: \fontfamily{\sfdefault}\selectfont (a) SendArtDetails}
+    \caption{Definition of protocols associated with the \textsc{Artist} role: \fontfamily{\sfdefault}\selectfont (a) SendArtifact}
     \label{fig:a_protocol}
   \end{center}
 \end{figure}
 \subsection{Design}
+\subsubsection{Agent Model}
+\begin{figure}[H]
+  \begin{center}
+    \scalebox{0.70}{
+      \includegraphics{agent_model.pdf}
+    }
+    \caption{The agent model}
+    \label{fig:agent_model}
+  \end{center}
+\end{figure}
 
+\subsubsection{Services Model}
+\begin {table}[H]
+\caption {Services model for agent \textsc{ProfilerAgent}} \label{tab:profilerAgent} 
+\begin{center}
+    \begin{tabular}{  p{3cm}  p{2cm}  p{2.5cm}  p{4cm}  p{4cm} }
+\Xhline{4\arrayrulewidth}
+    Service & Inputs & Outputs & Pre-condition & Post-condition\\ \hline
+obtain virtual-tour list & & $virtualTours$ & \textbf{true} & $virtualTours \neq nil$ \\
+obtain artifact list & & $artifacts$ & \textbf{true} & $artifacts \neq nil$ \\
+generate list of services & $virtualTours$ $,artifacts$ & $availableServices$ & $\exists virtualTours, artifacts$ & created list of available services\\
+register as bidder for auction & $auctioneer, artifact$ & & auction exists & $self \in auctioneer.bidders \land strategy \neq nil$ \\
+receive CFP & currentPrice & & is participating in the auction &  \textbf{true}\\
+place bid & currentPrice & & $currentPrice \leq moneyForArtifact$ & bid sent to auctioneer\\
+receive bid result & $accept \lor reject$ & & have bidded & bid accepted or rejected\\
+informed auction ended & $artifact \lor nil$ & & participated in auction & informed auction ended and received result\\
+download virtual tour & $tourguide, virtualtour$ & & $\exists tourguide, virtualtour$ & downloaded virtual tour\\
+visitArtifact & $curator, artifactTitle$ & & $artifactTitle \in curator.gallery.titles$ & $artifactTitle \in visitedArtifacts$\\
+\Xhline{4\arrayrulewidth}
+    \end{tabular}
+\end{center}
+\end{table}
+
+\begin {table}[H]
+\caption {Services model for agent \textsc{TourGuideAgent}} \label{tab:tourguideAgent} 
+\begin{center}
+    \begin{tabular}{  p{3cm}  p{2.5cm}  p{2.5cm}  p{4cm}  p{4cm} }
+\Xhline{4\arrayrulewidth}
+    Service & Inputs & Outputs & Pre-condition & Post-condition\\ \hline
+obtain artifact list & & $artifacts$ & \textbf{true} & $artifacts \neq nil$ \\
+manage virtual-tour request & $virtualTourTitle$& $virtualTour \lor nil$ & \textbf{true} & \textbf{true} \\
+manage list of virtual-tours-request & & $virtualTours$ & \textbf{true} & \textbf{true} \\
+build virtual tour & $artifacts$ & $virtualTour$ & $artifacts.size > 0$ & $virtualTour \neq nil$ \\
+\Xhline{4\arrayrulewidth}
+    \end{tabular}
+\end{center}
+\end{table}
+
+\begin {table}[H]
+\caption {Services model for agent \textsc{ArtistManagerAgent}} \label{tab:artistmanagerAgent} 
+\begin{center}
+    \begin{tabular}{  p{3cm}  p{2.5cm}  p{2.5cm}  p{4cm}  p{4cm} }
+\Xhline{4\arrayrulewidth}
+    Service & Inputs & Outputs & Pre-condition & Post-condition\\ \hline
+get registered bidders & & $bidders$ & \textbf{true} & \textbf{true}\\
+send inform-start-of-auction &$bidders$ & $informMessage$ & bidders are registered & bidders informed about start of auction \\
+send CFP &$bidders$ & $CFP$ & bidders are registered and auction ongoing & bidders informed about current price and encouraged to bid \\
+receive bid &$bid$ & $bids$ & bidder registered  & $bid \in bids$ \\
+manage bids &$bids$ & $bidResponses$ & $bids > 0$ & one bid was accepted and the bidder received the good, the rest was rejected and the bidders were informed \\
+modify price &$reservePrice,$ $rateOfReduction,$ $currentPrice$ & $newPrice$& no bids was received & $reservePrice \leq newPrice \leq currentPrice$ \\
+send inform-auction-closed &$bidders$, $auctionResult$ & $informMessage$ & bidders are registered & bidders informed about close of auction \\
+\Xhline{4\arrayrulewidth}
+    \end{tabular}
+\end{center}
+\end{table}
+
+\begin {table}[H]
+\caption {Services model for agent \textsc{CuratorAgent}} \label{tab:curatorAgent} 
+\begin{center}
+    \begin{tabular}{  p{3cm}  p{2.5cm}  p{2.5cm}  p{4cm}  p{4cm} }
+\Xhline{4\arrayrulewidth}
+    Service & Inputs & Outputs & Pre-condition & Post-condition\\ \hline
+get registered bidders & & $bidders$ & \textbf{true} & \textbf{true}\\
+register as bidder for auction & $auctioneer, artifact$ & & auction exists & $self \in auctioneer.bidders \land strategy \neq nil$ \\
+receive CFP & currentPrice & & is participating in the auction &  \textbf{true}\\
+place bid & currentPrice & & $currentPrice \leq moneyForArtifact$ & bid sent to auctioneer\\
+receive bid result & $accept \lor reject$ & & have bidded & bid accepted or rejected\\
+informed auction ended & $artifact \lor nil$ & & participated in auction & curator were informed auction ended and received result\\
+manage artifact-list request & & $artifacts$ & \textbf{true} & \textbf{true}\\
+manage visit-artifact request &$artifactTitle$ & $artifact$ & \textbf{true} & provided artifact for visit only\\
+quote art &$artifact$ & $quote$ & \textbf{true} & \textbf{true} \\
+send inform-start-of-auction &$bidders$ & $informMessage$ & bidders are registered & bidders informed about start of auction \\
+send CFP &$bidders$ & $CFP$ & bidders are registered and auction ongoing & bidders informed about current price and encouraged to bid \\
+receive bid &$bid$ & $bids$ & bidder registered  & $bid \in bids$ \\
+manage bids &$bids$ & $bidResponses$ & $bids > 0$ & one bid was accepted and the bidder received the good, the rest was rejected and the bidders were informed \\
+modify price &$reservePrice,$ $rateOfReduction,$ $currentPrice$ & $newPrice$& no bids was received & $reservePrice \leq newPrice \leq currentPrice$ \\
+send inform-auction-closed &$bidders$, $auctionResult$ & $informMessage$ & bidders are registered & bidders informed about close of auction \\
+\Xhline{4\arrayrulewidth}
+    \end{tabular}
+\end{center}
+\end{table}
+
+\subsubsection{Acquaintance Model}
+\begin{figure}[H]
+  \begin{center}
+    \scalebox{0.70}{
+      \includegraphics{acquaintance_model.pdf}
+    }
+    \caption{Acquaintance model}
+    \label{fig:acquaintance_model}
+  \end{center}
+\end{figure}
+
+\subsubsection{Mobility Model}
+\begin{assumption}{2}{A}\label{2A}
+I've assumed the mobile architecture that I used for homework 3, i.e that only artistmanager agents and curator agents are mobile and can close themself. Further more the cardinality of agents and places also follow from this assumption.
+\end{assumption}
+\begin {table}[H]
+\caption {Place Types} \label{tab:placeTypes} 
+\begin{center}
+    \begin{tabular}{  p{4cm}  p{4cm}  p{4cm} }
+\Xhline{4\arrayrulewidth}
+    Place Types & Description & Instances \\ \hline
+Heritage Malta Container & Container where art-curators can reside and perform their services and where artistmanager agents can reside temporarily to perform auctions & 1 \\
+Museo Galileo Container & Container where art-curators can reside and perform their services and where artistmanager agents can reside temporarily to perform auctions & 1 \\
+ArtistManager Container & Container where artistmanager agents reside and where they come back to after performing auctions & * \\
+ProfilerAgent Container & Container where profiler agents reside  & * \\ 
+TourGuideAgent Container & Container where tourguide agents reside  & * \\ 
+\Xhline{4\arrayrulewidth}
+    \end{tabular}
+\end{center}
+\end{table}
+
+\begin {table}[H]
+\caption {Agents and Places Specification} \label{tab:placeTypes} 
+\begin{center}
+    \begin{tabular}{  p{4cm}  p{4cm}  p{4cm} p{4cm}}
+\Xhline{4\arrayrulewidth}
+    Agent Type & Mobile & Place Type & Constraints \\
+ \hline
+ProfilerAgent & No & ProfilerAgent Container & \\
+TourGuideAgent & No & TourGuideAgent Container & \\
+CuratorAgent & Yes & Museo Galileo Container, Heritage Malta Container & \\
+ArtistManagerAgent & Yes & ArtistManagerAgentContainer, Museo Galileo Container, Heritage Malta Container &  \\
+
+\Xhline{4\arrayrulewidth}
+    \end{tabular}
+\end{center}
+\end{table}
+
+\begin{figure}[H]
+  \begin{center}
+    \scalebox{0.70}{
+      \includegraphics{cardinality.pdf}
+    }
+    \caption{Cardinality of Agents and Places}
+    \label{fig:cardinality}
+  \end{center}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{center}
+\noindent\fbox{%
+    \parbox{\textwidth}{%
+\setlength\parindent{14pt} Agent Type: \hspace{1em} \textsc{CuratorAgent}\\
+\setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
+
+\par \setlength\parindent{14pt} Description: \hspace{30pt}Can be cloned in current container to participate in auctions.
+\par \setlength\parindent{14pt} Origin: \hspace{49pt} Heritage Malta Container or Museo Galileo Container.
+\par \setlength\parindent{14pt} Final Destination: \hspace{6pt}Same as its origin container.
+\par \setlength\parindent{14pt} List of atomic movements:
+\\
+\par \setlength\parindent{44pt}\fbox{%
+    \parbox{300pt}{%
+\hspace{10pt} 1 \hspace{15pt} \vrule  \hspace{10pt} Cloned in Heritage Malta Container
+    }%
+}
+\par \setlength\parindent{44pt}\fbox{%
+    \parbox{300pt}{%
+\hspace{10pt} 2 \hspace{15pt} \vrule  \hspace{10pt} Cloned in Museo Galileo Container
+    }%
+}
+\\
+\setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
+
+\par \setlength\parindent{14pt} Paths: 
+\par \setlength\parindent{104pt} Cloned in the same container, no paths.
+    }%
+}
+\caption{Travel schema for agent\textsc{CuratorAgent}}
+\label{fig:travel_schema_curator}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{center}
+\noindent\fbox{%
+    \parbox{\textwidth}{%
+\setlength\parindent{14pt} Agent Type: \hspace{1em} \textsc{ArtistManagerAgent}\\
+\setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
+
+\par \setlength\parindent{14pt} Description: \hspace{30pt}Can move between Museo Galileo Container, Heritage Malta Container
+\par \setlength\parindent{104pt} and ArtistManager Container.
+\par \setlength\parindent{14pt} Origin: \hspace{49pt} ArtistManager Container
+\par \setlength\parindent{14pt} Final Destination: \hspace{6pt}ArtistManager Container
+\par \setlength\parindent{14pt} List of atomic movements:
+\\
+\par \setlength\parindent{44pt}\fbox{%
+    \parbox{320pt}{%
+\hspace{5pt} 1 \hspace{5pt} \vrule  \hspace{10pt} Move from ArtistManager to Heritage Malta Container.
+    }%
+}
+\par \setlength\parindent{44pt}\fbox{%
+    \parbox{320pt}{%
+\hspace{5pt} 2 \hspace{5pt} \vrule  \hspace{10pt} Move from Heritage Malta to ArtistManager Container.
+    }%
+}
+\par \setlength\parindent{44pt}\fbox{%
+    \parbox{320pt}{%
+\hspace{5pt} 3 \hspace{5pt} \vrule  \hspace{10pt} Move from ArtistManager to Museo Galieo Container.
+    }%
+}
+
+\par \setlength\parindent{44pt}\fbox{%
+    \parbox{320pt}{%
+\hspace{5pt} 4 \hspace{5pt} \vrule  \hspace{10pt} Move from Museo Galieo to ArtistManager Container.
+    }%
+}
+
+\par \setlength\parindent{44pt}\fbox{%
+    \parbox{320pt}{%
+\hspace{5pt} 5 \hspace{5pt} \vrule  \hspace{10pt} Move from Museo Galieo to Heritage Malta Container.
+    }%
+}
+
+\par \setlength\parindent{44pt}\fbox{%
+    \parbox{320pt}{%
+\hspace{5pt} 6 \hspace{5pt} \vrule  \hspace{10pt} Move from Heritage Malta to Museo Galieo Container.
+    }%
+}
+\\
+\setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
+
+\par \setlength\parindent{14pt} Paths: 
+\\
+\par \setlength\parindent{44pt}\fbox{%
+    \parbox{300pt}{%
+\hspace{10pt} 1 \hspace{15pt} \vrule  \hspace{10pt} 1.2
+    }%
+}
+\par \setlength\parindent{44pt}\fbox{%
+    \parbox{300pt}{%
+\hspace{10pt} 1 \hspace{15pt} \vrule  \hspace{10pt} 3.4
+    }%
+}
+
+\par \setlength\parindent{44pt}\fbox{%
+    \parbox{300pt}{%
+\hspace{10pt} 1 \hspace{15pt} \vrule  \hspace{10pt} 1.6
+    }%
+}
+
+\par \setlength\parindent{44pt}\fbox{%
+    \parbox{300pt}{%
+\hspace{10pt} 1 \hspace{15pt} \vrule  \hspace{10pt} 3.5
+    }%
+}
+
+\par \setlength\parindent{44pt}\fbox{%
+    \parbox{300pt}{%
+\hspace{10pt} 1 \hspace{15pt} \vrule  \hspace{10pt} 3.5.2
+    }%
+}
+\par \setlength\parindent{44pt}\fbox{%
+    \parbox{300pt}{%
+\hspace{10pt} 1 \hspace{15pt} \vrule  \hspace{10pt} 1.6.4
+    }%
+}
+
+
+    }%
+}
+\caption{Travel schema for agent\textsc{ArtistManagerAgent}}
+\label{fig:travel_schema_artistmanager}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{center}
+\noindent\fbox{%
+    \parbox{\textwidth}{%
+\setlength\parindent{14pt} Agent Type: \hspace{1em} \textsc{ProfilerAgent}\\
+\setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
+
+\par \setlength\parindent{14pt} Description: 
+\par \setlength\parindent{14pt} Origin: 
+\par \setlength\parindent{14pt} Final Destination: 
+\par \setlength\parindent{14pt} List of atomic movements:
+\\
+\par \setlength\parindent{44pt}\fbox{%
+    \parbox{300pt}{%
+\hspace{10pt} 1 \hspace{15pt} \vrule  \hspace{10pt} Description
+    }%
+}
+\\
+\setlength\parindent{14pt} \noindent\rule{15cm}{0.4pt}
+
+\par \setlength\parindent{14pt} Paths: 
+\\
+\par \setlength\parindent{44pt}\fbox{%
+    \parbox{300pt}{%
+\hspace{10pt} 1 \hspace{15pt} \vrule  \hspace{10pt} Description
+    }%
+}
+    }%
+}
+\caption{Travel schema for agent\textsc{ProfilerAgent}}
+\label{fig:travel_schema_profiler}
+\end{center}
+\end{figure}
+\section{Task 2 - Modeling with AgentUML}
 
 \bibliography{references}{}
 \bibliographystyle{plain}
