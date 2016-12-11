@@ -23,3 +23,14 @@
 \BOOKMARK [3][-]{subsubsection.3.2.4}{FindVirtualTour}{subsection.3.2}% 23
 \BOOKMARK [3][-]{subsubsection.3.2.5}{VisitArtifact}{subsection.3.2}% 24
 \BOOKMARK [2][-]{subsection.3.3}{Internal Agent Processing}{section.3}% 25
+\BOOKMARK [3][-]{subsubsection.3.3.1}{ArtistManagerAgent}{subsection.3.3}% 26
+\BOOKMARK [3][-]{subsubsection.3.3.2}{TourGuideAgent}{subsection.3.3}% 27
+\BOOKMARK [3][-]{subsubsection.3.3.3}{ProfilerAgent}{subsection.3.3}% 28
+\BOOKMARK [3][-]{subsubsection.3.3.4}{CuratorAgent}{subsection.3.3}% 29
+\BOOKMARK [1][-]{section.4}{Task 3 - UML Class Diagram Revisited}{}% 30
+\BOOKMARK [2][-]{subsection.4.1}{ArtistManagerAgent}{section.4}% 31
+\BOOKMARK [2][-]{subsection.4.2}{TourGuideAgent}{section.4}% 32
+\BOOKMARK [2][-]{subsection.4.3}{ProfilerAgent}{section.4}% 33
+\BOOKMARK [2][-]{subsection.4.4}{CuratorAgent}{section.4}% 34
+\BOOKMARK [1][-]{section.5}{Task 4 - Role-based Modeling with RoMAS}{}% 35
+\BOOKMARK [1][-]{section.6}{Task 5 - Comparing JADE to other Agent Platforms}{}% 36

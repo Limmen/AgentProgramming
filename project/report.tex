@@ -824,6 +824,7 @@ ArtistManagerAgent & Yes & ArtistManagerAgentContainer, Museo Galileo Container,
 \end{center}
 \end{figure}
 \section{Task 2 - Modeling with AgentUML}
+An alternative to the GAIA modeling approach is to attempt to stick to UML which is the dominant way of modeling in general software engineering. However in the context of agent-oriented programing the UML standard have some obvious problems which are to be expected since UML was not designed for agent-oriented programming but rather object-oriented. Agent UML is an extension to UML which the purpose of making UML more usable or agent-based systems. In this task I've followed the approach to using UML as presented in \citep{agent_uml1}.
 \subsection{The Overall Protocol}
 \subsubsection{ArtistManager Auction package}
 High-level overview of the protocol where ArtistManagerAgents auctions art-artifacts to CuratorAgents using dutch auctions.
@@ -939,6 +940,8 @@ Sequence diagram over the VisitArtifact protocol. When invoked the ProfilerAgent
   \end{center}
 \end{figure}
 \subsection{Internal Agent Processing}
+\subsubsection{ArtistManagerAgent}
+The ArtistManagerAgent contains internal processing for modifying prices in the dutch auction as well as selecting a winner when there is multiple bids. Many of the internal states depends on external events from the interaction protocol.
 \begin{figure}[H]
   \begin{center}
     \scalebox{0.70}{
@@ -948,7 +951,8 @@ Sequence diagram over the VisitArtifact protocol. When invoked the ProfilerAgent
     \label{fig:artistmanager_state}
   \end{center}
 \end{figure}
-
+\subsubsection{TourGuideAgent}
+The TourGuideAgent contains internal processing for building virtual tours bases on artifacts. Many of the internal states depends on external events from the interaction protocol.
 \begin{figure}[H]
   \begin{center}
     \scalebox{0.70}{
@@ -958,6 +962,79 @@ Sequence diagram over the VisitArtifact protocol. When invoked the ProfilerAgent
     \label{fig:tourguide_state}
   \end{center}
 \end{figure}
+\subsubsection{ProfilerAgent}
+The ProfilerAgent contains internal processing for choosing to participate in auctions, find virtual tours, as well as visiting artifacts. Many of the internal states depends on external events from the interaction protocol.
+\begin{figure}[H]
+  \begin{center}
+    \scalebox{0.70}{
+      \includegraphics{profiler_state.pdf}
+    }
+    \caption{Statechart diagram for ProfilerAgent}
+    \label{fig:profiler_state}
+  \end{center}
+\end{figure}
+\subsubsection{CuratorAgent}
+The CuratorAgent contains internal processing for participating in auctions, modifying prices in the dutch auction as well as selecting a winner when there is multiple bids. Many of the internal states depends on external events from the interaction protocol.
+\begin{figure}[H]
+  \begin{center}
+    \scalebox{0.55}{
+      \includegraphics{curator_state.pdf}
+    }
+    \caption{Statechart diagram for CuratorAgent}
+    \label{fig:curator_state}
+  \end{center}
+\end{figure}
+
+\section{Task 3 - UML Class Diagram Revisited}
+In this task the different agents are modelled with a flavor of UML class diagrams that is presented here: \citep{class_diagram}.
+\subsection{ArtistManagerAgent}
+\begin{figure}[H]
+  \begin{center}
+    \scalebox{1.20}{
+      \includegraphics[width=1.0\textwidth]{artistmanager_class.png}
+    }
+    \caption{Class diagram for ArtistManagerAgent}
+    \label{fig:artistmanager_class}
+  \end{center}
+\end{figure}
+
+\subsection{TourGuideAgent}
+
+\begin{figure}[H]
+  \begin{center}
+    \scalebox{1.20}{
+      \includegraphics[width=1.0\textwidth]{tourguide_class.png}
+    }
+    \caption{Class diagram for TourGuideAgent}
+    \label{fig:tourguide_class}
+  \end{center}
+\end{figure}
+
+\subsection{ProfilerAgent}
+\begin{figure}[H]
+  \begin{center}
+    \scalebox{1.20}{
+      \includegraphics[width=1.0\textwidth]{profiler_class.png}
+    }
+    \caption{Class diagram for ProfilerAgent}
+    \label{fig:profiler_class}
+  \end{center}
+\end{figure}
+\subsection{CuratorAgent}
+\begin{figure}[H]
+  \begin{center}
+    \scalebox{1.20}{
+      \includegraphics[width=1.0\textwidth]{curator_class.png}
+    }
+    \caption{Class diagram for CuratorAgent}
+    \label{fig:curator_class}
+  \end{center}
+\end{figure}
+
+\section{Task 4 - Role-based Modeling with RoMAS}
+\citep{romas}
+\section{Task 5 - Comparing JADE to other Agent Platforms}
+\citep{jade} \citep{jack} \citep{fipaos} \citep{agentdk}
 
 \bibliography{references}{}
 \bibliographystyle{plain}

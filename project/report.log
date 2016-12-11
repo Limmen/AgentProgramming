@@ -1,10 +1,12 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.8.25)  10 DEC 2016 20:54
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.4.16)  11 DEC 2016 06:11
 entering extended mode
  restricted \write18 enabled.
- file:line:error style messages enabled.
  %&-line parsing enabled.
-**\input report.tex
-(./report.tex (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+**report
+(./report.tex
+LaTeX2e <2011/06/27>
+Babel <3.9h> and hyphenation patterns for 78 languages loaded.
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
 File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
@@ -1082,7 +1084,7 @@ Overfull \hbox (6.79999pt too wide) in paragraph at lines 401--430
  [] 
  []
 
-[7] <ac_protocol.pdf, id=153, 684.5575pt x 405.515pt>
+[7] <ac_protocol.pdf, id=198, 684.5575pt x 405.515pt>
 File: ac_protocol.pdf Graphic file (type pdf)
  <use ac_protocol.pdf>
 Package pdftex.def Info: ac_protocol.pdf used on input line 441.
@@ -1092,7 +1094,7 @@ Overfull \hbox (53.25633pt too wide) in paragraph at lines 441--442
  [] 
  []
 
-<uh_protocol.pdf, id=154, 656.4525pt x 772.8875pt>
+<uh_protocol.pdf, id=199, 656.4525pt x 772.8875pt>
 File: uh_protocol.pdf Graphic file (type pdf)
  <use uh_protocol.pdf>
 Package pdftex.def Info: uh_protocol.pdf used on input line 450.
@@ -1102,7 +1104,7 @@ Overfull \hbox (33.58298pt too wide) in paragraph at lines 450--451
  [] 
  []
 
-[8] <tg_protocol.pdf, id=160, 627.34375pt x 391.4625pt>
+[8] <tg_protocol.pdf, id=205, 627.34375pt x 391.4625pt>
 File: tg_protocol.pdf Graphic file (type pdf)
  <use tg_protocol.pdf>
 Package pdftex.def Info: tg_protocol.pdf used on input line 459.
@@ -1112,7 +1114,7 @@ Overfull \hbox (13.20699pt too wide) in paragraph at lines 459--460
  [] 
  []
 
-[9 <./ac_protocol.pdf>] <ab_protocol.pdf, id=172, 625.33624pt x 397.485pt>
+[9 <./ac_protocol.pdf>] <ab_protocol.pdf, id=216, 625.33624pt x 397.485pt>
 File: ab_protocol.pdf Graphic file (type pdf)
 
 <use ab_protocol.pdf>
@@ -1124,7 +1126,7 @@ Overfull \hbox (11.80174pt too wide) in paragraph at lines 468--469
  []
 
 [10 <./uh_protocol.pdf>] [11 <./tg_protocol.pdf>]
-<aq_protocol.pdf, id=193, 661.47125pt x 579.16376pt>
+<aq_protocol.pdf, id=237, 661.47125pt x 579.16376pt>
 File: aq_protocol.pdf Graphic file (type pdf)
  <use aq_protocol.pdf>
 Package pdftex.def Info: aq_protocol.pdf used on input line 478.
@@ -1134,7 +1136,7 @@ Overfull \hbox (37.09608pt too wide) in paragraph at lines 478--479
  [] 
  []
 
-<as_protocol.pdf, id=194, 642.4pt x 394.47375pt>
+<as_protocol.pdf, id=238, 642.4pt x 394.47375pt>
 File: as_protocol.pdf Graphic file (type pdf)
  <use as_protocol.pdf>
 Package pdftex.def Info: as_protocol.pdf used on input line 487.
@@ -1144,14 +1146,14 @@ Overfull \hbox (23.7463pt too wide) in paragraph at lines 487--488
  [] 
  []
 
-[12 <./ab_protocol.pdf>] <a_protocol.pdf, id=205, 334.24875pt x 248.93pt>
+[12 <./ab_protocol.pdf>] <a_protocol.pdf, id=249, 334.24875pt x 248.93pt>
 File: a_protocol.pdf Graphic file (type pdf)
 
 <use a_protocol.pdf>
 Package pdftex.def Info: a_protocol.pdf used on input line 496.
 (pdftex.def)             Requested size: 334.24792pt x 248.92938pt.
  [13 <./aq_protocol.pdf>]
-<agent_model.pdf, id=217, 721.69624pt x 149.55875pt>
+<agent_model.pdf, id=261, 721.69624pt x 149.55875pt>
 File: agent_model.pdf Graphic file (type pdf)
  <use agent_model.pdf>
 Package pdftex.def Info: agent_model.pdf used on input line 507.
@@ -1372,7 +1374,7 @@ Overfull \hbox (85.23944pt too wide) in paragraph at lines 571--591
  [] 
  []
 
-[16] <acquaintance_model.pdf, id=252, 405.515pt x 248.93pt>
+[16] <acquaintance_model.pdf, id=296, 405.515pt x 248.93pt>
 File: acquaintance_model.pdf Graphic file (type pdf)
 
 <use acquaintance_model.pdf>
@@ -1468,7 +1470,7 @@ Overfull \hbox (73.23946pt too wide) in paragraph at lines 628--639
  [] 
  []
 
-<cardinality.pdf, id=268, 616.3025pt x 635.37375pt>
+<cardinality.pdf, id=312, 616.3025pt x 635.37375pt>
 File: cardinality.pdf Graphic file (type pdf)
  <use cardinality.pdf>
 Package pdftex.def Info: cardinality.pdf used on input line 646.
@@ -1513,135 +1515,214 @@ Overfull \hbox (6.79999pt too wide) in paragraph at lines 805--822
  [] 
  []
 
-<artist_auction_template.pdf, id=292, 471.7625pt x 306.14375pt>
+<artist_auction_template.pdf, id=338, 471.7625pt x 306.14375pt>
 File: artist_auction_template.pdf Graphic file (type pdf)
 
 <use artist_auction_template.pdf>
-Package pdftex.def Info: artist_auction_template.pdf used on input line 834.
+Package pdftex.def Info: artist_auction_template.pdf used on input line 835.
 (pdftex.def)             Requested size: 471.76134pt x 306.14299pt.
  [22]
-<curator_auction_template.pdf, id=300, 471.7625pt x 306.14375pt>
+<curator_auction_template.pdf, id=346, 471.7625pt x 306.14375pt>
 File: curator_auction_template.pdf Graphic file (type pdf)
 
 <use curator_auction_template.pdf>
-Package pdftex.def Info: curator_auction_template.pdf used on input line 845.
+Package pdftex.def Info: curator_auction_template.pdf used on input line 846.
 (pdftex.def)             Requested size: 471.76134pt x 306.14299pt.
 
-<build_virtual_tour_temp.pdf, id=301, 471.7625pt x 306.14375pt>
+<build_virtual_tour_temp.pdf, id=347, 471.7625pt x 306.14375pt>
 File: build_virtual_tour_temp.pdf Graphic file (type pdf)
 
 <use build_virtual_tour_temp.pdf>
-Package pdftex.def Info: build_virtual_tour_temp.pdf used on input line 857.
+Package pdftex.def Info: build_virtual_tour_temp.pdf used on input line 858.
 (pdftex.def)             Requested size: 471.76134pt x 306.14299pt.
  [23 <./artist_auction_template.pdf> <./curator_auction_template.pdf>]
-<find_virtual_tour.pdf, id=320, 471.7625pt x 306.14375pt>
+<find_virtual_tour.pdf, id=366, 471.7625pt x 306.14375pt>
 File: find_virtual_tour.pdf Graphic file (type pdf)
 
 <use find_virtual_tour.pdf>
-Package pdftex.def Info: find_virtual_tour.pdf used on input line 869.
+Package pdftex.def Info: find_virtual_tour.pdf used on input line 870.
 (pdftex.def)             Requested size: 471.76134pt x 306.14299pt.
  [24 <./build_virtual_tour_temp.pdf>]
-<visit_artifact.pdf, id=332, 471.7625pt x 306.14375pt>
+<visit_artifact.pdf, id=378, 471.7625pt x 306.14375pt>
 File: visit_artifact.pdf Graphic file (type pdf)
 
 <use visit_artifact.pdf>
-Package pdftex.def Info: visit_artifact.pdf used on input line 880.
+Package pdftex.def Info: visit_artifact.pdf used on input line 881.
 (pdftex.def)             Requested size: 471.76134pt x 306.14299pt.
 
-<artist_auction_sequence.pdf, id=333, 659.46375pt x 744.7825pt>
+<artist_auction_sequence.pdf, id=379, 659.46375pt x 744.7825pt>
 File: artist_auction_sequence.pdf Graphic file (type pdf)
 
 <use artist_auction_sequence.pdf>
-Package pdftex.def Info: artist_auction_sequence.pdf used on input line 892.
+Package pdftex.def Info: artist_auction_sequence.pdf used on input line 893.
 (pdftex.def)             Requested size: 659.46213pt x 744.78069pt.
 
-Overfull \hbox (35.69083pt too wide) in paragraph at lines 892--893
+Overfull \hbox (35.69083pt too wide) in paragraph at lines 893--894
  [] 
  []
 
 [25 <./find_virtual_tour.pdf> <./visit_artifact.pdf>] [26]
-<curator_auction_sequence.pdf, id=357, 659.46375pt x 744.7825pt>
+<curator_auction_sequence.pdf, id=403, 659.46375pt x 744.7825pt>
 File: curator_auction_sequence.pdf Graphic file (type pdf)
 
 <use curator_auction_sequence.pdf>
-Package pdftex.def Info: curator_auction_sequence.pdf used on input line 903.
+Package pdftex.def Info: curator_auction_sequence.pdf used on input line 904.
 (pdftex.def)             Requested size: 659.46213pt x 744.78069pt.
 
-Overfull \hbox (29.04167pt too wide) in paragraph at lines 903--904
+Overfull \hbox (29.04167pt too wide) in paragraph at lines 904--905
  [] 
  []
 
 [27 <./artist_auction_sequence.pdf>]
-<build_virtual_tour.pdf, id=369, 630.355pt x 571.13374pt>
+<build_virtual_tour.pdf, id=415, 630.355pt x 571.13374pt>
 File: build_virtual_tour.pdf Graphic file (type pdf)
 
 <use build_virtual_tour.pdf>
-Package pdftex.def Info: build_virtual_tour.pdf used on input line 914.
+Package pdftex.def Info: build_virtual_tour.pdf used on input line 915.
 (pdftex.def)             Requested size: 630.35345pt x 571.13235pt.
 
-Overfull \hbox (15.31485pt too wide) in paragraph at lines 914--915
+Overfull \hbox (15.31485pt too wide) in paragraph at lines 915--916
  [] 
  []
 
 [28 <./curator_auction_sequence.pdf>]
-<find_virtual_tour_sequence.pdf, id=381, 619.31375pt x 642.4pt>
+<find_virtual_tour_sequence.pdf, id=427, 619.31375pt x 642.4pt>
 File: find_virtual_tour_sequence.pdf Graphic file (type pdf)
 
 <use find_virtual_tour_sequence.pdf>
-Package pdftex.def Info: find_virtual_tour_sequence.pdf used on input line 925.
+Package pdftex.def Info: find_virtual_tour_sequence.pdf used on input line 926.
 
 (pdftex.def)             Requested size: 619.31224pt x 642.39844pt.
 
-Overfull \hbox (7.58603pt too wide) in paragraph at lines 925--926
+Overfull \hbox (7.58603pt too wide) in paragraph at lines 926--927
  [] 
  []
 
 [29 <./build_virtual_tour.pdf>]
-<visit_artifact_sequence.pdf, id=393, 625.33624pt x 437.635pt>
+<visit_artifact_sequence.pdf, id=440, 625.33624pt x 437.635pt>
 File: visit_artifact_sequence.pdf Graphic file (type pdf)
 
 <use visit_artifact_sequence.pdf>
-Package pdftex.def Info: visit_artifact_sequence.pdf used on input line 936.
+Package pdftex.def Info: visit_artifact_sequence.pdf used on input line 937.
 (pdftex.def)             Requested size: 625.33472pt x 437.63393pt.
 
-Overfull \hbox (11.80174pt too wide) in paragraph at lines 936--937
+Overfull \hbox (11.80174pt too wide) in paragraph at lines 937--938
  [] 
  []
 
 [30 <./find_virtual_tour_sequence.pdf>]
-<artistmanager_state.pdf, id=405, 741.77126pt x 342.27875pt>
+<artistmanager_state.pdf, id=452, 643.40375pt x 505.89pt>
 File: artistmanager_state.pdf Graphic file (type pdf)
 
 <use artistmanager_state.pdf>
-Package pdftex.def Info: artistmanager_state.pdf used on input line 946.
-(pdftex.def)             Requested size: 741.76945pt x 342.2779pt.
+Package pdftex.def Info: artistmanager_state.pdf used on input line 949.
+(pdftex.def)             Requested size: 643.40218pt x 505.88875pt.
 
-Overfull \hbox (93.30571pt too wide) in paragraph at lines 946--947
+Overfull \hbox (24.44891pt too wide) in paragraph at lines 949--950
  [] 
  []
 
 [31 <./visit_artifact_sequence.pdf>]
-<tourguide_state.pdf, id=419, 737.75626pt x 510.90875pt>
+<tourguide_state.pdf, id=465, 737.75626pt x 510.90875pt>
 File: tourguide_state.pdf Graphic file (type pdf)
 
 <use tourguide_state.pdf>
-Package pdftex.def Info: tourguide_state.pdf used on input line 956.
+Package pdftex.def Info: tourguide_state.pdf used on input line 960.
 (pdftex.def)             Requested size: 737.75446pt x 510.9075pt.
 
-Overfull \hbox (90.49522pt too wide) in paragraph at lines 956--957
+Overfull \hbox (90.49522pt too wide) in paragraph at lines 960--961
  [] 
  []
 
-[32 <./artistmanager_state.pdf>] (./report.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 964.
- [33 <./tourguide_state.pdf>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 964.
+[32 <./artistmanager_state.pdf>]
+<profiler_state.pdf, id=477, 708.6475pt x 578.16pt>
+File: profiler_state.pdf Graphic file (type pdf)
+ <use profiler_state.pdf>
+Package pdftex.def Info: profiler_state.pdf used on input line 971.
+(pdftex.def)             Requested size: 708.64578pt x 578.15858pt.
 
-(./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 964.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 964.
+Overfull \hbox (70.11925pt too wide) in paragraph at lines 971--972
+ [] 
+ []
+
+[33 <./tourguide_state.pdf>]
+<curator_state.pdf, id=489, 940.51375pt x 630.355pt>
+File: curator_state.pdf Graphic file (type pdf)
+ <use curator_state.pdf>
+Package pdftex.def Info: curator_state.pdf used on input line 982.
+(pdftex.def)             Requested size: 940.51146pt x 630.35345pt.
+
+Overfull \hbox (90.48056pt too wide) in paragraph at lines 982--983
+ [] 
+ []
+
+[34 <./profiler_state.pdf>]
+<artistmanager_class.png, id=502, 1109.64563pt x 515.67656pt>
+File: artistmanager_class.png Graphic file (type png)
+
+<use artistmanager_class.png>
+Package pdftex.def Info: artistmanager_class.png used on input line 995.
+(pdftex.def)             Requested size: 430.00462pt x 199.83046pt.
+
+Overfull \hbox (92.9836pt too wide) in paragraph at lines 995--996
+ [] 
+ []
+
+[35 <./curator_state.pdf>]
+<tourguide_class.png, id=516, 1301.61281pt x 491.58656pt>
+File: tourguide_class.png Graphic file (type png)
+
+<use tourguide_class.png>
+Package pdftex.def Info: tourguide_class.png used on input line 1007.
+(pdftex.def)             Requested size: 430.00462pt x 162.39658pt.
+
+Overfull \hbox (92.9836pt too wide) in paragraph at lines 1007--1008
+ [] 
+ []
+
+<profiler_class.png, id=517, 1337.74782pt x 834.86906pt>
+File: profiler_class.png Graphic file (type png)
+
+<use profiler_class.png>
+Package pdftex.def Info: profiler_class.png used on input line 1018.
+(pdftex.def)             Requested size: 430.00462pt x 268.36102pt.
+
+Overfull \hbox (92.9836pt too wide) in paragraph at lines 1018--1019
+ [] 
+ []
+
+[36 <./artistmanager_class.png> <./tourguide_class.png>]
+<curator_class.png, id=526, 1269.24188pt x 846.16125pt>
+File: curator_class.png Graphic file (type png)
+
+<use curator_class.png>
+Package pdftex.def Info: curator_class.png used on input line 1028.
+(pdftex.def)             Requested size: 430.00462pt x 286.67102pt.
+
+Overfull \hbox (92.9836pt too wide) in paragraph at lines 1028--1029
+ [] 
+ []
+
+[37 <./profiler_class.png>] (./report.bbl
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 6.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+Package microtype Info: Loading generic settings for font family
+(microtype)             `cmtt' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+ [38 <./curator_class.png>])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1041.
+ [39]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1041.
+ (./report.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1041.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1041.
+
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 3B1DD0CE00DA03E597302D190A3671C8;1851.
+(rerunfilecheck)             Checksum: 95C040BAC958E9A2B6039439B46AD2DC;2636.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
@@ -1649,30 +1730,31 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 964.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1041.
  ) 
 Here is how much of TeX's memory you used:
- 12343 strings out of 493304
- 184850 string characters out of 6139871
- 428404 words of memory out of 5000000
- 15217 multiletter control sequences out of 15000+600000
- 81117 words of font info for 275 fonts, out of 8000000 for 9000
+ 12482 strings out of 493304
+ 187345 string characters out of 6139871
+ 429059 words of memory out of 5000000
+ 15296 multiletter control sequences out of 15000+600000
+ 82428 words of font info for 290 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 36i,13n,43p,948b,445s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,13n,43p,937b,472s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/texliv
 e/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/t
 ype1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
 ublic/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathpaz
 o/fplmri.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/fpl/fplrc8a.pfb>
-</usr/share/texmf/fonts/type1/public/cm-super/sfss1000.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/urw/palatino/uplr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/u
-rw/palatino/uplri8a.pfb>
-Output written on report.pdf (33 pages, 260058 bytes).
+</usr/share/texmf/fonts/type1/public/cm-super/sfss1000.pfb></usr/share/texmf/fo
+nts/type1/public/cm-super/sftt1000.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/urw/palatino/uplb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palat
+ino/uplr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplri8a.
+pfb>
+Output written on report.pdf (39 pages, 765430 bytes).
 PDF statistics:
- 498 PDF objects out of 1000 (max. 8388607)
- 405 compressed objects within 5 object streams
- 101 named destinations out of 1000 (max. 500000)
- 55607 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 628 PDF objects out of 1000 (max. 8388607)
+ 515 compressed objects within 6 object streams
+ 131 named destinations out of 1000 (max. 500000)
+ 56237 words of extra memory for PDF output out of 61914 (max. 10000000)
 
