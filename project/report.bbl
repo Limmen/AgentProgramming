@@ -1,11 +1,5 @@
 \begin{thebibliography}{1}
 
-\bibitem{fipaos}
-AOS.
-\newblock emorphia.
-\newblock \url{http://fipa-os.sourceforge.net/index.htm}, 2003.
-\newblock [Online; accessed 12-Dec-2016].
-
 \bibitem{jack}
 AOS.
 \newblock Jack.
@@ -18,19 +12,17 @@ Bernhard Bauer.
   Systems}, pages 101--118.
 \newblock Springer Berlin Heidelberg, Berlin, Heidelberg, 2002.
 
+\bibitem{fipaos}
+emorphia.
+\newblock Fipa-os.
+\newblock \url{http://fipa-os.sourceforge.net/index.htm}, 2003.
+\newblock [Online; accessed 12-Dec-2016].
+
 \bibitem{jade}
 Telecom Italia.
 \newblock Java agent development framework.
 \newblock \url{http://jade.tilab.com/}, 2016.
 \newblock [Online; accessed 11-Nov-2016].
-
-\bibitem{agentdk}
-Agent~Development Kit.
-\newblock Agent development kit.
-\newblock
-  \url{https://docs.oracle.com/cd/E13192_01/manager/mgr20/pguide/overview.htm},
-  2016.
-\newblock [Online; accessed 12-Dec-2016].
 
 \bibitem{agent_uml1}
 James Odell, H.~Van Dyke~Parunak, and Bernhard Bauer.

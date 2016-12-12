@@ -33,4 +33,10 @@
 \BOOKMARK [2][-]{subsection.4.3}{ProfilerAgent}{section.4}% 33
 \BOOKMARK [2][-]{subsection.4.4}{CuratorAgent}{section.4}% 34
 \BOOKMARK [1][-]{section.5}{Task 4 - Role-based Modeling with RoMAS}{}% 35
-\BOOKMARK [1][-]{section.6}{Task 5 - Comparing JADE to other Agent Platforms}{}% 36
+\BOOKMARK [2][-]{subsection.5.1}{Role-based Modeling of SmartMuseum Framework}{section.5}% 36
+\BOOKMARK [3][-]{subsubsection.5.1.1}{Use cases}{subsection.5.1}% 37
+\BOOKMARK [3][-]{subsubsection.5.1.2}{Roles}{subsection.5.1}% 38
+\BOOKMARK [3][-]{subsubsection.5.1.3}{RoleOrganization}{subsection.5.1}% 39
+\BOOKMARK [3][-]{subsubsection.5.1.4}{Binding Agents to Roles}{subsection.5.1}% 40
+\BOOKMARK [2][-]{subsection.5.2}{Comparison between RoMAS and GAIA}{section.5}% 41
+\BOOKMARK [1][-]{section.6}{Task 5 - Comparing JADE to other Agent Platforms}{}% 42
