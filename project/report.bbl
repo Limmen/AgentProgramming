@@ -1,4 +1,10 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{jack-3}
+AOS.
+\newblock Applications.
+\newblock \url{http://aosgrp.com/applications/}.
+\newblock [Online; accessed 13-Dec-2016].
 
 \bibitem{jack}
 AOS.
@@ -18,11 +24,41 @@ emorphia.
 \newblock \url{http://fipa-os.sourceforge.net/index.htm}, 2003.
 \newblock [Online; accessed 12-Dec-2016].
 
+\bibitem{fipa-os-2}
+emorphia.
+\newblock Fipa-os developers guide.
+\newblock \url{http://fipa-os.sourceforge.net/docs/Developers_Guide.pdf}, 2016.
+\newblock [Online; accessed 12-Dec-2016].
+
+\bibitem{jade-2}
+Tiziana Trucco Giovanni~Rimassa Fabio~Bellifemine, Giovanni~Caire.
+\newblock Jade programmer's guide.
+\newblock \url{http://jade.tilab.com/doc/programmersguide.pdf}, 2016.
+\newblock [Online; accessed 13-Dec-2016].
+
+\bibitem{fipa-os-3}
+Foundation for Intelligent Physical~Agents.
+\newblock External projects.
+\newblock \url{http://www.fipa.org/resources/projects.html#comma}.
+\newblock [Online; accessed 13-Dec-2016].
+
 \bibitem{jade}
 Telecom Italia.
 \newblock Java agent development framework.
 \newblock \url{http://jade.tilab.com/}, 2016.
 \newblock [Online; accessed 11-Nov-2016].
+
+\bibitem{jack-2}
+Agent Oriented Software~Pty. Ltd.
+\newblock Jack intelligent agents agent manual.
+\newblock \url{http://www.aosgrp.com/documentation/jack/Agent_Manual.pdf},
+  2005.
+\newblock [Online; accessed 13-Dec-2016].
+
+\bibitem{luck_book}
+Michael Luck, Ronald Ashri, and Mark d'Inverno.
+\newblock {\em Agent-Based Software Development}.
+\newblock Artech House, 2004.
 
 \bibitem{agent_uml1}
 James Odell, H.~Van Dyke~Parunak, and Bernhard Bauer.
@@ -34,6 +70,12 @@ James Odell, H.~Van Dyke~Parunak, and Bernhard Bauer.
 \bibitem{romas}
 {QI YAN, LI-JUN SHAN, XIN-JUN MAO AND ZHI-CHANG QI}.
 \newblock {ROMAS: A ROLE-BASED MODELING METHOD FOR MULTI-AGENT SYSTEM*}.
+
+\bibitem{jade-3}
+Telecomin~Italia SpA.
+\newblock Amuse.
+\newblock \url{http://jade.tilab.com/amuseproject/}.
+\newblock [Online; accessed 13-Dec-2016].
 
 \bibitem{wooldrigde_jennings}
 Michael Wooldridge, Nicholas~R. Jennings, and David Kinny.

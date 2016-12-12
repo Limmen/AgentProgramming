@@ -1172,21 +1172,54 @@ The resulting models are very similar, the same number of roles were identified 
 \end{quote}
 In constrast, the RoMAS method do support dynamic binding of role to agent at runtime, and the model only declares the \textit{initial} binding between agents and roles.
 \section{Task 5 - Comparing JADE to other Agent Platforms}
-High-level comparison of JAVA Agent DEvelopment Framework (JADE) \citep{jade}, FIPA-OS \citep{fipaos}, and JACK \citep{jack}.
+In this section it follows a high-level comparison of JAVA Agent DEvelopment Framework (JADE) \citep{jade}, FIPA Open Source (FIPA-OS) \citep{fipaos}, and JACK Intelligent Agents \citep{jack}. JADE is a framework for developing M.A.S in java where the developer is supposed to use the regular Java language but adopt the guidelines provided by the framework to construct agent systems. JACK is an agent platform developed on top of and integrated with Java, it works as an agent-oriented extension to the object-oriented Java, it is its own language although closely coupled with java. FIPA-OS is a set of components which constitute as the core of the FIPA specification, which means that the developer can utilize this and focus on solving the real problem instead of building agent infrastructure.
 
-
+\subsection{Services and Architectures}
 \begin{tabular}{|p{2cm} p{6cm} p{6cm}|}
 \hline
 \textbf{Platform}  & \textbf{Architecture} & \textbf{Services} \\
 \hline
-JADE & Container-oriented architecture. Distributed containers that are connected over the network through a message transport system provided by JADE.& Agent Management System (AMS) can kill/create agents, provides a naming service for all agents on the platform. Directory Facilitator (DF) provides a Yellow Pages service which agents can use to find each other.  \\
+JADE & Container-oriented architecture. Distributed containers that are connected over the network through a message transport system provided by JADE. \citep{jade-2}& Agent Management System (AMS) can kill/create agents, provides a naming service for all agents on the platform. Directory Facilitator (DF) provides a Yellow Pages service which agents can use to find each other.  \citep{jade-2}\\
 \hline
-FIPA-OS & Component-oriented architecture. When deploying an agent system the developer choose set of components to use, some components are mandatory some are optional. \citep{fipa-os-2}& Core components: Agent Shell provides a shell for agent implementation, TM (Task Manager) support ability to split functionality of agents, CM (Conversation Manager) enables to track conversation state at the performative level, MTS (Message Transport Service) the general messaging service that enables agents to communicate. Beyond the mandatory components there are a bunch of optional components like database factory, parser factory \citep{fipa-os-2}\\
+FIPA-OS & Component-oriented architecture. When deploying an agent system the developer choose set of components to use, some components are mandatory some are optional. \citep{fipa-os-2}& Core components: Agent Shell provides a shell for agent implementation, TM (Task Manager) support ability to split functionality of agents, CM (Conversation Manager) enables to track conversation state at the performative level, MTS (Message Transport Service) the general messaging service that enables agents to communicate. Beyond the mandatory components there are a bunch of optional components like database factory, parser factory. FIPA-OS also provides Directory Facilitator and Agent Management System just as JADE \citep{fipa-os-2}.\\
 \hline
-JACK    & 6 & 2 \\
+JACK  & JACK Agent Kernel, a runtime engine that provides the infrastructure for developing agent systems. JACK uses a communication layer. The developer is not actively interacting with the kernel but instead uses constructs in the language declaring the name of agents, the address of other agents etc, which will allow the kernel to provide the underlying infrastructure, e.g communication between agents. \citep{jack-2} & JACK provides a default messaging service over UDP and has constructs for a naming-service in the language. The default architecture that have strong support in JACK is BDI architecture, JACK provides different services related to BDI such as BDI Models, ways of declaring plans, beliefs and external/internal events. TaskManager which allows agents to schedule tasks. Provides services for team-oriented programming as a way of coordinating between agents. \citep{luck_book}\\
 \hline
 \end{tabular}
 
+\subsection{Implementation Comparison}
+\begin{itemize}
+\item \textbf{JADE}: \\
+In JADE, service implementation can be done by developing agents that listens for certain type of messages, perform some action, and respond. The functionality for listening for a certain type of messages is provided by the JADE runtime and allows to have multiple services on the same host in a convenient way. Service registration and discovery is closley coupled with the AMS Service and the DF service. The AMS service ensures a global name space with unique names for adressing, the DF service is used to register services and to find other registered services. AMS and DF are agents on their own which means that the interaction with these services is done through messages passing. When registering a service one could define different properties like name, type, description etc. 
+\item \textbf{FIPA-OS}: \\
+Service implementation in FIPA-OS can be done by developing agents that listens for specific type of incoming connections by developing Tasks, Tasks's can then be associated to different events which allows to have multiple tasks on the same host/agent. FIPA-OS uses the same type of services like JADE for service registration and discovery: AMS and DF \citep{fipa-os-2}.
+\item \textbf{JACK}: \\
+In JACK an agent service can be implemented by using the constructs in the language like \texttt{\#handles} to declare which events this service/agent should react to, \texttt{\#posts}, \texttt{\#sends} for event/message sending, \texttt{\#uses} for declaring plans. To set up a service in JACK which can be used by other agents, one can use a designated process/agent as a \textit{name-server}, this name server can be designed in different ways, for example it could do lookups of names to port/address, or it could provide a service-registration service or similar. \citep{jack-2}
+\end{itemize}
+\subsection{Notable Projects}
+\begin{itemize}
+\item \textbf{JADE}: \\
+\begin{itemize}
+\item \textit{AMUSE (Agent-based Multi-User Social Environment)}: Software platform that facilitates the development of distributed social applications involving users that cooperate/compete to achieve common or private goals. Within this scope the primary focus of Amuse is on multi player on-line games \citep{jade-3}.
+\end{itemize}
+\item \textbf{FIPA-OS}: \\
+\begin{itemize}
+\item \textit{CRUMPET}: The overall aim of the CRUMPET project is to implement, validate, and trial tourism-related value-added services for nomadic users (across mobile and fixed networks). \citep{fipa-os-3}
+\end{itemize}
+\item \textbf{JACK}: \\
+\begin{itemize}
+\item \textit{Realistic Virtual Actors}: Simulation system in a military context, uses intelligent agents for the simulation \citep{jack-3}.
+\item \textit{Human Behaviour Representation}: Application where realistic human behaviour is generated \citep{jack-3}.
+\end{itemize}
+\end{itemize}
+\subsection{Personal Judgement}
+JADE is the only platform I have had the chance to get practical experience working with throughout the assignments in this course. JACK and FIPA-OS is two other platforms with similar purposes as JADE, that I've only read about. 
+
+Something I've came to appreciate when using JADE to build agent systems is the simplicity in how much you can build just by using the few default services provided by JADE like DF, AMS and the message transport system. In my opinion JADE neatly provides the necessary infrastructure without getting in the way for the programmer who can focus on solving the specific problem at hand. Another pro of JADE in my opinion is the adoption of the FIPA specification, many protocols and message formats are supported out of the box. Something I feel is lacking in JADE is additional constructs in the framework for designing agents in the micro perspective. Agent design in JADE is done through composing general behaviours, there is no explicit constructs for using BDI architecture or similar.
+
+FIPA-OS is just as the name implies is also compliant with the FIPA specifications and is very similar to JADE. An advantage I've found with FIPA-OS compared to JADE is the ability to combine different components of the infrastructure archticture as you like, in this aspect FIPA-OS provide more elibibility than JADE. FIPA-OS uses the Task abstraction which seems to be analogous to the Behaviour abstraction in JADE.
+
+JACK uses a different approach to FIPA-OS and JADE in that it has its own language. Something I feel missing in JACK is clear guidelines for designing agent systems in the macro perspective as both JADE and FIPA-OS provides with their default services, also JACK does not seem to have as good support for the FIPA specifications as JADE and FIPA-OS. JACK on the other hand gives more sophisticated structures for designing agents in the micro perspective and have very good support for BDI architectures in particular.
 \bibliography{references}{}
 \bibliographystyle{plain}
 \end{document}
