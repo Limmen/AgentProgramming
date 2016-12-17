@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.8.25)  14 DEC 2016 08:23
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.4.16)  17 DEC 2016 03:33
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -736,7 +736,7 @@ Package: titlesec 2011/12/15 v2.10.0 Sectioning titles
 \titlewidthlast=\dimen174
 \titlewidthfirst=\dimen175
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 41.
+Package hyperref Info: Option `colorlinks' set `true' on input line 42.
 
 (/usr/share/texlive/texmf-dist/tex/latex/titlesec/block.tss
 File: block.tss 2011/12/15
@@ -762,7 +762,7 @@ Package: enumitem 2011/09/28 v3.5.2 Customized lists
 )
 
 Package Fancyhdr Warning: \fancyfoot's `E' option without twoside option is use
-less on input line 72.
+less on input line 73.
 
 
 LaTeX Warning: Unused global option(s):
@@ -775,21 +775,21 @@ LaTeX Warning: Label `tab:placeTypes' multiply defined.
 )
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Try loading font information for T1+pplx on input line 84.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Try loading font information for T1+pplx on input line 85.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pplx.fd
 File: t1pplx.fd 2004/09/06 font definitions for T1/pplx.
 )
@@ -824,7 +824,7 @@ e
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Info: Redefining \microtypecontext on input line 84.
+LaTeX Info: Redefining \microtypecontext on input line 85.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -882,7 +882,7 @@ File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
 Package color Info: Driver file: pdftex.def on input line 130.
 )
-Package hyperref Info: Link coloring ON on input line 84.
+Package hyperref Info: Link coloring ON on input line 85.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -892,61 +892,61 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count163
 )
-LaTeX Info: Redefining \ref on input line 84.
-LaTeX Info: Redefining \pageref on input line 84.
-LaTeX Info: Redefining \nameref on input line 84.
+LaTeX Info: Redefining \ref on input line 85.
+LaTeX Info: Redefining \pageref on input line 85.
+LaTeX Info: Redefining \nameref on input line 85.
 
 (./report.out) (./report.out)
 \@outlinefile=\write3
 \openout3 = `report.out'.
 
 LaTeX Font Info:    Font shape `T1/pplx/bx/n' in size <24> not available
-(Font)              Font shape `T1/pplx/b/n' tried instead on input line 86.
-LaTeX Font Info:    Try loading font information for OT1+pplx on input line 86.
+(Font)              Font shape `T1/pplx/b/n' tried instead on input line 87.
+LaTeX Font Info:    Try loading font information for OT1+pplx on input line 87.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1pplx.fd
 File: ot1pplx.fd 2004/09/06 font definitions for OT1/pplx.
 )
-LaTeX Font Info:    Try loading font information for OML+zplm on input line 86.
+LaTeX Font Info:    Try loading font information for OML+zplm on input line 87.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omlzplm.fd
 File: omlzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OML/zplm.
 )
-LaTeX Font Info:    Try loading font information for OMS+zplm on input line 86.
+LaTeX Font Info:    Try loading font information for OMS+zplm on input line 87.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omszplm.fd
 File: omszplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMS/zplm.
 )
-LaTeX Font Info:    Try loading font information for OMX+zplm on input line 86.
+LaTeX Font Info:    Try loading font information for OMX+zplm on input line 87.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omxzplm.fd
 File: omxzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMX/zplm.
 )
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 12.50409pt on input line 86.
+(Font)              scaled to size 12.50409pt on input line 87.
 
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 9.37807pt on input line 86.
+(Font)              scaled to size 9.37807pt on input line 87.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 7.29405pt on input line 86.
+(Font)              scaled to size 7.29405pt on input line 87.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 12.50409pt on input line 86.
+(Font)              scaled to size 12.50409pt on input line 87.
 
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 9.37807pt on input line 86.
+(Font)              scaled to size 9.37807pt on input line 87.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 7.29405pt on input line 86.
-LaTeX Font Info:    Try loading font information for OT1+zplm on input line 86.
+(Font)              scaled to size 7.29405pt on input line 87.
+LaTeX Font Info:    Try loading font information for OT1+zplm on input line 87.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1zplm.fd
@@ -960,26 +960,26 @@ Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/pplx/m/sc/12'.
 (microtype)             Ignoring protrusion settings for this character.
 LaTeX Font Info:    Font shape `T1/pplx/bx/n' in size <10> not available
-(Font)              Font shape `T1/pplx/b/n' tried instead on input line 100.
+(Font)              Font shape `T1/pplx/b/n' tried instead on input line 101.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 10.42007pt on input line 107.
+(Font)              scaled to size 10.42007pt on input line 108.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 7.91925pt on input line 107.
+(Font)              scaled to size 7.91925pt on input line 108.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 6.25204pt on input line 107.
+(Font)              scaled to size 6.25204pt on input line 108.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 10.42007pt on input line 107.
+(Font)              scaled to size 10.42007pt on input line 108.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 7.91925pt on input line 107.
+(Font)              scaled to size 7.91925pt on input line 108.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 6.25204pt on input line 107.
+(Font)              scaled to size 6.25204pt on input line 108.
  [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
 Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/pplx/m/sc/10'.
 (microtype)             Ignoring protrusion settings for this character.
-LaTeX Font Info:    Try loading font information for T1+cmss on input line 163.
+LaTeX Font Info:    Try loading font information for T1+cmss on input line 164.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmss.fd
@@ -990,115 +990,115 @@ Package microtype Info: Loading generic settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
-Underfull \hbox (badness 10000) in paragraph at lines 163--163
+Underfull \hbox (badness 10000) in paragraph at lines 164--164
 
  []
 
-LaTeX Font Info:    Try loading font information for OMS+pplx on input line 163
+LaTeX Font Info:    Try loading font information for OMS+pplx on input line 164
 .
-LaTeX Font Info:    No file OMSpplx.fd. on input line 163.
+LaTeX Font Info:    No file OMSpplx.fd. on input line 164.
 
 LaTeX Font Warning: Font shape `OMS/pplx/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbullet' on input line 163.
+(Font)              for symbol `textbullet' on input line 164.
 
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 116--164
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 117--165
  [] 
  []
 
 [2]
-Overfull \hbox (1.64105pt too wide) in paragraph at lines 218--218
+Overfull \hbox (1.64105pt too wide) in paragraph at lines 219--219
 []$[]\OML/zplm/m/it/10 moneyForArtifact$  $[] []$ 
  []
 
 
-Overfull \hbox (2.62111pt too wide) in paragraph at lines 218--218
+Overfull \hbox (2.62111pt too wide) in paragraph at lines 219--219
 []$[]\OML/zplm/m/it/10 virtualTour$  $[] []$ 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 218--218
+Underfull \hbox (badness 10000) in paragraph at lines 219--219
 
  []
 
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 171--219
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 172--220
  [] 
  []
 
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 263--263
+Underfull \hbox (badness 10000) in paragraph at lines 264--264
 []
  []
 
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 226--264
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 227--265
  [] 
  []
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 309--309
+Underfull \hbox (badness 10000) in paragraph at lines 310--310
 []
  []
 
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 272--310
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 273--311
  [] 
  []
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 355--355
+Underfull \hbox (badness 10000) in paragraph at lines 356--356
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 355--355
+Underfull \hbox (badness 10000) in paragraph at lines 356--356
 []
  []
 
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 317--356
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 318--357
  [] 
  []
 
 [6]
-Underfull \hbox (badness 10000) in paragraph at lines 401--401
+Underfull \hbox (badness 10000) in paragraph at lines 402--402
 []
  []
 
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 364--402
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 365--403
  [] 
  []
 
 [7]
-Underfull \hbox (badness 10000) in paragraph at lines 438--438
+Underfull \hbox (badness 10000) in paragraph at lines 439--439
 []
  []
 
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 410--439
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 411--440
  [] 
  []
 
 [8] <ac_protocol.pdf, id=244, 698.61pt x 783.92876pt>
 File: ac_protocol.pdf Graphic file (type pdf)
  <use ac_protocol.pdf>
-Package pdftex.def Info: ac_protocol.pdf used on input line 450.
+Package pdftex.def Info: ac_protocol.pdf used on input line 451.
 (pdftex.def)             Requested size: 698.60829pt x 783.92685pt.
 
-Overfull \hbox (63.09303pt too wide) in paragraph at lines 450--451
+Overfull \hbox (63.09303pt too wide) in paragraph at lines 451--452
  [] 
  []
 
 <uh_protocol.pdf, id=245, 656.4525pt x 772.8875pt>
 File: uh_protocol.pdf Graphic file (type pdf)
  <use uh_protocol.pdf>
-Package pdftex.def Info: uh_protocol.pdf used on input line 459.
+Package pdftex.def Info: uh_protocol.pdf used on input line 460.
 (pdftex.def)             Requested size: 656.4509pt x 772.8856pt.
 
-Overfull \hbox (33.58298pt too wide) in paragraph at lines 459--460
+Overfull \hbox (33.58298pt too wide) in paragraph at lines 460--461
  [] 
  []
 
@@ -1110,20 +1110,20 @@ Overfull \vbox (17.65945pt too high) has occurred while \output is active []
 File: tg_protocol.pdf Graphic file (type pdf)
 
 <use tg_protocol.pdf>
-Package pdftex.def Info: tg_protocol.pdf used on input line 468.
+Package pdftex.def Info: tg_protocol.pdf used on input line 469.
 (pdftex.def)             Requested size: 627.34221pt x 391.46153pt.
 
-Overfull \hbox (13.20699pt too wide) in paragraph at lines 468--469
+Overfull \hbox (13.20699pt too wide) in paragraph at lines 469--470
  [] 
  []
 
 <ab_protocol.pdf, id=262, 639.38875pt x 605.26125pt>
 File: ab_protocol.pdf Graphic file (type pdf)
  <use ab_protocol.pdf>
-Package pdftex.def Info: ab_protocol.pdf used on input line 477.
+Package pdftex.def Info: ab_protocol.pdf used on input line 478.
 (pdftex.def)             Requested size: 639.38718pt x 605.25975pt.
 
-Overfull \hbox (21.63843pt too wide) in paragraph at lines 477--478
+Overfull \hbox (21.63843pt too wide) in paragraph at lines 478--479
  [] 
  []
 
@@ -1131,20 +1131,20 @@ Overfull \hbox (21.63843pt too wide) in paragraph at lines 477--478
 <aq_protocol.pdf, id=283, 661.47125pt x 579.16376pt>
 File: aq_protocol.pdf Graphic file (type pdf)
  <use aq_protocol.pdf>
-Package pdftex.def Info: aq_protocol.pdf used on input line 487.
+Package pdftex.def Info: aq_protocol.pdf used on input line 488.
 (pdftex.def)             Requested size: 661.46964pt x 579.16234pt.
 
-Overfull \hbox (37.09608pt too wide) in paragraph at lines 487--488
+Overfull \hbox (37.09608pt too wide) in paragraph at lines 488--489
  [] 
  []
 
 <as_protocol.pdf, id=284, 642.4pt x 394.47375pt>
 File: as_protocol.pdf Graphic file (type pdf)
  <use as_protocol.pdf>
-Package pdftex.def Info: as_protocol.pdf used on input line 496.
+Package pdftex.def Info: as_protocol.pdf used on input line 497.
 (pdftex.def)             Requested size: 642.39844pt x 394.47278pt.
 
-Overfull \hbox (23.7463pt too wide) in paragraph at lines 496--497
+Overfull \hbox (23.7463pt too wide) in paragraph at lines 497--498
  [] 
  []
 
@@ -1152,227 +1152,227 @@ Overfull \hbox (23.7463pt too wide) in paragraph at lines 496--497
 File: a_protocol.pdf Graphic file (type pdf)
 
 <use a_protocol.pdf>
-Package pdftex.def Info: a_protocol.pdf used on input line 505.
+Package pdftex.def Info: a_protocol.pdf used on input line 506.
 (pdftex.def)             Requested size: 334.24792pt x 248.92938pt.
  [14 <./aq_protocol.pdf>]
 <agent_model.pdf, id=307, 721.69624pt x 149.55875pt>
 File: agent_model.pdf Graphic file (type pdf)
  <use agent_model.pdf>
-Package pdftex.def Info: agent_model.pdf used on input line 516.
+Package pdftex.def Info: agent_model.pdf used on input line 517.
 (pdftex.def)             Requested size: 721.69449pt x 149.55838pt.
 
-Overfull \hbox (79.2533pt too wide) in paragraph at lines 516--517
+Overfull \hbox (79.2533pt too wide) in paragraph at lines 517--518
  [] 
  []
 
 [15 <./as_protocol.pdf> <./a_protocol.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 531--531
+Underfull \hbox (badness 10000) in paragraph at lines 532--532
 []|$\OML/zplm/m/it/10 virtualTours$
  []
 
 
-Overfull \hbox (2.31718pt too wide) in paragraph at lines 531--531
+Overfull \hbox (2.31718pt too wide) in paragraph at lines 532--532
 []|$\OML/zplm/m/it/10 availableServices$| 
  []
 
 
-Overfull \hbox (25.82004pt too wide) in paragraph at lines 532--532
+Overfull \hbox (25.82004pt too wide) in paragraph at lines 533--533
 []|$\OML/zplm/m/it/10 auctioneer\OT1/pplx/m/n/10 (-20) , \OML/zplm/m/it/10 arti
 fact$| 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 532--533
+Underfull \hbox (badness 10000) in paragraph at lines 533--534
 []|$\OML/zplm/m/it/10 self \OMS/zplm/m/n/10 2
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 532--533
+Underfull \hbox (badness 10000) in paragraph at lines 533--534
 \OML/zplm/m/it/10 auctioneer\OT1/pplx/m/n/10 (+20) .\OML/zplm/m/it/10 bidders \
 OMS/zplm/m/n/10 ^
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 534--534
+Underfull \hbox (badness 10000) in paragraph at lines 535--535
 []|$\OML/zplm/m/it/10 currentPrice \OMS/zplm/m/n/10 ^^T
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 535--535
+Underfull \hbox (badness 10000) in paragraph at lines 536--536
 []|$\OML/zplm/m/it/10 accept \OMS/zplm/m/n/10 _
  []
 
 
-Underfull \hbox (badness 5533) in paragraph at lines 536--536
+Underfull \hbox (badness 5533) in paragraph at lines 537--537
 []|\T1/pplx/m/n/10 (+20) informed auc-tion
  []
 
 
-Underfull \hbox (badness 4660) in paragraph at lines 537--537
+Underfull \hbox (badness 4660) in paragraph at lines 538--538
 []|\T1/pplx/m/n/10 (+20) download vir-tual
  []
 
 
-Overfull \hbox (37.34987pt too wide) in paragraph at lines 537--537
+Overfull \hbox (37.34987pt too wide) in paragraph at lines 538--538
 []|$\OML/zplm/m/it/10 tourguide\OT1/pplx/m/n/10 (-20) , \OML/zplm/m/it/10 virtu
 altour$| 
  []
 
 
-Overfull \hbox (33.0996pt too wide) in paragraph at lines 538--538
+Overfull \hbox (33.0996pt too wide) in paragraph at lines 539--539
 []|$\OML/zplm/m/it/10 curator\OT1/pplx/m/n/10 (-20) , \OML/zplm/m/it/10 artifac
 tTitle$| 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 538--538
+Underfull \hbox (badness 10000) in paragraph at lines 539--539
 []|$\OML/zplm/m/it/10 artifactTitle \OMS/zplm/m/n/10 2
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 538--539
+Underfull \hbox (badness 10000) in paragraph at lines 539--540
 []|$\OML/zplm/m/it/10 artifactTitle \OMS/zplm/m/n/10 2
  []
 
 
-Overfull \hbox (71.01306pt too wide) in paragraph at lines 526--541
+Overfull \hbox (71.01306pt too wide) in paragraph at lines 527--542
  [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 551--551
+Underfull \hbox (badness 10000) in paragraph at lines 552--552
 []|\T1/pplx/m/n/10 (+20) manage virtual-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 551--551
+Underfull \hbox (badness 10000) in paragraph at lines 552--552
 []|$\OML/zplm/m/it/10 virtualTour \OMS/zplm/m/n/10 _
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 552--552
+Underfull \hbox (badness 10000) in paragraph at lines 553--553
 []|\T1/pplx/m/n/10 (+20) manage list of
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 552--552
+Underfull \hbox (badness 10000) in paragraph at lines 553--553
 \T1/pplx/m/n/10 (+20) virtual-tours-
  []
 
 
-Overfull \hbox (85.23944pt too wide) in paragraph at lines 547--556
+Overfull \hbox (85.23944pt too wide) in paragraph at lines 548--557
  [] 
  []
 
 [16 <./agent_model.pdf>]
-Underfull \hbox (badness 2012) in paragraph at lines 566--566
+Underfull \hbox (badness 2012) in paragraph at lines 567--567
 []|\T1/pplx/m/n/10 (+20) send inform-start-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 570--570
+Underfull \hbox (badness 10000) in paragraph at lines 571--571
 []|$\OML/zplm/m/it/10 reservePrice\OT1/pplx/m/n/10 (+20) ,$
  []
 
 
-Overfull \hbox (4.07736pt too wide) in paragraph at lines 570--570
+Overfull \hbox (4.07736pt too wide) in paragraph at lines 571--571
 \OML/zplm/m/it/10 rateOfReduction\OT1/pplx/m/n/10 (-20) ,$
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 570--571
+Underfull \hbox (badness 10000) in paragraph at lines 571--572
 []|$\OML/zplm/m/it/10 reservePrice \OMS/zplm/m/n/10 ^^T
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 571--571
+Underfull \hbox (badness 10000) in paragraph at lines 572--572
 []|\T1/pplx/m/n/10 (+20) send inform-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 571--571
+Underfull \hbox (badness 10000) in paragraph at lines 572--572
 []|$\OML/zplm/m/it/10 bidders$\T1/pplx/m/n/10 (+20) ,
  []
 
 
-Overfull \hbox (85.23944pt too wide) in paragraph at lines 562--574
+Overfull \hbox (85.23944pt too wide) in paragraph at lines 563--575
  [] 
  []
 
 
-Overfull \hbox (11.59366pt too wide) in paragraph at lines 584--584
+Overfull \hbox (11.59366pt too wide) in paragraph at lines 585--585
 []|$\OML/zplm/m/it/10 auctioneer\OT1/pplx/m/n/10 (-20) , \OML/zplm/m/it/10 arti
 fact$| 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 584--585
+Underfull \hbox (badness 10000) in paragraph at lines 585--586
 []|$\OML/zplm/m/it/10 self \OMS/zplm/m/n/10 2
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 584--585
+Underfull \hbox (badness 10000) in paragraph at lines 585--586
 \OML/zplm/m/it/10 auctioneer\OT1/pplx/m/n/10 (+20) .\OML/zplm/m/it/10 bidders \
 OMS/zplm/m/n/10 ^
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 586--586
+Underfull \hbox (badness 10000) in paragraph at lines 587--587
 []|$\OML/zplm/m/it/10 currentPrice \OMS/zplm/m/n/10 ^^T
  []
 
 
-Underfull \hbox (badness 5533) in paragraph at lines 588--588
+Underfull \hbox (badness 5533) in paragraph at lines 589--589
 []|\T1/pplx/m/n/10 (+20) informed auc-tion
  []
 
 
-Underfull \hbox (badness 3291) in paragraph at lines 588--589
+Underfull \hbox (badness 3291) in paragraph at lines 589--590
 []|\T1/pplx/m/n/10 (+20) curator were in-formed
  []
 
 
-Underfull \hbox (badness 2556) in paragraph at lines 588--589
+Underfull \hbox (badness 2556) in paragraph at lines 589--590
 \T1/pplx/m/n/10 (+20) auc-tion ended and re-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 590--590
+Underfull \hbox (badness 10000) in paragraph at lines 591--591
 []|\T1/pplx/m/n/10 (+20) manage visit-
  []
 
 
-Underfull \hbox (badness 2012) in paragraph at lines 592--592
+Underfull \hbox (badness 2012) in paragraph at lines 593--593
 []|\T1/pplx/m/n/10 (+20) send inform-start-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 596--596
+Underfull \hbox (badness 10000) in paragraph at lines 597--597
 []|$\OML/zplm/m/it/10 reservePrice\OT1/pplx/m/n/10 (+20) ,$
  []
 
 
-Overfull \hbox (4.07736pt too wide) in paragraph at lines 596--596
+Overfull \hbox (4.07736pt too wide) in paragraph at lines 597--597
 \OML/zplm/m/it/10 rateOfReduction\OT1/pplx/m/n/10 (-20) ,$
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 596--597
+Underfull \hbox (badness 10000) in paragraph at lines 597--598
 []|$\OML/zplm/m/it/10 reservePrice \OMS/zplm/m/n/10 ^^T
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 597--597
+Underfull \hbox (badness 10000) in paragraph at lines 598--598
 []|\T1/pplx/m/n/10 (+20) send inform-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 597--597
+Underfull \hbox (badness 10000) in paragraph at lines 598--598
 []|$\OML/zplm/m/it/10 bidders$\T1/pplx/m/n/10 (+20) ,
  []
 
 
-Overfull \hbox (85.23944pt too wide) in paragraph at lines 580--600
+Overfull \hbox (85.23944pt too wide) in paragraph at lines 581--601
  [] 
  []
 
@@ -1380,34 +1380,9 @@ Overfull \hbox (85.23944pt too wide) in paragraph at lines 580--600
 File: acquaintance_model.pdf Graphic file (type pdf)
 
 <use acquaintance_model.pdf>
-Package pdftex.def Info: acquaintance_model.pdf used on input line 608.
+Package pdftex.def Info: acquaintance_model.pdf used on input line 609.
 (pdftex.def)             Requested size: 405.51399pt x 248.92938pt.
  [18]
-Underfull \hbox (badness 10000) in paragraph at lines 624--624
-[]|\T1/pplx/m/n/10 (+20) Container where art-
- []
-
-
-Underfull \hbox (badness 6445) in paragraph at lines 624--624
-\T1/pplx/m/n/10 (+20) per-form their ser-vices
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 624--624
-\T1/pplx/m/n/10 (+20) and where artist-man-
- []
-
-
-Underfull \hbox (badness 1629) in paragraph at lines 624--624
-\T1/pplx/m/n/10 (+20) ager agents can re-side
- []
-
-
-Underfull \hbox (badness 1281) in paragraph at lines 624--624
-\T1/pplx/m/n/10 (+20) tem-porar-ily to per-form
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 625--625
 []|\T1/pplx/m/n/10 (+20) Container where art-
  []
@@ -1433,87 +1408,112 @@ Underfull \hbox (badness 1281) in paragraph at lines 625--625
  []
 
 
-Underfull \hbox (badness 2334) in paragraph at lines 626--626
+Underfull \hbox (badness 10000) in paragraph at lines 626--626
+[]|\T1/pplx/m/n/10 (+20) Container where art-
+ []
+
+
+Underfull \hbox (badness 6445) in paragraph at lines 626--626
+\T1/pplx/m/n/10 (+20) per-form their ser-vices
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 626--626
+\T1/pplx/m/n/10 (+20) and where artist-man-
+ []
+
+
+Underfull \hbox (badness 1629) in paragraph at lines 626--626
+\T1/pplx/m/n/10 (+20) ager agents can re-side
+ []
+
+
+Underfull \hbox (badness 1281) in paragraph at lines 626--626
+\T1/pplx/m/n/10 (+20) tem-porar-ily to per-form
+ []
+
+
+Underfull \hbox (badness 2334) in paragraph at lines 627--627
 []|\T1/pplx/m/n/10 (+20) Container where artist-
  []
 
 
-Underfull \hbox (badness 3769) in paragraph at lines 626--626
+Underfull \hbox (badness 3769) in paragraph at lines 627--627
 \T1/pplx/m/n/10 (+20) man-ager agents re-side
  []
 
 
-Underfull \hbox (badness 2799) in paragraph at lines 626--626
+Underfull \hbox (badness 2799) in paragraph at lines 627--627
 \T1/pplx/m/n/10 (+20) and where they come
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 628--628
+Underfull \hbox (badness 10000) in paragraph at lines 629--629
 []|\T1/pplx/m/n/10 (+20) TourGuideAgent Con-
  []
 
 
-Underfull \hbox (badness 6658) in paragraph at lines 628--628
+Underfull \hbox (badness 6658) in paragraph at lines 629--629
 []|\T1/pplx/m/n/10 (+20) Container where tour-
  []
 
 [19 <./acquaintance_model.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 642--642
+Underfull \hbox (badness 10000) in paragraph at lines 643--643
 []|\T1/pplx/m/n/10 (+20) TourGuideAgent Con-
  []
 
 
-Overfull \hbox (20.2131pt too wide) in paragraph at lines 644--644
+Overfull \hbox (20.2131pt too wide) in paragraph at lines 645--645
 []|\T1/pplx/m/n/10 (-20) ArtistManagerAgentContainer,
  []
 
 
-Overfull \hbox (73.23946pt too wide) in paragraph at lines 637--648
+Overfull \hbox (73.23946pt too wide) in paragraph at lines 638--649
  [] 
  []
 
 <cardinality.pdf, id=360, 616.3025pt x 635.37375pt>
 File: cardinality.pdf Graphic file (type pdf)
  <use cardinality.pdf>
-Package pdftex.def Info: cardinality.pdf used on input line 655.
+Package pdftex.def Info: cardinality.pdf used on input line 656.
 (pdftex.def)             Requested size: 616.301pt x 635.3722pt.
 
-Overfull \hbox (5.47816pt too wide) in paragraph at lines 655--656
+Overfull \hbox (5.47816pt too wide) in paragraph at lines 656--657
  [] 
  []
 
 [20]
-Underfull \hbox (badness 10000) in paragraph at lines 689--689
+Underfull \hbox (badness 10000) in paragraph at lines 690--690
 
  []
 
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 663--690
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 664--691
  [] 
  []
 
 [21 <./cardinality.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 782--782
+Underfull \hbox (badness 10000) in paragraph at lines 783--783
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 782--782
+Underfull \hbox (badness 10000) in paragraph at lines 783--783
 
  []
 
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 697--783
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 698--784
  [] 
  []
 
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 790--807
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 791--808
  [] 
  []
 
 [22]
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 814--831
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 815--832
  [] 
  []
 
@@ -1521,45 +1521,45 @@ Overfull \hbox (6.79999pt too wide) in paragraph at lines 814--831
 File: artist_auction_template.pdf Graphic file (type pdf)
 
 <use artist_auction_template.pdf>
-Package pdftex.def Info: artist_auction_template.pdf used on input line 844.
+Package pdftex.def Info: artist_auction_template.pdf used on input line 845.
 (pdftex.def)             Requested size: 471.76134pt x 306.14299pt.
  [23]
 <curator_auction_template.pdf, id=392, 471.7625pt x 306.14375pt>
 File: curator_auction_template.pdf Graphic file (type pdf)
 
 <use curator_auction_template.pdf>
-Package pdftex.def Info: curator_auction_template.pdf used on input line 855.
+Package pdftex.def Info: curator_auction_template.pdf used on input line 856.
 (pdftex.def)             Requested size: 471.76134pt x 306.14299pt.
 
 <build_virtual_tour_temp.pdf, id=393, 471.7625pt x 306.14375pt>
 File: build_virtual_tour_temp.pdf Graphic file (type pdf)
 
 <use build_virtual_tour_temp.pdf>
-Package pdftex.def Info: build_virtual_tour_temp.pdf used on input line 867.
+Package pdftex.def Info: build_virtual_tour_temp.pdf used on input line 868.
 (pdftex.def)             Requested size: 471.76134pt x 306.14299pt.
  [24 <./artist_auction_template.pdf> <./curator_auction_template.pdf>]
 <find_virtual_tour.pdf, id=412, 471.7625pt x 306.14375pt>
 File: find_virtual_tour.pdf Graphic file (type pdf)
 
 <use find_virtual_tour.pdf>
-Package pdftex.def Info: find_virtual_tour.pdf used on input line 879.
+Package pdftex.def Info: find_virtual_tour.pdf used on input line 880.
 (pdftex.def)             Requested size: 471.76134pt x 306.14299pt.
  [25 <./build_virtual_tour_temp.pdf>]
 <visit_artifact.pdf, id=425, 471.7625pt x 306.14375pt>
 File: visit_artifact.pdf Graphic file (type pdf)
 
 <use visit_artifact.pdf>
-Package pdftex.def Info: visit_artifact.pdf used on input line 890.
+Package pdftex.def Info: visit_artifact.pdf used on input line 891.
 (pdftex.def)             Requested size: 471.76134pt x 306.14299pt.
 
 <artist_auction_sequence.pdf, id=426, 659.46375pt x 744.7825pt>
 File: artist_auction_sequence.pdf Graphic file (type pdf)
 
 <use artist_auction_sequence.pdf>
-Package pdftex.def Info: artist_auction_sequence.pdf used on input line 902.
+Package pdftex.def Info: artist_auction_sequence.pdf used on input line 903.
 (pdftex.def)             Requested size: 659.46213pt x 744.78069pt.
 
-Overfull \hbox (35.69083pt too wide) in paragraph at lines 902--903
+Overfull \hbox (35.69083pt too wide) in paragraph at lines 903--904
  [] 
  []
 
@@ -1568,10 +1568,10 @@ Overfull \hbox (35.69083pt too wide) in paragraph at lines 902--903
 File: curator_auction_sequence.pdf Graphic file (type pdf)
 
 <use curator_auction_sequence.pdf>
-Package pdftex.def Info: curator_auction_sequence.pdf used on input line 913.
+Package pdftex.def Info: curator_auction_sequence.pdf used on input line 914.
 (pdftex.def)             Requested size: 659.46213pt x 744.78069pt.
 
-Overfull \hbox (29.04167pt too wide) in paragraph at lines 913--914
+Overfull \hbox (29.04167pt too wide) in paragraph at lines 914--915
  [] 
  []
 
@@ -1580,10 +1580,10 @@ Overfull \hbox (29.04167pt too wide) in paragraph at lines 913--914
 File: build_virtual_tour.pdf Graphic file (type pdf)
 
 <use build_virtual_tour.pdf>
-Package pdftex.def Info: build_virtual_tour.pdf used on input line 924.
+Package pdftex.def Info: build_virtual_tour.pdf used on input line 925.
 (pdftex.def)             Requested size: 630.35345pt x 571.13235pt.
 
-Overfull \hbox (15.31485pt too wide) in paragraph at lines 924--925
+Overfull \hbox (15.31485pt too wide) in paragraph at lines 925--926
  [] 
  []
 
@@ -1592,11 +1592,11 @@ Overfull \hbox (15.31485pt too wide) in paragraph at lines 924--925
 File: find_virtual_tour_sequence.pdf Graphic file (type pdf)
 
 <use find_virtual_tour_sequence.pdf>
-Package pdftex.def Info: find_virtual_tour_sequence.pdf used on input line 935.
+Package pdftex.def Info: find_virtual_tour_sequence.pdf used on input line 936.
 
 (pdftex.def)             Requested size: 619.31224pt x 642.39844pt.
 
-Overfull \hbox (7.58603pt too wide) in paragraph at lines 935--936
+Overfull \hbox (7.58603pt too wide) in paragraph at lines 936--937
  [] 
  []
 
@@ -1605,10 +1605,10 @@ Overfull \hbox (7.58603pt too wide) in paragraph at lines 935--936
 File: visit_artifact_sequence.pdf Graphic file (type pdf)
 
 <use visit_artifact_sequence.pdf>
-Package pdftex.def Info: visit_artifact_sequence.pdf used on input line 946.
+Package pdftex.def Info: visit_artifact_sequence.pdf used on input line 947.
 (pdftex.def)             Requested size: 625.33472pt x 437.63393pt.
 
-Overfull \hbox (11.80174pt too wide) in paragraph at lines 946--947
+Overfull \hbox (11.80174pt too wide) in paragraph at lines 947--948
  [] 
  []
 
@@ -1617,10 +1617,10 @@ Overfull \hbox (11.80174pt too wide) in paragraph at lines 946--947
 File: artistmanager_state.pdf Graphic file (type pdf)
 
 <use artistmanager_state.pdf>
-Package pdftex.def Info: artistmanager_state.pdf used on input line 958.
+Package pdftex.def Info: artistmanager_state.pdf used on input line 959.
 (pdftex.def)             Requested size: 643.40218pt x 505.88875pt.
 
-Overfull \hbox (24.44891pt too wide) in paragraph at lines 958--959
+Overfull \hbox (24.44891pt too wide) in paragraph at lines 959--960
  [] 
  []
 
@@ -1629,10 +1629,10 @@ Overfull \hbox (24.44891pt too wide) in paragraph at lines 958--959
 File: tourguide_state.pdf Graphic file (type pdf)
 
 <use tourguide_state.pdf>
-Package pdftex.def Info: tourguide_state.pdf used on input line 969.
+Package pdftex.def Info: tourguide_state.pdf used on input line 970.
 (pdftex.def)             Requested size: 737.75446pt x 510.9075pt.
 
-Overfull \hbox (90.49522pt too wide) in paragraph at lines 969--970
+Overfull \hbox (90.49522pt too wide) in paragraph at lines 970--971
  [] 
  []
 
@@ -1640,10 +1640,10 @@ Overfull \hbox (90.49522pt too wide) in paragraph at lines 969--970
 <profiler_state.pdf, id=523, 708.6475pt x 578.16pt>
 File: profiler_state.pdf Graphic file (type pdf)
  <use profiler_state.pdf>
-Package pdftex.def Info: profiler_state.pdf used on input line 980.
+Package pdftex.def Info: profiler_state.pdf used on input line 981.
 (pdftex.def)             Requested size: 708.64578pt x 578.15858pt.
 
-Overfull \hbox (70.11925pt too wide) in paragraph at lines 980--981
+Overfull \hbox (70.11925pt too wide) in paragraph at lines 981--982
  [] 
  []
 
@@ -1651,10 +1651,10 @@ Overfull \hbox (70.11925pt too wide) in paragraph at lines 980--981
 <curator_state.pdf, id=535, 940.51375pt x 630.355pt>
 File: curator_state.pdf Graphic file (type pdf)
  <use curator_state.pdf>
-Package pdftex.def Info: curator_state.pdf used on input line 991.
+Package pdftex.def Info: curator_state.pdf used on input line 992.
 (pdftex.def)             Requested size: 430.00462pt x 288.19702pt.
 
-Overfull \hbox (92.9836pt too wide) in paragraph at lines 991--992
+Overfull \hbox (92.9836pt too wide) in paragraph at lines 992--993
  [] 
  []
 
@@ -1663,10 +1663,10 @@ Overfull \hbox (92.9836pt too wide) in paragraph at lines 991--992
 File: artistmanager_class.png Graphic file (type png)
 
 <use artistmanager_class.png>
-Package pdftex.def Info: artistmanager_class.png used on input line 1004.
+Package pdftex.def Info: artistmanager_class.png used on input line 1005.
 (pdftex.def)             Requested size: 430.00462pt x 199.83046pt.
 
-Overfull \hbox (92.9836pt too wide) in paragraph at lines 1004--1005
+Overfull \hbox (92.9836pt too wide) in paragraph at lines 1005--1006
  [] 
  []
 
@@ -1675,10 +1675,10 @@ Overfull \hbox (92.9836pt too wide) in paragraph at lines 1004--1005
 File: tourguide_class.png Graphic file (type png)
 
 <use tourguide_class.png>
-Package pdftex.def Info: tourguide_class.png used on input line 1016.
+Package pdftex.def Info: tourguide_class.png used on input line 1017.
 (pdftex.def)             Requested size: 430.00462pt x 162.39658pt.
 
-Overfull \hbox (92.9836pt too wide) in paragraph at lines 1016--1017
+Overfull \hbox (92.9836pt too wide) in paragraph at lines 1017--1018
  [] 
  []
 
@@ -1686,10 +1686,10 @@ Overfull \hbox (92.9836pt too wide) in paragraph at lines 1016--1017
 File: profiler_class.png Graphic file (type png)
 
 <use profiler_class.png>
-Package pdftex.def Info: profiler_class.png used on input line 1027.
+Package pdftex.def Info: profiler_class.png used on input line 1028.
 (pdftex.def)             Requested size: 430.00462pt x 268.36102pt.
 
-Overfull \hbox (92.9836pt too wide) in paragraph at lines 1027--1028
+Overfull \hbox (92.9836pt too wide) in paragraph at lines 1028--1029
  [] 
  []
 
@@ -1697,10 +1697,10 @@ Overfull \hbox (92.9836pt too wide) in paragraph at lines 1027--1028
 <curator_class.png, id=573, 1306.8825pt x 828.84656pt>
 File: curator_class.png Graphic file (type png)
  <use curator_class.png>
-Package pdftex.def Info: curator_class.png used on input line 1037.
+Package pdftex.def Info: curator_class.png used on input line 1038.
 (pdftex.def)             Requested size: 430.00462pt x 272.71078pt.
 
-Overfull \hbox (92.9836pt too wide) in paragraph at lines 1037--1038
+Overfull \hbox (92.9836pt too wide) in paragraph at lines 1038--1039
  [] 
  []
 
@@ -1709,10 +1709,10 @@ Overfull \hbox (92.9836pt too wide) in paragraph at lines 1037--1038
 File: consume_tour_usecase.png Graphic file (type png)
 
 <use consume_tour_usecase.png>
-Package pdftex.def Info: consume_tour_usecase.png used on input line 1053.
+Package pdftex.def Info: consume_tour_usecase.png used on input line 1054.
 (pdftex.def)             Requested size: 691.08018pt x 296.60739pt.
 
-Overfull \hbox (57.82338pt too wide) in paragraph at lines 1053--1054
+Overfull \hbox (57.82338pt too wide) in paragraph at lines 1054--1055
  [] 
  []
 
@@ -1720,10 +1720,10 @@ Overfull \hbox (57.82338pt too wide) in paragraph at lines 1053--1054
 File: create_tour_usecase.png Graphic file (type png)
 
 <use create_tour_usecase.png>
-Package pdftex.def Info: create_tour_usecase.png used on input line 1062.
+Package pdftex.def Info: create_tour_usecase.png used on input line 1063.
 (pdftex.def)             Requested size: 660.96776pt x 214.55103pt.
 
-Overfull \hbox (36.74477pt too wide) in paragraph at lines 1062--1063
+Overfull \hbox (36.74477pt too wide) in paragraph at lines 1063--1064
  [] 
  []
 
@@ -1732,10 +1732,10 @@ Overfull \hbox (36.74477pt too wide) in paragraph at lines 1062--1063
 File: curator_buy_usecase.png Graphic file (type png)
 
 <use curator_buy_usecase.png>
-Package pdftex.def Info: curator_buy_usecase.png used on input line 1071.
+Package pdftex.def Info: curator_buy_usecase.png used on input line 1072.
 (pdftex.def)             Requested size: 642.14749pt x 278.53993pt.
 
-Overfull \hbox (23.57065pt too wide) in paragraph at lines 1071--1072
+Overfull \hbox (23.57065pt too wide) in paragraph at lines 1072--1073
  [] 
  []
 
@@ -1743,10 +1743,10 @@ Overfull \hbox (23.57065pt too wide) in paragraph at lines 1071--1072
 File: hobby_buy_usecase.png Graphic file (type png)
 
 <use hobby_buy_usecase.png>
-Package pdftex.def Info: hobby_buy_usecase.png used on input line 1080.
+Package pdftex.def Info: hobby_buy_usecase.png used on input line 1081.
 (pdftex.def)             Requested size: 642.14749pt x 278.53993pt.
 
-Overfull \hbox (23.57065pt too wide) in paragraph at lines 1080--1081
+Overfull \hbox (23.57065pt too wide) in paragraph at lines 1081--1082
  [] 
  []
 
@@ -1755,44 +1755,44 @@ Overfull \hbox (23.57065pt too wide) in paragraph at lines 1080--1081
 File: artistseller_role.pdf Graphic file (type pdf)
 
 <use artistseller_role.pdf>
-Package pdftex.def Info: artistseller_role.pdf used on input line 1090.
+Package pdftex.def Info: artistseller_role.pdf used on input line 1091.
 (pdftex.def)             Requested size: 286.06805pt x 508.90001pt.
 
 <artcurator_role.pdf, id=602, 286.06876pt x 508.90125pt>
 File: artcurator_role.pdf Graphic file (type pdf)
 
 <use artcurator_role.pdf>
-Package pdftex.def Info: artcurator_role.pdf used on input line 1099.
+Package pdftex.def Info: artcurator_role.pdf used on input line 1100.
 (pdftex.def)             Requested size: 286.06805pt x 508.90001pt.
  [41 <./curator_buy_usecase.png> <./hobby_buy_usecase.png>] <hobbybuyer_role.pd
 f, id=611, 286.06876pt x 508.90125pt>
 File: hobbybuyer_role.pdf Graphic file (type pdf)
 
 <use hobbybuyer_role.pdf>
-Package pdftex.def Info: hobbybuyer_role.pdf used on input line 1108.
+Package pdftex.def Info: hobbybuyer_role.pdf used on input line 1109.
 (pdftex.def)             Requested size: 286.06805pt x 508.90001pt.
  [42 <./artistseller_role.pdf>]
 <tourguide_role.pdf, id=622, 286.06876pt x 508.90125pt>
 File: tourguide_role.pdf Graphic file (type pdf)
 
 <use tourguide_role.pdf>
-Package pdftex.def Info: tourguide_role.pdf used on input line 1117.
+Package pdftex.def Info: tourguide_role.pdf used on input line 1118.
 (pdftex.def)             Requested size: 286.06805pt x 508.90001pt.
  [43 <./artcurator_role.pdf>]
 <tourparticipant_role.pdf, id=634, 286.06876pt x 508.90125pt>
 File: tourparticipant_role.pdf Graphic file (type pdf)
 
 <use tourparticipant_role.pdf>
-Package pdftex.def Info: tourparticipant_role.pdf used on input line 1126.
+Package pdftex.def Info: tourparticipant_role.pdf used on input line 1127.
 (pdftex.def)             Requested size: 286.06805pt x 508.90001pt.
  [44 <./hobbybuyer_role.pdf>] [45 <./tourguide_role.pdf>] <roles_org.pdf, id=65
 6, 825.0825pt x 374.39874pt>
 File: roles_org.pdf Graphic file (type pdf)
  <use roles_org.pdf>
-Package pdftex.def Info: roles_org.pdf used on input line 1136.
+Package pdftex.def Info: roles_org.pdf used on input line 1137.
 (pdftex.def)             Requested size: 430.00462pt x 195.12263pt.
 
-Overfull \hbox (92.9836pt too wide) in paragraph at lines 1136--1137
+Overfull \hbox (92.9836pt too wide) in paragraph at lines 1137--1138
  [] 
  []
 
@@ -1801,59 +1801,62 @@ Overfull \hbox (92.9836pt too wide) in paragraph at lines 1136--1137
 File: artistmanager_romas.pdf Graphic file (type pdf)
 
 <use artistmanager_romas.pdf>
-Package pdftex.def Info: artistmanager_romas.pdf used on input line 1146.
+Package pdftex.def Info: artistmanager_romas.pdf used on input line 1147.
 (pdftex.def)             Requested size: 499.86627pt x 366.36784pt.
 
 <curator_agent_romas.pdf, id=668, 591.20876pt x 608.2725pt>
 File: curator_agent_romas.pdf Graphic file (type pdf)
 
 <use curator_agent_romas.pdf>
-Package pdftex.def Info: curator_agent_romas.pdf used on input line 1155.
+Package pdftex.def Info: curator_agent_romas.pdf used on input line 1156.
 (pdftex.def)             Requested size: 591.2073pt x 608.27103pt.
  [47 <./roles_org.pdf>]
 <profiler_agent_romas.pdf, id=679, 556.0775pt x 513.92pt>
 File: profiler_agent_romas.pdf Graphic file (type pdf)
 
 <use profiler_agent_romas.pdf>
-Package pdftex.def Info: profiler_agent_romas.pdf used on input line 1164.
+Package pdftex.def Info: profiler_agent_romas.pdf used on input line 1165.
 (pdftex.def)             Requested size: 556.07614pt x 513.91873pt.
  [48 <./artistmanager_romas.pdf>]
 <tourguide_romas.pdf, id=690, 499.8675pt x 312.16624pt>
 File: tourguide_romas.pdf Graphic file (type pdf)
 
 <use tourguide_romas.pdf>
-Package pdftex.def Info: tourguide_romas.pdf used on input line 1173.
+Package pdftex.def Info: tourguide_romas.pdf used on input line 1174.
 (pdftex.def)             Requested size: 499.86627pt x 312.16548pt.
  [49 <./curator_agent_romas.pdf>] [50 <./profiler_agent_romas.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 1196--1196
+Underfull \hbox (badness 10000) in paragraph at lines 1197--1197
 []|\T1/pplx/m/n/10 (+20) Component-oriented ar-chi-tec-ture.
  []
 
 
-Underfull \hbox (badness 2119) in paragraph at lines 1196--1196
+Underfull \hbox (badness 2119) in paragraph at lines 1197--1197
 \T1/pplx/m/n/10 (+20) When de-ploy-ing an agent sys-tem
  []
 
 
-Underfull \hbox (badness 1789) in paragraph at lines 1198--1199
+Underfull \hbox (badness 1789) in paragraph at lines 1199--1200
 \T1/pplx/m/n/10 (+20) declar-ing plans, be-liefs and ex-ter-
  []
 
 
-Underfull \hbox (badness 1418) in paragraph at lines 1198--1199
+Underfull \hbox (badness 1418) in paragraph at lines 1199--1200
 \T1/pplx/m/n/10 (+20) nal/internal events. TaskMan-ager
  []
 
 
-Overfull \hbox (5.13391pt too wide) in paragraph at lines 1190--1201
+Overfull \hbox (5.13391pt too wide) in paragraph at lines 1191--1202
 [] 
  []
 
-[51 <./tourguide_romas.pdf>] [52]
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 1209
-.
+[51 <./tourguide_romas.pdf>]
+Overfull \vbox (2.83461pt too high) has occurred while \output is active []
 
-(/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
+
+[52]
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 1210
+.
+ (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 Package microtype Info: Loading generic settings for font family
@@ -1861,27 +1864,27 @@ Package microtype Info: Loading generic settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1213--1215
+Underfull \hbox (badness 10000) in paragraph at lines 1214--1216
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1217--1219
+Underfull \hbox (badness 10000) in paragraph at lines 1218--1220
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1221--1223
+Underfull \hbox (badness 10000) in paragraph at lines 1222--1224
 
  []
 
 [53] (./report.bbl [54])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1237.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1238.
  [55]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1237.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1238.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1237.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1237.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1238.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1238.
 
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: 4C8F8047C1B52CD9D9D01E83EB0B39E5;3391.
@@ -1892,16 +1895,16 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1237.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1238.
  ) 
 Here is how much of TeX's memory you used:
- 12695 strings out of 493304
- 190894 string characters out of 6139871
+ 12699 strings out of 493304
+ 190929 string characters out of 6139871
  429975 words of memory out of 5000000
  15396 multiletter control sequences out of 15000+600000
- 85337 words of font info for 330 fonts, out of 8000000 for 9000
+ 85560 words of font info for 333 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 36i,13n,43p,981b,516s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,13n,43p,1109b,504s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/texliv
 e/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/t
 ype1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
@@ -1913,7 +1916,7 @@ nts/type1/public/cm-super/sftt1000.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/urw/palatino/uplb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palat
 ino/uplr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplri8a.
 pfb>
-Output written on report.pdf (55 pages, 966007 bytes).
+Output written on report.pdf (55 pages, 966282 bytes).
 PDF statistics:
  857 PDF objects out of 1000 (max. 8388607)
  699 compressed objects within 7 object streams
