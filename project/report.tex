@@ -1129,6 +1129,24 @@ RoMAS is a role-based modeling methods for agent systems, it introduces a slight
     \label{fig:tourparticipant_role}
   \end{center}
 \end{figure}
+\begin{figure}[H]
+  \begin{center}
+    \scalebox{0.70}{
+      \includegraphics{artquoter_role.pdf}
+    }
+    \caption{ArtQuoter role}
+    \label{fig:artquoter_role}
+  \end{center}
+\end{figure}
+\begin{figure}[H]
+  \begin{center}
+    \scalebox{0.70}{
+      \includegraphics{curatorbuyer_role.pdf}
+    }
+    \caption{CuratorBuyer role}
+    \label{fig:curatorbuyer_role}
+  \end{center}
+\end{figure}
 \subsubsection{RoleOrganization}
 \begin{figure}[H]
   \begin{center}
@@ -1177,7 +1195,7 @@ RoMAS is a role-based modeling methods for agent systems, it introduces a slight
   \end{center}
 \end{figure}
 \subsection{Comparison between RoMAS and GAIA}
-The resulting models are very similar, the same number of roles were identified in both cases. The models differ in that with RoMAS the notion that an agent is made out of roles is very explicit while in GAIA the roles gets ``lost'' when moving into the design phase. Another disparity between the two resulting models is that in the RoMAS model the agent can dynamically change roles over time, while in GAIA the model is assumed to be static. As stated in \citep{wooldrigde_jennings}, the GAIA methdology is best suited for domains which inhabit the following characteristics:
+The resulting models are very similar, the same number of roles were identified in both cases although the roles differ slightly. The models are dissimilar in that with RoMAS the notion that an agent is made out of roles is very explicit while in GAIA the roles gets ``lost'' when moving into the design phase. Another disparity between the two resulting models is that in the RoMAS model the agent can dynamically change roles over time, while in GAIA the model is assumed to be static. As stated in \citep{wooldrigde_jennings}, the GAIA methdology is best suited for domains which inhabit the following characteristics:
 \begin{quote}
 \textit{The organisation structure of the system is static, in that inter-agent relationships do not change at run-time. The abilities of agents and the services they provide are static, in that they do not change at run-time.}\citep{wooldrigde_jennings}
 \end{quote}
@@ -1230,11 +1248,11 @@ JADE is the only platform I have had the chance to get practical experience work
 
 Something I've came to appreciate when using JADE to build agent systems is the simplicity in how much you can build just by using the few default services provided by JADE like DF, AMS and the message transport system. In my opinion JADE neatly provides the necessary infrastructure without getting in the way for the programmer who can focus on solving the specific problem at hand. Another pro of JADE in my opinion is the adoption of the FIPA specification, many protocols and message formats are supported out of the box. Something I feel is lacking in JADE is additional constructs in the framework for designing agents in the micro perspective. Agent design in JADE is done through composing general behaviours, there is no explicit constructs for using BDI architecture or similar. 
 
-Another deficiency with JADE in my opinion is the support for agent mobility, although JADE provide some tools that allows to implement mobile agents, the support is very poor if you compare to the standards of the rest of the platform. At the moment of writing this the documentation for agent mobility is also sparse, perhaps because this particular reason.
+Another deficiency with JADE in my opinion is the support for agent mobility, although JADE provide some tools that allows to implement mobile agents, the support is very poor if you compare to the standards of the rest of the platform. At the moment of writing this the documentation for agent mobility is also sparse, perhaps because of this particular reason.
 
-FIPA-OS is just as the name implies is also compliant with the FIPA specifications and is very similar to JADE. An advantage I've found with FIPA-OS compared to JADE is the ability to combine different components of the infrastructure archticture as you like, in this aspect FIPA-OS provide more eligibility than JADE. FIPA-OS uses the Task abstraction which seems to be analogous to the Behaviour abstraction in JADE.
+FIPA-OS is just as the name implies is also compliant with the FIPA specifications and is very similar to JADE. An advantage I've found with FIPA-OS compared to JADE is the ability to combine different components of the infrastructure architecture as you like, in this aspect FIPA-OS provide more eligibility than JADE. FIPA-OS uses the Task abstraction which seems to be analogous to the Behaviour abstraction in JADE.
 
-JACK uses a different approach to FIPA-OS and JADE in that it has its own language. Something I feel missing in JACK is clear guidelines for designing agent systems in the macro perspective as both JADE and FIPA-OS provides with their default services, also JACK does not seem to have as good support for the FIPA specifications as JADE and FIPA-OS. JACK on the other hand gives more sophisticated structures for designing agents in the micro perspective and have very good support for BDI architectures in particular.
+JACK uses a different approach to FIPA-OS and JADE in that it has its own language. Something I feel missing in JACK is clear guidelines for designing agent systems in the macro perspective as both JADE and FIPA-OS provides with their default services. Additionally, JACK does not seem to have as good support for the FIPA specifications as JADE and FIPA-OS. JACK on the other hand gives more sophisticated structures for designing agents in the micro perspective and have very good support for BDI architectures in particular.
 \bibliography{references}{}
 \bibliographystyle{plain}
 \end{document}
